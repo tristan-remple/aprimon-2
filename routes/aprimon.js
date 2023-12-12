@@ -1,0 +1,153 @@
+const express = require('express');
+const router = express.Router();
+const jwt = require('jsonwebtoken');
+const verifyJWT = require("../middleware/verify-jwt");
+
+const Trainer = require('../models/trainer');
+const Aprimon = require('../models/aprimon');
+const Pokemon = require('../models/pokemon');
+
+const detailless = ({email, password, ...rest}) => rest;
+const otherDetails = ({name, form, natdex, ...rest}) => rest;
+
+function catchError(err, res) {
+    if (err.name === "CastError") {
+        res.status(400).send("Improperly formatted ID.")
+    } else if (err.name === "ValidationError") {
+        res.status(422).send(err.message);
+    } else {
+        res.status(500).send("The server has encountered an error. Please come back later.");
+    }
+}
+
+router.get('/', function(req, res) {
+    res.send("Welcome to Aprimon");
+});
+
+router.get('/:user', function(req, res) {
+
+    Trainer.findOne({name: req.params.user}).lean().exec().then(trnr => {
+        console.log(trnr);
+        if (trnr) {
+    
+            Aprimon.find({trainer: trnr.name}).exec().then(pkmn => {
+                res.send([detailless({...trnr}), pkmn]);
+            }).catch(err => {
+                catchError(err, res);
+            });
+    
+        } else {
+            res.status(404).send();
+        }
+    }).catch(err => {
+        catchError(err, res);
+    });
+
+});
+
+router.get('/:user/:id', function(req, res) {
+    
+    Aprimon.findById(req.params.id).exec().then(pkmn => {
+        if (pkmn) {
+            res.send(pkmn);
+        } else {
+            res.status(404).send();
+        }
+    }).catch(err => {
+        catchError(err, res);
+    });
+
+});
+
+router.post('/', verifyJWT, (req, res) => {
+
+    console.log(req.body.trainer);
+
+    for (const prop in req.body) {
+        if (typeof req.body[prop] === 'string') {
+            req.body[prop] = req.body[prop].toLowerCase();
+        }
+    }
+    const newApri = new Aprimon(otherDetails({...req.body}));
+
+    Pokemon.findOne({name: req.body.name}).exec().then(pkmn => {
+        if (pkmn) {
+            newApri.pokemon.name = req.body.name;
+            newApri.pokemon.natdex = pkmn.natdex;
+            newApri.pokemon.form = req.body.form;
+            newApri.eggs = 0;
+            newApri.onhand = 0;
+            newApri.trainer = req.body.trainer;
+
+            newApri.ha = req.body.ha ? true : false;
+            newApri.fiveiv = req.body.fiveiv ? true : false;
+            newApri.target = req.body.target ? true : false;
+            newApri.wishlist = req.body.wishlist ? true : false;
+
+            newApri.save().then(result => {
+                res.status(201).send(result);
+            }).catch(err => {
+                catchError(err, res);
+            });
+        } else {
+            res.status(404).send();
+        }
+    }).catch(err => {
+        catchError(err, res);
+    });
+
+});
+
+router.patch('/:id', verifyJWT, (req, res) => {
+
+    Aprimon.findById(req.params.id).exec().then(pkmn => {
+        if (!pkmn) {
+            res.status(404).send();
+        } else if (pkmn.trainer !== req.body.trainer) {
+            res.status(401).send();
+        } else {
+            for (const prop in req.body) {
+                if (typeof req.body[prop] === 'string') {
+                    req.body[prop] = req.body[prop].toLowerCase();
+                }
+            }
+        
+            const apri = otherDetails({...req.body});
+            apri.pokemon = pkmn.pokemon;
+        
+            Aprimon.findByIdAndUpdate(req.params.id, apri, {
+                runValidators: true,
+                returnDocument: "after"
+            }).exec().then(pkmn => {  
+                res.status(201).send(pkmn);
+            }).catch(err => {
+                catchError(err, res);
+            });
+        }
+    });
+
+});
+
+router.delete('/:id', verifyJWT, (req, res) => {
+
+    Aprimon.findOneById(req.params.id).exec().then(pkmn => {
+        if (!pkmn) {
+            res.status(404).send();
+        } else if (pkmn.trainer !== req.body.trainer) {
+            res.status(401).send();
+        } else {
+            Aprimon.findByIdAndDelete(req.params.id).exec().then(response => {
+                if (!response) {
+                    res.status(404).send();
+                } else {
+                    res.status(204).send();
+                }
+            }).catch(err => {
+                catchError(err, res);
+            });
+        }
+    });
+
+});
+
+module.exports = router;
