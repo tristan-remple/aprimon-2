@@ -3,7 +3,8 @@
   "version": "2.0.0",
   "private": true,
   "scripts": {
-    "start": "nodemon ./bin/www"
+    "start": "nodemon ./bin/www",
+    "dev": "concurrently --kill-others \"npm start\" \"cd client/pkmn-front && npm run dev\""
   },
   "dependencies": {
     "bcrypt": "^5.1.1",
@@ -15,7 +16,10 @@
     "http-errors": "~1.6.3",
     "jsonwebtoken": "^9.0.2",
     "mongoose": "^8.0.3",
-    "morgan": "~1.9.1",
+    "morgan": "~1.9.1"
+  },
+  "devDependencies": {
+    "concurrently": "^8.2.2",
     "nodemon": "^3.0.2"
   }
 }
