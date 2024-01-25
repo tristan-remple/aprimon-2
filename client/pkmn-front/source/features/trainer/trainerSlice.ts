@@ -58,10 +58,12 @@ const axiosOptions = {
 const initialState = {
     status: 'idle',
     error: "",
+    openWindow: "",
     data: {
         name: "",
         ign: "",
         trades: false,
+        bio: "",
         since: 0,
         queue: {
             pokemon: "",
@@ -92,12 +94,12 @@ export const trainerSlice = createSlice({
         },
         addQueue: (state, action) => {
             // change queue state
-            // const newQueue = action.payload
-            const newQueue = {
-                pokemon: "totodile",
-                ball: "beast",
-                number: 50
-            }
+            const newQueue = action.payload
+            // const newQueue = {
+            //     pokemon: "totodile",
+            //     ball: "beast",
+            //     number: 50
+            // }
             state.data.queue = newQueue;
         },
         confirmQueue: (state) => {
@@ -110,6 +112,9 @@ export const trainerSlice = createSlice({
         },
         saveProgress: (state) => {
             // api push
+        },
+        setOpenWindow: (state, action) => {
+            state.openWindow = action.payload
         }
     },
     extraReducers(builder) {
@@ -121,13 +126,11 @@ export const trainerSlice = createSlice({
                 const { bio, ign, name, queue, since, trades } = action.payload.data[0]
                 const collection = action.payload.data[1]
 
-                const count : number = collection.length
-                const shinies : number = collection.reduce((tally: number, pkmn) => {
-                    if (pkmn.final) {
-                        return tally + 1
-                    }
-                    return tally
-                }, 0)
+                if (!action.payload.data) {
+                    return;
+                }
+                const count : number = collection?.filter((pkmn) => !pkmn.wishlist).length
+                const shinies : number = collection?.filter((pkmn) => pkmn.final).length
                 const eggs : number = collection.reduce((tally: number, pkmn) => {
                     return tally + pkmn.eggs
                 }, 0)
@@ -140,6 +143,7 @@ export const trainerSlice = createSlice({
                     name,
                     ign,
                     trades,
+                    bio,
                     since,
                     queue,
                     aprimon: {
@@ -150,7 +154,6 @@ export const trainerSlice = createSlice({
                     },
                     collection
                 }
-                console.log(state)
             })
             .addCase(getTrainer.rejected, (state, action) => {
                 state.status = "failed"
@@ -159,7 +162,17 @@ export const trainerSlice = createSlice({
     }
 })
 
+export const {
+    setOpenWindow,
+    addQueue
+} = trainerSlice.actions
+
 export const selectUsername = (state: RootState) => state.trainer.data.name
 export const selectCollection = (state: RootState) => state.trainer.data.collection
+export const selectStats = (state: RootState) => {
+    const { bio, since, queue, aprimon } = state.trainer.data
+    return { bio, since, queue, ...aprimon }
+}
+export const selectOpenWindow = (state: RootState) => state.trainer.openWindow
 
 export default trainerSlice.reducer

@@ -5,6 +5,8 @@ import { getTrainer } from './features/trainer/trainerSlice'
 
 import Header from './components/Header'
 import Collection from './components/Collection'
+import Sidebar from './components/Sidebar'
+import Modal from './components/control/Modal';
 
 export default function App() {
 
@@ -19,9 +21,10 @@ export default function App() {
 
   return (
     <>
+      <Modal />
       <Header />
       <Collection />
-      {/* <Sidebar /> */}
+      <Sidebar />
     </>
   )
 }

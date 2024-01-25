@@ -1,11 +1,12 @@
 import { configureStore, ThunkAction, Action } from "@reduxjs/toolkit"
 
 import trainerReducer from '../features/trainer/trainerSlice'
+import possibleReducer from "../features/trainer/possibleSlice"
 
 export const store = configureStore({
   reducer: {
     // aprimon: aprimonReducer,
-    // pokemon: pokemonReducer,
+    possible: possibleReducer,
     trainer: trainerReducer
   },
 })
