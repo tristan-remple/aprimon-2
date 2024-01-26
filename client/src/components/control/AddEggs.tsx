@@ -47,7 +47,6 @@ export default function AddEggs() {
                 number: qEggs
             }
         }
-        
         dispatch(addQueue(queue))
     }
 

@@ -22,8 +22,8 @@ export default function ControlButton({ label }) {
             img: "wishlist",
             alt: "heart bookmark"
         },
-        AddPkmn: {
-            title: "Add Pokemon",
+        AddApri: {
+            title: "Add Aprimon",
             img: "addmon",
             alt: "plus sign over pokeball"
         },

@@ -40,6 +40,9 @@ export const aprimonSlice = createSlice({
                 return apri.pokemon.name === pokemon && (apri.pokemon.form === form || !apri.pokemon.form && !form) && apri.ball === ball
             })[0]
             aprimon.eggs += parseInt(number)
+        },
+        addAprimon: (state, action) => {
+            state.data.push(action.payload)
         }
     },
     extraReducers(builder) {
@@ -80,7 +83,8 @@ export const aprimonSlice = createSlice({
 })
 
 export const {
-    addFromQueue
+    addFromQueue,
+    addAprimon
 } = aprimonSlice.actions
 
 export const selectCollection = (state: RootState) => state.aprimon.data

@@ -3,6 +3,7 @@ import { useAppSelector } from '../../redux/hooks'
 import { selectOpenWindow } from '../../redux/slices/trainerSlice'
 import AddEggs from "./AddEggs"
 import HatchEggs from "./HatchEggs"
+import AddApri from './AddApri'
 
 export default function Modal() {
 
@@ -20,6 +21,8 @@ export default function Modal() {
         case "HatchEggs":
             display = <HatchEggs />
             break;
+        case "AddApri":
+            display = <AddApri />
     }
 
     return (

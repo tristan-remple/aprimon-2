@@ -314,6 +314,23 @@ input, select {
     margin: 5px;
 }
 
+.checkbox {
+    color: #3F3029;
+    background-color:#CBDEBC;
+    border: 3px solid #3F3029;
+    border-radius: 5px;
+    font-family: 'Sriracha', cursive;
+    font-size: 16px;
+    width: 30px;
+    height: 30px;
+    margin: 5px;
+    display: inline-block;
+}
+
+.small-check {
+    width: 100%;
+}
+
 select {
     width: 128px;
 }
@@ -426,6 +443,14 @@ form.column {
 
 .field {
     position: relative;
+}
+
+.check-field {
+    display: flex;
+    flex-flow: row;
+    align-items: center;
+    justify-content: flex-start;
+    width: 275px;
 }
 
 #auto-suggest {

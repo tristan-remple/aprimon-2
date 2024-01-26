@@ -15,7 +15,7 @@ export default function Control() {
                 <div className="nav-row">
                     <ControlButton label="Browse" />
                     <ControlButton label="Wishlist" />
-                    <ControlButton label="AddPkmn" />
+                    <ControlButton label="AddApri" />
                     <ControlButton label="AddEggs" />
                     <ControlButton label="HatchEggs" />
                     <ControlButton label="HatchShiny" />
