@@ -1,14 +1,17 @@
-import React, { useState } from "react";
+import React, { useState } from "react"
 
 import { useAppSelector } from '../redux/hooks'
-import { selectStats } from '../redux/slices/trainerSlice';
-import ucfirst from '../helpers/ucfirst';
-import SidebarHeader from "./SidebarHeader";
+import { selectStats } from '../redux/slices/trainerSlice'
+import { selectMetadata } from "../redux/slices/aprimonSlice"
+import ucfirst from '../helpers/ucfirst'
+import SidebarHeader from "./SidebarHeader"
 
 export default function Stats() {
 
     const stats = useAppSelector(selectStats)
-    const { bio, count, shinies, eggs, ratio, since, queue } = stats;
+    const metadata = useAppSelector(selectMetadata)
+    const { bio, since, queue } = stats
+    const { count, shinies, ratio, eggs } = metadata
     const [ open, setOpen ] = useState(true)
     const header = <SidebarHeader title="Stats" open={open} setOpen={setOpen} />
 

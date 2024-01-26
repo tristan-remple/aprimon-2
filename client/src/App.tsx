@@ -2,6 +2,7 @@ import React, { useEffect } from 'react';
 import { useAppSelector, useAppDispatch } from './redux/hooks'
 
 import { getTrainer } from './redux/slices/trainerSlice'
+import { getAprimon } from './redux/slices/aprimonSlice'
 
 import Header from './components/Header'
 import Collection from './components/Collection'
@@ -11,13 +12,20 @@ import Modal from './components/control/Modal';
 export default function App() {
 
   const dispatch = useAppDispatch()
-  const apiStatus = useAppSelector(state => state.trainer.status)
-
+  
+  const apiStatusApri = useAppSelector(state => state.trainer.status)
   useEffect(() => {
-    if (apiStatus === 'idle') {
+    if (apiStatusApri === 'idle') {
+      dispatch(getAprimon("knifecat"))
+    }
+  }, [apiStatusApri, dispatch])
+  
+  const apiStatusTrainer = useAppSelector(state => state.trainer.status)
+  useEffect(() => {
+    if (apiStatusTrainer === 'idle') {
       dispatch(getTrainer("knifecat"))
     }
-  }, [apiStatus, dispatch])
+  }, [apiStatusTrainer, dispatch])
 
   return (
     <>

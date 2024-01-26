@@ -1,6 +1,7 @@
 import React, { useState } from "react"
 import { useAppSelector, useAppDispatch } from '../../redux/hooks'
-import { addQueue, selectCollection } from "../../redux/slices/trainerSlice"
+import { addQueue, selectQueue } from '../../redux/slices/trainerSlice'
+import { selectCollection } from '../../redux/slices/aprimonSlice'
 import CloseButton from "./CloseButton"
 import ConfirmButton from "./ConfirmButton"
 import AutoComplete from "./AutoComplete"
@@ -8,6 +9,7 @@ import AutoComplete from "./AutoComplete"
 export default function AddEggs() {
 
     const collection = useAppSelector(selectCollection)
+    const queue = useAppSelector(selectQueue)
     const list = collection.map(apri => {
         return apri.pokemon.form ? `${apri.ball} ${apri.pokemon.form} ${apri.pokemon.name}` : `${apri.ball} ${apri.pokemon.name}`
     })
@@ -33,6 +35,7 @@ export default function AddEggs() {
         if (apriArr.length === 2) {
             queue = {
                 pokemon: apriArr[1],
+                form: null,
                 ball: apriArr[0],
                 number: qEggs
             }
@@ -60,7 +63,7 @@ export default function AddEggs() {
                 <input id="add-q-pkmn" name="add-q-pkmn" type="text" value={ qPkmn } onChange={ pkmnChange } />
                 <AutoComplete list={list} inputValue={ qPkmn } onChange={ setQPkmn } />
             </div>
-            <p>Overwrite queue?</p>
+            { queue.number !== 0 && <p>Overwrite queue?</p> }
             <div className="nav-row">
                 <ConfirmButton confirm={ confirmQueue } />
                 <CloseButton />

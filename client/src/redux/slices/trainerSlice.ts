@@ -3,8 +3,7 @@ import { RootState, AppThunk } from "../store"
 import axios from 'axios';
 
 // abbreviate api url
-// const url = `${import.meta.env.VITE_API_URL}/trainers`;
-const url = `http://localhost:1021/`;
+const url = `${import.meta.env.VITE_API_URL}/trainers`;
 
 const axiosOptions = {
     withCredentials: true,
@@ -67,21 +66,15 @@ const initialState = {
         since: 0,
         queue: {
             pokemon: "",
+            form: null,
             ball: "",
             number: 0
-        },
-        aprimon: {
-            count: 0,
-            shinies: 0,
-            eggs: 0,
-            ratio: 0
-        },
-        collection: []
+        }
     }
 }
 
 export const getTrainer = createAsyncThunk("trainer/get", async (username: string) => {
-    const response = await axios.get(`${url}${username}`, axiosOptions)
+    const response = await axios.get(`${url}/${username}`, axiosOptions)
     return response
 })
 
@@ -89,26 +82,11 @@ export const trainerSlice = createSlice({
     name: "trainer",
     initialState,
     reducers: {
-        addAprimon: (state) => {
-            // call on aprimonSlice
-        },
         addQueue: (state, action) => {
-            // change queue state
-            const newQueue = action.payload
-            // const newQueue = {
-            //     pokemon: "totodile",
-            //     ball: "beast",
-            //     number: 50
-            // }
-            state.data.queue = newQueue;
+            state.data.queue = action.payload
         },
-        confirmQueue: (state) => {
-            // reset queue state
-            state.data.queue.number = 0;
-            // call aprimonSlice to increment eggs hatched
-        },
-        confirmShiny: () => {
-            // call on aprimonSlice
+        increaseSince: (state, action) => {
+            state.data.since += action.payload
         },
         saveProgress: (state) => {
             // api push
@@ -123,18 +101,11 @@ export const trainerSlice = createSlice({
                 state.status = "loading"
             })
             .addCase(getTrainer.fulfilled, (state, action) => {
-                const { bio, ign, name, queue, since, trades } = action.payload.data[0]
-                const collection = action.payload.data[1]
-
                 if (!action.payload.data) {
                     return;
                 }
-                const count : number = collection?.filter((pkmn) => !pkmn.wishlist).length
-                const shinies : number = collection?.filter((pkmn) => pkmn.final).length
-                const eggs : number = collection.reduce((tally: number, pkmn) => {
-                    return tally + pkmn.eggs
-                }, 0)
-                const ratio : number = Math.round(eggs / shinies)
+                
+                const { bio, ign, name, queue, since, trades } = action.payload.data
 
                 state.status = "success"
                 state.error = ""
@@ -145,14 +116,7 @@ export const trainerSlice = createSlice({
                     trades,
                     bio,
                     since,
-                    queue,
-                    aprimon: {
-                        count,
-                        shinies,
-                        eggs,
-                        ratio
-                    },
-                    collection
+                    queue
                 }
             })
             .addCase(getTrainer.rejected, (state, action) => {
@@ -163,16 +127,16 @@ export const trainerSlice = createSlice({
 })
 
 export const {
-    setOpenWindow,
-    addQueue
+    addQueue,
+    setOpenWindow
 } = trainerSlice.actions
 
 export const selectUsername = (state: RootState) => state.trainer.data.name
-export const selectCollection = (state: RootState) => state.trainer.data.collection
 export const selectStats = (state: RootState) => {
-    const { bio, since, queue, aprimon } = state.trainer.data
-    return { bio, since, queue, ...aprimon }
+    const { bio, since, queue } = state.trainer.data
+    return { bio, since, queue }
 }
 export const selectOpenWindow = (state: RootState) => state.trainer.openWindow
+export const selectQueue = (state: RootState) => state.trainer.data.queue
 
 export default trainerSlice.reducer

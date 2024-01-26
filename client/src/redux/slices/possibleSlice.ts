@@ -3,7 +3,6 @@ import { RootState, AppThunk } from "../store"
 import axios from 'axios';
 
 // abbreviate api url
-// const url = `${import.meta.env.VITE_API_URL}/trainers`;
 const url = `http://localhost:1021/pkmn`;
 
 const axiosOptions = {

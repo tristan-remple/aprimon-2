@@ -36,7 +36,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/pkmn', pokemonRouter);
 app.use('/trainers', trainersRouter);
-app.use('/', aprimonRouter);
+app.use('/aprimon', aprimonRouter);
 
 // // catch 404 and forward to error handler
 // app.use(function(req, res, next) {

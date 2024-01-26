@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "start": "nodemon ./bin/www",
-    "dev": "concurrently --kill-others \"npm start\" \"cd client/pkmn-front && npm run dev\""
+    "dev": "concurrently --kill-others \"npm start\" \"cd client && npm run dev\""
   },
   "dependencies": {
     "bcrypt": "^5.1.1",

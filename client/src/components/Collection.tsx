@@ -1,7 +1,7 @@
 import React from "react";
 
 import { useAppSelector } from '../redux/hooks'
-import { selectCollection } from '../redux/slices/trainerSlice';
+import { selectCollection } from '../redux/slices/aprimonSlice';
 
 import Card from './Card'
 

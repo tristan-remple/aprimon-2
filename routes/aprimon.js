@@ -1,13 +1,10 @@
 const express = require('express');
 const router = express.Router();
-const jwt = require('jsonwebtoken');
 const verifyJWT = require("../middleware/verify-jwt");
 
-const Trainer = require('../models/trainer');
 const Aprimon = require('../models/aprimon');
 const Pokemon = require('../models/pokemon');
 
-const detailless = ({email, password, ...rest}) => rest;
 const otherDetails = ({name, form, natdex, ...rest}) => rest;
 
 function catchError(err, res) {
@@ -21,29 +18,23 @@ function catchError(err, res) {
 }
 
 router.get('/', function(req, res) {
-    res.send("Welcome to Aprimon");
-});
+    res.send("Welcome to Aprimon")
+})
 
 router.get('/:user', function(req, res) {
 
-    Trainer.findOne({name: req.params.user}).lean().exec().then(trnr => {
-        console.log(trnr);
-        if (trnr) {
-    
-            Aprimon.find({trainer: trnr.name}).exec().then(pkmn => {
-                res.send(pkmn);
-            }).catch(err => {
-                catchError(err, res);
-            });
-    
+    Aprimon.find({trainer: req.params.user}).exec().then(pkmn => {
+        if (pkmn) {
+            res.send(pkmn)
         } else {
-            res.status(404).send();
+            res.status(404).send()
         }
+        
     }).catch(err => {
-        catchError(err, res);
-    });
+        catchError(err, res)
+    })
 
-});
+})
 
 router.get('/:user/:id', function(req, res) {
     

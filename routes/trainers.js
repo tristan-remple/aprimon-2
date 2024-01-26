@@ -4,7 +4,6 @@ const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 
 const Trainer = require('../models/trainer');
-const Aprimon = require('../models/aprimon');
 
 const detailless = ({email, password, ...rest}) => rest;
 
@@ -45,7 +44,7 @@ router.get('/', function(req, res) {
 
 });
 
-router.get('/:id', function(req, res) {
+router.get('/:user', function(req, res) {
 
   Trainer.findOne({name: req.params.user}).lean().exec().then(trnr => {
     if (trnr) {

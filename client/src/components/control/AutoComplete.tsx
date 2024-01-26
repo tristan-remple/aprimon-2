@@ -9,7 +9,7 @@ export default function AutoComplete({ list, inputValue, onChange }) {
 
     const filteredList = list.filter(item => item.toLowerCase().includes(inputValue.toLowerCase()))
 
-    if (filteredList.length <= 1) {
+    if (filteredList.length === 0 || (filteredList.length === 1 && filteredList[0].toLowerCase() === inputValue.toLowerCase())) {
         return;
     }
 
@@ -18,7 +18,7 @@ export default function AutoComplete({ list, inputValue, onChange }) {
     }
 
     const output = filteredList.map(item => {
-        return <div className="suggest" onClick={() => {select(ucfirst(item))}} >{ucfirst(item)}</div>
+        return <div className="suggest" key={item} onClick={() => {select(ucfirst(item))}} >{ucfirst(item)}</div>
     })
 
     return (
