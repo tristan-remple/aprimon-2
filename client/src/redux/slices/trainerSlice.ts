@@ -85,8 +85,10 @@ export const trainerSlice = createSlice({
         addQueue: (state, action) => {
             state.data.queue = action.payload
         },
-        increaseSince: (state, action) => {
-            state.data.since += action.payload
+        clearQueue: (state) => {
+            const queueNumber = state.data.queue.number
+            state.data.since += queueNumber
+            state.data.queue.number = 0
         },
         saveProgress: (state) => {
             // api push
@@ -128,6 +130,7 @@ export const trainerSlice = createSlice({
 
 export const {
     addQueue,
+    clearQueue,
     setOpenWindow
 } = trainerSlice.actions
 

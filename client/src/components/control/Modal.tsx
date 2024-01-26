@@ -1,7 +1,8 @@
 import React from "react";
 import { useAppSelector } from '../../redux/hooks'
-import { selectOpenWindow } from '../../redux/slices/trainerSlice';
-import AddEggs from "./AddEggs";
+import { selectOpenWindow } from '../../redux/slices/trainerSlice'
+import AddEggs from "./AddEggs"
+import HatchEggs from "./HatchEggs"
 
 export default function Modal() {
 
@@ -15,6 +16,9 @@ export default function Modal() {
     switch (openWindow) {
         case "AddEggs":
             display = <AddEggs />
+            break;
+        case "HatchEggs":
+            display = <HatchEggs />
             break;
     }
 
