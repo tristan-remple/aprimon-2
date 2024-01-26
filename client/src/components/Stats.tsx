@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 
-import { useAppSelector } from '../app/hooks'
-import { selectStats } from '../features/trainer/trainerSlice';
+import { useAppSelector } from '../redux/hooks'
+import { selectStats } from '../redux/slices/trainerSlice';
 import ucfirst from '../helpers/ucfirst';
 import SidebarHeader from "./SidebarHeader";
 

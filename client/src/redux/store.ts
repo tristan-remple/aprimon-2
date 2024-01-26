@@ -1,9 +1,13 @@
 import { configureStore, ThunkAction, Action } from "@reduxjs/toolkit"
-import counterReducer from "../features/counter/counterSlice"
+
+import trainerReducer from './slices/trainerSlice'
+import possibleReducer from "./slices/possibleSlice"
 
 export const store = configureStore({
   reducer: {
-    counter: counterReducer,
+    // aprimon: aprimonReducer,
+    possible: possibleReducer,
+    trainer: trainerReducer
   },
 })
 

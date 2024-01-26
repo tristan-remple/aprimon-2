@@ -31,7 +31,7 @@ router.get('/:user', function(req, res) {
         if (trnr) {
     
             Aprimon.find({trainer: trnr.name}).exec().then(pkmn => {
-                res.send([detailless({...trnr}), pkmn]);
+                res.send(pkmn);
             }).catch(err => {
                 catchError(err, res);
             });

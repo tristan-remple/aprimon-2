@@ -1,6 +1,6 @@
 import React from "react";
-import { useAppSelector, useAppDispatch } from '../../app/hooks'
-import { selectOpenWindow, setOpenWindow } from '../../features/trainer/trainerSlice';
+import { useAppSelector, useAppDispatch } from '../../redux/hooks'
+import { selectOpenWindow, setOpenWindow } from '../../redux/slices/trainerSlice';
 
 export default function EditButton() {
 

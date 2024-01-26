@@ -1,6 +1,6 @@
 import React from "react";
-import { useAppSelector } from '../../app/hooks'
-import { selectOpenWindow } from '../../features/trainer/trainerSlice';
+import { useAppSelector } from '../../redux/hooks'
+import { selectOpenWindow } from '../../redux/slices/trainerSlice';
 import AddEggs from "./AddEggs";
 
 export default function Modal() {

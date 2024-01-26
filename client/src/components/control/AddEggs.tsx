@@ -1,7 +1,7 @@
 import React, { useState } from "react"
-import { useAppSelector, useAppDispatch } from '../../app/hooks'
-import { addQueue, selectCollection } from "../../features/trainer/trainerSlice"
-import CloseButton from "./closeButton"
+import { useAppSelector, useAppDispatch } from '../../redux/hooks'
+import { addQueue, selectCollection } from "../../redux/slices/trainerSlice"
+import CloseButton from "./CloseButton"
 import ConfirmButton from "./ConfirmButton"
 import AutoComplete from "./AutoComplete"
 

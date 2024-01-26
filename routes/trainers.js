@@ -47,15 +47,9 @@ router.get('/', function(req, res) {
 
 router.get('/:id', function(req, res) {
 
-  Trainer.findById(req.params.id).lean().exec().then(trnr => {
+  Trainer.findOne({name: req.params.user}).lean().exec().then(trnr => {
     if (trnr) {
-
-      Aprimon.find({trainer: trnr.name}).exec().then(pkmn => {
-        res.send([detailless({...trnr}), pkmn]);
-      }).catch(err => {
-        catchError(err, res);
-      });
-
+      res.send(detailless({...trnr}));
     } else {
       res.status(404).send();
     }

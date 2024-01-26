@@ -1,7 +1,7 @@
 import React from "react";
 
-import { useAppSelector } from '../app/hooks'
-import { selectUsername } from '../features/trainer/trainerSlice';
+import { useAppSelector } from '../redux/hooks'
+import { selectUsername } from '../redux/slices/trainerSlice';
 
 export default function Header() {
 

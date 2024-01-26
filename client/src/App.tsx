@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
-import { useAppSelector, useAppDispatch } from './app/hooks'
+import { useAppSelector, useAppDispatch } from './redux/hooks'
 
-import { getTrainer } from './features/trainer/trainerSlice'
+import { getTrainer } from './redux/slices/trainerSlice'
 
 import Header from './components/Header'
 import Collection from './components/Collection'
