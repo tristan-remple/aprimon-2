@@ -1,7 +1,7 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { selectUsername } from '../../redux/slices/trainerSlice'
 import { selectPossible } from '../../redux/slices/possibleSlice'
-import { addAprimon } from '../../redux/slices/aprimonSlice'
+import { addAprimon, getAprimon, postAprimon } from '../../redux/slices/aprimonSlice'
 import { useAppSelector, useAppDispatch } from '../../redux/hooks'
 import AutoComplete from './AutoComplete'
 import ucfirst from '../../helpers/ucfirst'
@@ -12,6 +12,7 @@ const AddApri = () => {
 
     const dispatch = useAppDispatch()
     const trainer = useAppSelector(selectUsername)
+    const apiStatusApri = useAppSelector(state => state.aprimon.status)
 
     const possible = useAppSelector(selectPossible)
     const list = possible.map(pokemon => {
@@ -102,7 +103,10 @@ const AddApri = () => {
             trainer
         }
 
-        dispatch(addAprimon(newApri))
+        // dispatch(addAprimon(newApri))
+        if (apiStatusApri === 'idle' || apiStatusApri === 'success') {
+            dispatch(postAprimon(newApri))
+        }
     }
 
     return (

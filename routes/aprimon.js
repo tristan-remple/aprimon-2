@@ -59,11 +59,12 @@ router.post('/', verifyJWT, (req, res) => {
     }
     const newApri = new Aprimon(otherDetails({...req.body}));
 
-    Pokemon.findOne({name: req.body.name}).exec().then(pkmn => {
+    console.log(req.body)
+    Pokemon.findOne({name: req.body.pokemon.name}).exec().then(pkmn => {
         if (pkmn) {
-            newApri.pokemon.name = req.body.name;
+            newApri.pokemon.name = req.body.pokemon.name;
             newApri.pokemon.natdex = pkmn.natdex;
-            newApri.pokemon.form = req.body.form;
+            newApri.pokemon.form = req.body.pokemon.form;
             newApri.eggs = 0;
             newApri.onhand = 0;
             newApri.trainer = req.body.trainer;
@@ -74,7 +75,7 @@ router.post('/', verifyJWT, (req, res) => {
             newApri.wishlist = req.body.wishlist ? true : false;
 
             newApri.save().then(result => {
-                res.status(201).send(result);
+                res.status(201).send(newApri);
             }).catch(err => {
                 catchError(err, res);
             });
@@ -87,9 +88,9 @@ router.post('/', verifyJWT, (req, res) => {
 
 });
 
-router.patch('/:id', verifyJWT, (req, res) => {
+router.patch('/', verifyJWT, (req, res) => {
 
-    Aprimon.findById(req.params.id).exec().then(pkmn => {
+    Aprimon.findOne({pokemon: req.body.pokemon, ball: req.body.ball, trainer: req.body.trainer}).exec().then(pkmn => {
         if (!pkmn) {
             res.status(404).send();
         } else if (pkmn.trainer !== req.body.trainer) {
@@ -104,11 +105,11 @@ router.patch('/:id', verifyJWT, (req, res) => {
             const apri = otherDetails({...req.body});
             apri.pokemon = pkmn.pokemon;
         
-            Aprimon.findByIdAndUpdate(req.params.id, apri, {
+            Aprimon.findByIdAndUpdate(pkmn._id, apri, {
                 runValidators: true,
                 returnDocument: "after"
-            }).exec().then(pkmn => {  
-                res.status(201).send(pkmn);
+            }).exec().then(pkmn => {
+                res.status(201).send(apri);
             }).catch(err => {
                 catchError(err, res);
             });

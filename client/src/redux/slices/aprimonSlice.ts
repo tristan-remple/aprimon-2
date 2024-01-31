@@ -29,6 +29,16 @@ export const getAprimon = createAsyncThunk("aprimon/get", async (username: strin
     return response
 })
 
+export const postAprimon = createAsyncThunk("aprimon/post", async (apriData) => {
+    const response = await axios.post(url, apriData, axiosOptions)
+    return response
+})
+
+export const patchAprimon = createAsyncThunk("aprimon/patch", async (apriData) => {
+    const response = await axios.patch(url, apriData, axiosOptions)
+    return response
+})
+
 export const aprimonSlice = createSlice({
     name: "aprimon",
     initialState,
@@ -37,7 +47,7 @@ export const aprimonSlice = createSlice({
             const queue = action.payload
             const { pokemon, ball, form, number } = queue
             const aprimon = state.data?.filter((apri) => {
-                return apri.pokemon.name === pokemon && (apri.pokemon.form === form || !apri.pokemon.form && !form) && apri.ball === ball
+                return apri.pokemon.name === pokemon.toLowerCase() && (apri.pokemon.form === form || !apri.pokemon.form && !form) && apri.ball === ball.toLowerCase()
             })[0]
             aprimon.eggs += parseInt(number)
         },
@@ -47,6 +57,39 @@ export const aprimonSlice = createSlice({
     },
     extraReducers(builder) {
         builder
+            .addCase(postAprimon.pending, (state, action) => {
+                state.status = "loading"
+            })
+            .addCase(postAprimon.fulfilled, (state, action) => {
+                state.data.push(action.payload.data)
+                state.status = "success"
+                state.error = ""
+            })
+            .addCase(postAprimon.rejected, (state, action) => {
+                state.status = "failed"
+                state.error = action.error.message ? action.error.message : "Bad request"
+            })
+            .addCase(patchAprimon.pending, (state, action) => {
+                state.status = "loading"
+            })
+            .addCase(patchAprimon.fulfilled, (state, action) => {
+                const update = action.payload.data
+                state.data = state.data.map(apri => {
+                    if (update.pokemon.name === apri.pokemon.name &&
+                        update.pokemon.form === apri.pokemon.form &&
+                        update.ball === apri.ball) {
+                        return update
+                    } else {
+                        return apri
+                    }
+                })
+                state.status = "success"
+                state.error = ""
+            })
+            .addCase(patchAprimon.rejected, (state, action) => {
+                state.status = "failed"
+                state.error = action.error.message ? action.error.message : "Bad request"
+            })
             .addCase(getAprimon.pending, (state, action) => {
                 state.status = "loading"
             })
@@ -89,5 +132,11 @@ export const {
 
 export const selectCollection = (state: RootState) => state.aprimon.data
 export const selectMetadata = (state: RootState) => state.aprimon.metadata
+export const selectFromQueue = (state: RootState) => state.aprimon.data.filter(apri => {
+    const queue = state.trainer.data.queue
+    return apri.pokemon.name === queue.pokemon &&
+    // apri.pokemon.form === queue.form &&
+    apri.ball === queue.ball
+})[0]
 
 export default aprimonSlice.reducer

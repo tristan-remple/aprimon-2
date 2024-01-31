@@ -1,22 +1,19 @@
 import React from 'react'
 import { useAppSelector, useAppDispatch } from '../../redux/hooks'
 import { selectQueue, clearQueue } from '../../redux/slices/trainerSlice'
-import { patchAprimon, selectFromQueue } from '../../redux/slices/aprimonSlice'
+import { addFromQueue } from '../../redux/slices/aprimonSlice'
 import ConfirmButton from './ConfirmButton'
 import CloseButton from './CloseButton'
 
-const HatchEggs = () => {
+const HatchShiny = () => {
 
     const dispatch = useAppDispatch()
 
     const queue = useAppSelector(selectQueue)
-    const apri = useAppSelector(selectFromQueue)
-    const { number, form, pokemon, ball } = queue
+    const { pokemon, ball, form, number } = queue
 
     const confirmQueue = () => {
-        const newApri = {...apri}
-        newApri.eggs += queue.number
-        dispatch(patchAprimon(newApri))
+        dispatch(addFromQueue(queue))
         dispatch(clearQueue())
     }
 
@@ -31,4 +28,4 @@ const HatchEggs = () => {
     )
 }
 
-export default HatchEggs
+export default HatchShiny
