@@ -1,5 +1,6 @@
 import React from "react";
 import ucfirst from '../../helpers/ucfirst'
+import util from '@aqualunae/util'
 
 export default function AutoComplete({ list, inputValue, onChange }) {
 
@@ -18,7 +19,7 @@ export default function AutoComplete({ list, inputValue, onChange }) {
     }
 
     const output = filteredList.map(item => {
-        return <div className="suggest" key={item} onClick={() => {select(ucfirst(item))}} >{ucfirst(item)}</div>
+        return <div className="suggest" key={item} onClick={() => {select(util.str.title(item))}} >{util.str.title(item)}</div>
     })
 
     return (
