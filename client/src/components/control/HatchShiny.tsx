@@ -4,12 +4,14 @@ import { selectQueue, clearQueue } from '../../redux/slices/trainerSlice'
 import { addFromQueue } from '../../redux/slices/aprimonSlice'
 import ConfirmButton from './ConfirmButton'
 import CloseButton from './CloseButton'
+import Queue from '../../types/Queue'
+import Ball from '../../types/BallEnum'
 
 const HatchShiny = () => {
 
     const dispatch = useAppDispatch()
 
-    const queue = useAppSelector(selectQueue)
+    const queue: Queue = useAppSelector(selectQueue)
     const { pokemon, ball, form, number } = queue
 
     const confirmQueue = () => {
@@ -19,7 +21,7 @@ const HatchShiny = () => {
 
     return (
         <div id="zoom" className="box">
-            <h2>Confirm that the {number} {form} {pokemon} eggs in queue have hatched?</h2>
+            <h2>Confirm that a shiny {ball} {form} {pokemon} has hatched?</h2>
             <div className="nav-row">
                 <ConfirmButton confirm={ confirmQueue } />
                 <CloseButton />

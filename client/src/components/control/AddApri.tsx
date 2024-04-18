@@ -4,9 +4,12 @@ import { selectPossible } from '../../redux/slices/possibleSlice'
 import { addAprimon, getAprimon, postAprimon } from '../../redux/slices/aprimonSlice'
 import { useAppSelector, useAppDispatch } from '../../redux/hooks'
 import AutoComplete from './AutoComplete'
-import ucfirst from '../../helpers/ucfirst'
+import util from '@aqualunae/util'
 import CloseButton from './CloseButton'
 import ConfirmButton from './ConfirmButton'
+import Nature from '../../types/NatureEnum'
+import Ball from '../../types/BallEnum'
+import Aprimon from '../../types/Aprimon'
 
 const AddApri = () => {
 
@@ -25,24 +28,22 @@ const AddApri = () => {
         setPkmn(input)
     }
 
-    const balls = [ "beast", "dream", "fast", "friend", "heavy", "level", "love", "lure", "moon", "safari", "sport" ]
-    const ballOptions = balls.map(ball => <option value={ball} key={ball}>{ucfirst(ball)}</option>)
-    const [ ball, setBall ] = useState("")
+    const ballOptions = (Object.keys(Ball) as Array<keyof typeof Ball>).map((ball) => {
+        return <option value={ Ball[ball] } key={ball}>{util.str.title(ball)}</option>
+    })
+    const [ ball, setBall ] = useState(Ball.beast)
     const ballChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
         const input = e.target.value
-        setBall(input)
+        setBall(Ball[input as keyof typeof Ball])
     }
 
-    const natures = [ "random", "hardy", "lonely", "adamant", "naughty", "brave",
-                    "bold", "docile", "impish", "lax", "relaxed",
-                    "modest", "mild", "bashful", "rash", "quiet",
-                    "calm", "gentle", "careful", "quirky", "sassy",
-                    "timid", "hasty", "jolly", "naive", "serious" ]
-    const natureOptions = natures.map(ntr => <option value={ntr} key={ntr}>{ucfirst(ntr)}</option>)
-    const [ nature, setNature ] = useState("random")
+    const natureOptions = (Object.keys(Nature) as Array<keyof typeof Nature>).map((ntr) => {
+        return <option value={ Nature[ntr] } key={ntr}>{util.str.title(ntr)}</option>
+    })
+    const [ nature, setNature ] = useState(Nature.random)
     const natureChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
         const input = e.target.value
-        setNature(input)
+        setNature(Nature[input as keyof typeof Nature])
     }
 
     const [ five, setFive ] = useState(false)
@@ -71,8 +72,8 @@ const AddApri = () => {
 
     const confirmAddition = () => {
         const pkmnArr = pkmn.toLowerCase().split(" ")
-        let pkmnName: String
-        let form
+        let pkmnName: string
+        let form: string | null
         if (pkmnArr.length === 1) {
             form = null
             pkmnName = pkmnArr[0]
@@ -84,7 +85,7 @@ const AddApri = () => {
         const dex = possible.filter(pkmn => pkmn.name === pkmnName )[0]
         const natdex = dex.natdex
 
-        const newApri = {
+        const newApri: Aprimon = {
             pokemon: {
                 name: pkmnName,
                 natdex,

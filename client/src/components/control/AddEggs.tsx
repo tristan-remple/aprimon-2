@@ -5,6 +5,8 @@ import { selectCollection } from '../../redux/slices/aprimonSlice'
 import CloseButton from "./CloseButton"
 import ConfirmButton from "./ConfirmButton"
 import AutoComplete from "./AutoComplete"
+import Queue from "../../types/Queue"
+import Ball from "../../types/BallEnum"
 
 export default function AddEggs() {
 
@@ -17,7 +19,7 @@ export default function AddEggs() {
     const dispatch = useAppDispatch()
 
     const [ qEggs, setQEggs ] = useState(0)
-    const [ qPkmn, setQPkmn ] = useState("")
+    const [ qPkmn, setQPkmn ] = useState("beast pichu")
 
     const eggChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const input = parseInt(e.target.value)
@@ -31,19 +33,19 @@ export default function AddEggs() {
 
     const confirmQueue = () => {
         const apriArr = qPkmn.split(" ");
-        let queue = {}
+        let queue: Queue
         if (apriArr.length === 2) {
             queue = {
                 pokemon: apriArr[1],
                 form: null,
-                ball: apriArr[0],
+                ball: apriArr[0] as keyof typeof Ball,
                 number: qEggs
             }
         } else if (apriArr.length === 3) {
             queue = {
                 pokemon: apriArr[2],
                 form: apriArr[1],
-                ball: apriArr[0],
+                ball: apriArr[0] as keyof typeof Ball,
                 number: qEggs
             }
         }

@@ -1,61 +1,29 @@
 import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit"
 import { RootState, AppThunk } from "../store"
-import axios from 'axios';
+import axios, { AxiosResponse } from 'axios';
+import Status from "../../types/StatusEnum";
+import Trainer from "../../types/Trainer";
+import Ball from "../../types/BallEnum";
 
 // abbreviate api url
 const url = `${import.meta.env.VITE_API_URL}/trainers`;
 
 const axiosOptions = {
     withCredentials: true,
-    validateStatus: (status) => {
+    validateStatus: (status: number) => {
         return true;
     }
 }
 
-// export interface TrainerState {
-//     status: 'idle' | 'loading' | 'complete' | 'failed',
-//     error: string | null,
-//     name: string,
-//     ign: string,
-//     tradesOpen: boolean,
-//     self: boolean,
-//     since: number,
-//     queue: {
-//         pokemon: string,
-//         ball: string,
-//         number: number
-//     },
-//     aprimon: {
-//         count: number,
-//         shinies: number,
-//         eggs: number,
-//         ratio: number,
-//     },
-//     collection: [
-//         {
-//             pokemon: {
-//                 name: string,
-//                 natdex: number,
-//                 form: string | null
-//             },
-//             ball: string,
-//             nature: string,
-//             eggs: number,
-//             onhand: number,
-//             final: string,
-//             ha: boolean,
-//             fiveiv: boolean,
-//             target: boolean,
-//             wishlist: boolean,
-//             eggmoves: [
-//                 string
-//             ]
-//         }
-//     ]
-// }
-  
+interface TrainerState {
+    status: Status,
+    error: string,
+    openWindow: string,
+    data: Trainer
+}
+
 const initialState = {
-    status: 'idle',
+    status: Status.idle,
     error: "",
     openWindow: "",
     data: {
@@ -67,14 +35,14 @@ const initialState = {
         queue: {
             pokemon: "",
             form: null,
-            ball: "",
+            ball: Ball.select,
             number: 0
         }
     }
 }
 
 export const getTrainer = createAsyncThunk("trainer/get", async (username: string) => {
-    const response = await axios.get(`${url}/${username}`, axiosOptions)
+    const response: AxiosResponse = await axios.get(`${url}/${username}`, axiosOptions)
     return response
 })
 
@@ -100,7 +68,7 @@ export const trainerSlice = createSlice({
     extraReducers(builder) {
         builder
             .addCase(getTrainer.pending, (state, action) => {
-                state.status = "loading"
+                state.status = Status.loading
             })
             .addCase(getTrainer.fulfilled, (state, action) => {
                 if (!action.payload.data) {
@@ -109,7 +77,7 @@ export const trainerSlice = createSlice({
                 
                 const { bio, ign, name, queue, since, trades } = action.payload.data
 
-                state.status = "success"
+                state.status = Status.success
                 state.error = ""
 
                 state.data = {
@@ -122,7 +90,7 @@ export const trainerSlice = createSlice({
                 }
             })
             .addCase(getTrainer.rejected, (state, action) => {
-                state.status = "failed"
+                state.status = Status.failed
                 state.error = action.error.message ? action.error.message : "Bad request"
             })
     }

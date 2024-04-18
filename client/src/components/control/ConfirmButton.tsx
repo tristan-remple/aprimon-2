@@ -2,7 +2,7 @@ import React from "react";
 import { useAppDispatch } from '../../redux/hooks'
 import { setOpenWindow } from '../../redux/slices/trainerSlice';
 
-export default function ConfirmButton({ confirm }) {
+export default function ConfirmButton({ confirm }: {confirm: () => void}) {
 
     const dispatch = useAppDispatch()
     const applyConfirm = () => {

@@ -3,7 +3,7 @@ import { useAppDispatch } from '../../redux/hooks'
 
 import { setOpenWindow } from "../../redux/slices/trainerSlice";
 
-export default function ControlButton({ label }) {
+export default function ControlButton({ label }: { label: string }) {
 
     const dispatch = useAppDispatch()
 
@@ -11,7 +11,16 @@ export default function ControlButton({ label }) {
         dispatch(setOpenWindow(label))
     }
 
-    const buttons = {
+    type options = { [n: string]: {
+        title: string,
+        img: string,
+        alt: string
+    } }
+
+    type ButtonLabel = keyof options
+    label as ButtonLabel
+
+    const buttons: options = {
         Browse: {
             title: "Browse possible aprimon",
             img: "browse",
@@ -35,7 +44,7 @@ export default function ControlButton({ label }) {
         HatchEggs: {
             title: "Confirm queue eggs as hatched",
             img: "check",
-          alt: "checkmark"
+            alt: "checkmark"
         },
         HatchShiny: {
             title: "Confirm queue eggs contained a shiny",
@@ -51,7 +60,7 @@ export default function ControlButton({ label }) {
 
     return (
         <button className="small-button" title={ buttons[label].title } onClick={ openWindow } >
-            <img className="symbol" src={`img/${buttons[label].img}.png`} alt={buttons[label].alt} />
+            <img className="symbol" src={`img/${ buttons[label].img }.png`} alt={ buttons[label].alt } />
         </button>
     )
 }

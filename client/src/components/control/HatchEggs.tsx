@@ -4,6 +4,7 @@ import { selectQueue, clearQueue } from '../../redux/slices/trainerSlice'
 import { patchAprimon, selectFromQueue } from '../../redux/slices/aprimonSlice'
 import ConfirmButton from './ConfirmButton'
 import CloseButton from './CloseButton'
+import Aprimon from '../../types/Aprimon'
 
 const HatchEggs = () => {
 
@@ -14,7 +15,7 @@ const HatchEggs = () => {
     const { number, form, pokemon, ball } = queue
 
     const confirmQueue = () => {
-        const newApri = {...apri}
+        const newApri: Aprimon = {...apri}
         newApri.eggs += queue.number
         dispatch(patchAprimon(newApri))
         dispatch(clearQueue())

@@ -1,0 +1,30 @@
+enum Nature {
+    random = "random", 
+    hardy = "hardy", 
+    lonely = "lonely", 
+    adamant = "adamant", 
+    naughty = "naughty", 
+    brave = "brave",
+    bold = "bold", 
+    docile = "docile", 
+    impish = "impish", 
+    lax = "lax", 
+    relaxed = "relaxed",
+    modest = "modest", 
+    mild = "mild", 
+    bashful = "bashful", 
+    rash = "rash", 
+    quiet = "quiet",
+    calm = "calm", 
+    gentle = "gentle", 
+    careful = "careful", 
+    quirky = "quirky", 
+    sassy = "sassy",
+    timid = "timid", 
+    hasty = "hasty", 
+    jolly = "jolly", 
+    naive = "naive", 
+    serious = "serious"
+}
+
+export default Nature

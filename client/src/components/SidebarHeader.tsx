@@ -1,6 +1,12 @@
 import React from "react";
 
-export default function SidebarHeader({ title, open, setOpen }) {
+interface SidebarHeaderProps {
+    title: string,
+    open: boolean,
+    setOpen: (arg0: boolean) => void
+}
+
+export default function SidebarHeader({ title, open, setOpen }: SidebarHeaderProps) {
 
     const toggle = () => {
         const newStatus = open ? false : true

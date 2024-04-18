@@ -1,8 +1,13 @@
 import React from "react";
-import ucfirst from '../../helpers/ucfirst'
 import util from '@aqualunae/util'
 
-export default function AutoComplete({ list, inputValue, onChange }) {
+interface AutoCompleteProps {
+    list: string[],
+    inputValue: string,
+    onChange: (arg0: string) => void
+}
+
+export default function AutoComplete({ list, inputValue, onChange }: AutoCompleteProps) {
 
     if (!inputValue) {
         return;
@@ -14,7 +19,7 @@ export default function AutoComplete({ list, inputValue, onChange }) {
         return;
     }
 
-    const select = (option) => {
+    const select = (option: string) => {
         onChange(option)
     }
 

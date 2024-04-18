@@ -3,7 +3,7 @@ import React, { useState } from "react"
 import { useAppSelector } from '../redux/hooks'
 import { selectStats } from '../redux/slices/trainerSlice'
 import { selectMetadata } from "../redux/slices/aprimonSlice"
-import ucfirst from '../helpers/ucfirst'
+import util from '@aqualunae/util'
 import SidebarHeader from "./SidebarHeader"
 
 export default function Stats() {
@@ -44,7 +44,7 @@ export default function Stats() {
                         </tr>
                         <tr>
                             <td className="num">{ queue.number }</td>
-                            <td className="label">Queue ({queue.pokemon && ucfirst(`${queue.ball} ${queue.pokemon}`)})</td>
+                            <td className="label">Queue ({queue.pokemon && util.str.title(`${queue.ball} ${queue.pokemon}`)})</td>
                         </tr>
                     </tbody>
                 </table>
