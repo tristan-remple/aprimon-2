@@ -1,5 +1,3 @@
-import React from "react";
-
 interface SidebarHeaderProps {
     title: string,
     open: boolean,

@@ -1,29 +1,39 @@
-import React from "react";
+// external dependencies
 import { useAppSelector } from '../../redux/hooks'
+
+// internal dependencies
 import { selectOpenWindow } from '../../redux/slices/trainerSlice'
+
+// components
 import AddEggs from "./AddEggs"
 import HatchEggs from "./HatchEggs"
 import AddApri from './AddApri'
+
+// types
+import OpenWindow from '../../types/WindowEnum'
 
 export default function Modal() {
 
     const openWindow = useAppSelector(selectOpenWindow)
 
     if (!openWindow) {
-        return;
+        return
     }
 
-    let display = <></>
+    let display = null
     switch (openWindow) {
-        case "AddEggs":
+        case OpenWindow.AddEggs:
             display = <AddEggs />
-            break;
-        case "HatchEggs":
+            break
+        case OpenWindow.HatchEggs:
             display = <HatchEggs />
-            break;
-        case "AddApri":
+            break
+        case OpenWindow.AddApri:
             display = <AddApri />
+            break
     }
+
+    
 
     return (
         <div id="overlay">

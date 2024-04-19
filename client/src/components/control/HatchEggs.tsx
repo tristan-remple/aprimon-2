@@ -1,9 +1,15 @@
-import React from 'react'
+// external dependencies
 import { useAppSelector, useAppDispatch } from '../../redux/hooks'
+
+// internal dependencies
 import { selectQueue, clearQueue } from '../../redux/slices/trainerSlice'
 import { patchAprimon, selectFromQueue } from '../../redux/slices/aprimonSlice'
+
+// components
 import ConfirmButton from './ConfirmButton'
 import CloseButton from './CloseButton'
+
+// types
 import Aprimon from '../../types/Aprimon'
 
 const HatchEggs = () => {

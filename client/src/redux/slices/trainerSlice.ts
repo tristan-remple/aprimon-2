@@ -1,12 +1,16 @@
+// external dependencies
 import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit"
 import { RootState, AppThunk } from "../store"
-import axios, { AxiosResponse } from 'axios';
-import Status from "../../types/StatusEnum";
-import Trainer from "../../types/Trainer";
-import Ball from "../../types/BallEnum";
+import axios, { AxiosResponse } from 'axios'
+
+// types
+import Status from "../../types/StatusEnum"
+import Trainer from "../../types/Trainer"
+import Ball from "../../types/BallEnum"
+import OpenWindow from "../../types/WindowEnum"
 
 // abbreviate api url
-const url = `${import.meta.env.VITE_API_URL}/trainers`;
+const url = `${import.meta.env.VITE_API_URL}/trainers`
 
 const axiosOptions = {
     withCredentials: true,
@@ -18,14 +22,14 @@ const axiosOptions = {
 interface TrainerState {
     status: Status,
     error: string,
-    openWindow: string,
+    openWindow: OpenWindow | null,
     data: Trainer
 }
 
 const initialState = {
     status: Status.idle,
     error: "",
-    openWindow: "",
+    openWindow: null,
     data: {
         name: "",
         ign: "",

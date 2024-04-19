@@ -1,7 +1,8 @@
-import React from "react";
-import util from '@aqualunae/util';
+// external dependencies
+import util from '@aqualunae/util'
 
-import Aprimon from "../types/Aprimon";
+// types
+import Aprimon from "../types/Aprimon"
 
 export default function Card({ aprimon }: { aprimon: Aprimon }) {
 

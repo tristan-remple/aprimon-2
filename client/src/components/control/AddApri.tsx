@@ -1,12 +1,19 @@
-import React, { useEffect, useState } from 'react'
+// external dependencies
+import { useState } from 'react'
+import { useAppSelector, useAppDispatch } from '../../redux/hooks'
+import util from '@aqualunae/util'
+
+// internal dependencies
 import { selectUsername } from '../../redux/slices/trainerSlice'
 import { selectPossible } from '../../redux/slices/possibleSlice'
-import { addAprimon, getAprimon, postAprimon } from '../../redux/slices/aprimonSlice'
-import { useAppSelector, useAppDispatch } from '../../redux/hooks'
+import { postAprimon } from '../../redux/slices/aprimonSlice'
+
+// components
 import AutoComplete from './AutoComplete'
-import util from '@aqualunae/util'
 import CloseButton from './CloseButton'
 import ConfirmButton from './ConfirmButton'
+
+// types
 import Nature from '../../types/NatureEnum'
 import Ball from '../../types/BallEnum'
 import Aprimon from '../../types/Aprimon'

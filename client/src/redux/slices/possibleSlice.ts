@@ -1,14 +1,14 @@
 // external dependencies
 import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit"
 import { RootState, AppThunk } from "../store"
-import axios, { AxiosResponse } from 'axios';
+import axios, { AxiosResponse } from 'axios'
 
 // types
-import Possible from "../../types/Possible";
-import Status from "../../types/StatusEnum";
+import Possible from "../../types/Possible"
+import Status from "../../types/StatusEnum"
 
 // abbreviate api url
-const url: string = `${import.meta.env.VITE_API_URL}/pkmn`;
+const url: string = `${import.meta.env.VITE_API_URL}/pkmn`
 
 const axiosOptions = {
     withCredentials: true,

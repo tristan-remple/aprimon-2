@@ -1,6 +1,6 @@
-import React from "react";
-import Stats from "./Stats";
-import Control from "./Control";
+// components
+import Stats from "./Stats"
+import Control from "./Control"
 
 export default function Header() {
 

@@ -1,9 +1,13 @@
-import React, { useState } from "react";
+// external dependencies
 import { useAppDispatch } from '../../redux/hooks'
 
-import { setOpenWindow } from "../../redux/slices/trainerSlice";
+// internal dependencies
+import { setOpenWindow } from "../../redux/slices/trainerSlice"
 
-export default function ControlButton({ label }: { label: string }) {
+// types
+import OpenWindow from '../../types/WindowEnum'
+
+export default function ControlButton({ label }: { label: OpenWindow }) {
 
     const dispatch = useAppDispatch()
 
@@ -11,7 +15,7 @@ export default function ControlButton({ label }: { label: string }) {
         dispatch(setOpenWindow(label))
     }
 
-    type options = { [n: string]: {
+    type options = { [key in OpenWindow]: {
         title: string,
         img: string,
         alt: string

@@ -1,6 +1,8 @@
-import React from "react";
+// external dependencies
 import { useAppDispatch } from '../../redux/hooks'
-import { setOpenWindow } from '../../redux/slices/trainerSlice';
+
+// internal dependencies
+import { setOpenWindow } from '../../redux/slices/trainerSlice'
 
 export default function ConfirmButton({ confirm }: {confirm: () => void}) {
 

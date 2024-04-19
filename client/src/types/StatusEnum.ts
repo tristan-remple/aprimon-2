@@ -1,4 +1,4 @@
-const enum Status {
+enum Status {
     idle = "idle",
     loading = "loading",
     success = "success",

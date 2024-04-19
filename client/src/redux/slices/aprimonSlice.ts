@@ -1,15 +1,15 @@
 // external dependencies
 import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit"
 import { RootState, AppThunk } from "../store"
-import axios, { AxiosResponse } from 'axios';
+import axios, { AxiosResponse } from 'axios'
 
 // types
-import Aprimon from "../../types/Aprimon";
-import Status from "../../types/StatusEnum";
-import Queue from "../../types/Queue";
+import Aprimon from "../../types/Aprimon"
+import Status from "../../types/StatusEnum"
+import Queue from "../../types/Queue"
 
 // abbreviate api url
-const url: string = `${import.meta.env.VITE_API_URL}/aprimon`;
+const url: string = `${import.meta.env.VITE_API_URL}/aprimon`
 
 const axiosOptions = {
     withCredentials: true,

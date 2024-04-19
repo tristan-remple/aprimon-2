@@ -1,6 +1,8 @@
-import React from "react";
+// external dependecnies
 import { useAppSelector, useAppDispatch } from '../../redux/hooks'
-import { selectOpenWindow, setOpenWindow } from '../../redux/slices/trainerSlice';
+
+// internal dependencies
+import { selectOpenWindow, setOpenWindow } from '../../redux/slices/trainerSlice'
 
 export default function EditButton() {
 

@@ -1,4 +1,4 @@
-import React from "react";
+// external dependencies
 import util from '@aqualunae/util'
 
 interface AutoCompleteProps {

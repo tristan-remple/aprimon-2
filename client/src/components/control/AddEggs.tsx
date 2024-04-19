@@ -1,10 +1,17 @@
-import React, { useState } from "react"
+// external dependencies
+import { useState } from "react"
 import { useAppSelector, useAppDispatch } from '../../redux/hooks'
+
+// internal dependencies
 import { addQueue, selectQueue } from '../../redux/slices/trainerSlice'
 import { selectCollection } from '../../redux/slices/aprimonSlice'
+
+// components
 import CloseButton from "./CloseButton"
 import ConfirmButton from "./ConfirmButton"
 import AutoComplete from "./AutoComplete"
+
+// types
 import Queue from "../../types/Queue"
 import Ball from "../../types/BallEnum"
 
@@ -38,18 +45,19 @@ export default function AddEggs() {
             queue = {
                 pokemon: apriArr[1],
                 form: null,
-                ball: apriArr[0] as keyof typeof Ball,
+                ball: apriArr[0] as Ball,
                 number: qEggs
             }
+            dispatch(addQueue(queue))
         } else if (apriArr.length === 3) {
             queue = {
                 pokemon: apriArr[2],
                 form: apriArr[1],
-                ball: apriArr[0] as keyof typeof Ball,
+                ball: apriArr[0] as Ball,
                 number: qEggs
             }
+            dispatch(addQueue(queue))
         }
-        dispatch(addQueue(queue))
     }
 
     return (
@@ -62,7 +70,7 @@ export default function AddEggs() {
             <div className="field">
                 <label htmlFor="add-q-pkmn">Aprimon:</label>
                 <input id="add-q-pkmn" name="add-q-pkmn" type="text" value={ qPkmn } onChange={ pkmnChange } />
-                <AutoComplete list={list} inputValue={ qPkmn } onChange={ setQPkmn } />
+                <AutoComplete list={ list } inputValue={ qPkmn } onChange={ setQPkmn } />
             </div>
             { queue.number !== 0 && <p>Overwrite queue?</p> }
             <div className="nav-row">

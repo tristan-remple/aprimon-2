@@ -1,11 +1,16 @@
-import React from 'react'
+// external dependencies
 import { useAppSelector, useAppDispatch } from '../../redux/hooks'
+
+// internal dependencies
 import { selectQueue, clearQueue } from '../../redux/slices/trainerSlice'
 import { addFromQueue } from '../../redux/slices/aprimonSlice'
+
+// components
 import ConfirmButton from './ConfirmButton'
 import CloseButton from './CloseButton'
+
+// types
 import Queue from '../../types/Queue'
-import Ball from '../../types/BallEnum'
 
 const HatchShiny = () => {
 

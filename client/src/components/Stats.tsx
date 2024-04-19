@@ -1,9 +1,13 @@
-import React, { useState } from "react"
-
+// external dependencies
+import { useState } from "react"
 import { useAppSelector } from '../redux/hooks'
+import util from '@aqualunae/util'
+
+// internal dependencies
 import { selectStats } from '../redux/slices/trainerSlice'
 import { selectMetadata } from "../redux/slices/aprimonSlice"
-import util from '@aqualunae/util'
+
+// components
 import SidebarHeader from "./SidebarHeader"
 
 export default function Stats() {

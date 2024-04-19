@@ -6,7 +6,7 @@ import { getAprimon } from './redux/slices/aprimonSlice'
 import Header from './components/Header'
 import Collection from './components/Collection'
 import Sidebar from './components/Sidebar'
-import Modal from './components/control/Modal';
+import Modal from './components/control/Modal'
 
 export default function App() {
 

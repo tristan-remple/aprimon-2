@@ -1,7 +1,8 @@
-import React from "react";
-
+// external dependencies
 import { useAppSelector } from '../redux/hooks'
-import { selectUsername } from '../redux/slices/trainerSlice';
+
+// internal dependencies
+import { selectUsername } from '../redux/slices/trainerSlice'
 
 export default function Header() {
 

@@ -1,8 +1,10 @@
-import React from "react";
-
+// external dependencies
 import { useAppSelector } from '../redux/hooks'
-import { selectCollection } from '../redux/slices/aprimonSlice';
 
+// internal dependencies
+import { selectCollection } from '../redux/slices/aprimonSlice'
+
+// components
 import Card from './Card'
 
 export default function Collection() {
