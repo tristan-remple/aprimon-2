@@ -8,6 +8,9 @@ import Status from "../../types/StatusEnum"
 import Trainer from "../../types/Trainer"
 import Ball from "../../types/BallEnum"
 import OpenWindow from "../../types/WindowEnum"
+import { useAppSelector } from "../hooks"
+import { selectCollection } from "./aprimonSlice"
+import Aprimon from "../../types/Aprimon"
 
 // abbreviate api url
 const url = `${import.meta.env.VITE_API_URL}/trainers`
@@ -23,6 +26,7 @@ interface TrainerState {
     status: Status,
     error: string,
     openWindow: OpenWindow | null,
+    openDetails: string | null,
     data: Trainer
 }
 
@@ -30,6 +34,7 @@ const initialState: TrainerState = {
     status: Status.idle,
     error: "",
     openWindow: null,
+    openDetails: null,
     data: {
         name: "",
         ign: "",
@@ -73,6 +78,10 @@ export const trainerSlice = createSlice({
         },
         setOpenWindow: (state, action) => {
             state.openWindow = action.payload
+        },
+        setOpenDetails: (state, action) => {
+            state.openWindow = OpenWindow.Details
+            state.openDetails = action.payload
         }
     },
     extraReducers(builder) {
@@ -135,7 +144,8 @@ export const trainerSlice = createSlice({
 export const {
     addQueue,
     clearQueue,
-    setOpenWindow
+    setOpenWindow,
+    setOpenDetails
 } = trainerSlice.actions
 
 export const selectUsername = (state: RootState) => state.trainer.data.name
@@ -146,5 +156,6 @@ export const selectStats = (state: RootState) => {
 export const selectOpenWindow = (state: RootState) => state.trainer.openWindow
 export const selectQueue = (state: RootState) => state.trainer.data.queue
 export const selectTrainer = (state: RootState) => state.trainer.data
+export const selectDetails = (state: RootState) => state.trainer.openDetails
 
 export default trainerSlice.reducer

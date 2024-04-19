@@ -7,6 +7,7 @@ import axios, { AxiosResponse } from 'axios'
 import Aprimon from "../../types/Aprimon"
 import Status from "../../types/StatusEnum"
 import Queue from "../../types/Queue"
+import Ball from "../../types/BallEnum"
 
 // abbreviate api url
 const url: string = `${import.meta.env.VITE_API_URL}/aprimon`
@@ -155,6 +156,13 @@ export const selectFromQueue = (state: RootState) => state.aprimon.data.filter(a
     return apri.pokemon.name === queue.pokemon &&
     apri.pokemon.form === queue.form &&
     apri.ball === queue.ball
+})[0]
+export const selectApriDetails = (state: RootState) => state.aprimon.data.filter(apri => {
+    const selection = state.trainer.openDetails?.split("-")
+    if (!selection) { return false }
+    return apri.pokemon.name === selection[1] &&
+    (apri.pokemon.form === selection[2] || (apri.pokemon.form === null && selection[2] === undefined)) &&
+    apri.ball === selection[0]
 })[0]
 
 export default aprimonSlice.reducer

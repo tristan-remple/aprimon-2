@@ -62,5 +62,10 @@ export const {
 } = possibleSlice.actions
 
 export const selectPossible = (state: RootState) => state.possible.data
+export const selectPokeDetails = (state: RootState) => state.possible.data.filter(pkmn => {
+    const selection = state.trainer.openDetails?.split("-")
+    if (!selection) { return false }
+    return pkmn.name === selection[1] && (pkmn.form === selection[2] || (pkmn.form === null && selection[2] === undefined))
+})[0]
 
 export default possibleSlice.reducer

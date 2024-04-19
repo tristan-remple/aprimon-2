@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import { useEffect } from 'react';
 import { useAppSelector, useAppDispatch } from './redux/hooks'
 import { getPossible } from './redux/slices/possibleSlice'
 import { getTrainer } from './redux/slices/trainerSlice'
@@ -7,6 +7,7 @@ import Header from './components/Header'
 import Collection from './components/Collection'
 import Sidebar from './components/Sidebar'
 import Modal from './components/control/Modal'
+import Details from './components/Details';
 
 export default function App() {
 
@@ -36,6 +37,7 @@ export default function App() {
   return (
     <>
       <Modal />
+      <Details />
       <Header />
       <Collection />
       <Sidebar />
