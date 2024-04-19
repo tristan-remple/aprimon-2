@@ -24,7 +24,6 @@ export default function Control() {
                     <ControlButton label={ OpenWindow.AddEggs } />
                     <ControlButton label={ OpenWindow.HatchEggs } />
                     <ControlButton label={ OpenWindow.HatchShiny } />
-                    <ControlButton label={ OpenWindow.Save } />
                 </div>
             </>
         )

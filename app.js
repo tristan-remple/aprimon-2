@@ -1,42 +1,42 @@
-const dotenv = require('dotenv');
-dotenv.config();
+const dotenv = require('dotenv')
+dotenv.config()
 
-const createError = require('http-errors');
-const express = require('express');
-const path = require('path');
-const cookieParser = require('cookie-parser');
-const logger = require('morgan');
-const cors = require('cors');
+const createError = require('http-errors')
+const express = require('express')
+const path = require('path')
+const cookieParser = require('cookie-parser')
+const logger = require('morgan')
+const cors = require('cors')
 
-const mongoose = require('mongoose');
+const mongoose = require('mongoose')
 mongoose.connect(process.env.MONGO_CONN)
   .then(() => { console.log("Connected") })
-  .catch(err => console.log(err));
+  .catch(err => console.log(err))
 
-const trainersRouter = require('./routes/trainers');
-const pokemonRouter = require('./routes/pokemon');
-const aprimonRouter = require('./routes/aprimon');
+const trainersRouter = require('./routes/trainers')
+const pokemonRouter = require('./routes/pokemon')
+const aprimonRouter = require('./routes/aprimon')
 
-const app = express();
+const app = express()
 
 if (process.env.NODE_ENV !== 'production') {
   const corsOptions = {
     origin: process.env.APP_ORIGIN,
     credentials: true
   }
-  app.use(cors(corsOptions));
+  app.use(cors(corsOptions))
 }
 
-app.use(logger('dev'));
-app.use(express.json());
-app.use(express.urlencoded({ extended: false }));
-app.use(cookieParser());
-app.use(express.static(path.join(__dirname, 'public')));
+app.use(logger('dev'))
+app.use(express.json())
+app.use(express.urlencoded({ extended: false }))
+app.use(cookieParser())
+app.use(express.static(path.join(__dirname, 'public')))
 
 
-app.use('/pkmn', pokemonRouter);
-app.use('/trainers', trainersRouter);
-app.use('/aprimon', aprimonRouter);
+app.use('/pkmn', pokemonRouter)
+app.use('/trainers', trainersRouter)
+app.use('/aprimon', aprimonRouter)
 
 // // catch 404 and forward to error handler
 // app.use(function(req, res, next) {
@@ -54,4 +54,4 @@ app.use('/aprimon', aprimonRouter);
 //   res.render('error');
 // });
 
-module.exports = app;
+module.exports = app

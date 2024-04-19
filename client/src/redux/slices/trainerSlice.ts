@@ -26,7 +26,7 @@ interface TrainerState {
     data: Trainer
 }
 
-const initialState = {
+const initialState: TrainerState = {
     status: Status.idle,
     error: "",
     openWindow: null,
@@ -47,6 +47,11 @@ const initialState = {
 
 export const getTrainer = createAsyncThunk("trainer/get", async (username: string) => {
     const response: AxiosResponse = await axios.get(`${url}/${username}`, axiosOptions)
+    return response
+})
+
+export const patchTrainer = createAsyncThunk("trainer/patch", async (trainerData: Trainer) => {
+    const response: AxiosResponse = await axios.patch(`${url}/${trainerData.name}`, trainerData, axiosOptions)
     return response
 })
 
@@ -76,7 +81,7 @@ export const trainerSlice = createSlice({
             })
             .addCase(getTrainer.fulfilled, (state, action) => {
                 if (!action.payload.data) {
-                    return;
+                    return
                 }
                 
                 const { bio, ign, name, queue, since, trades } = action.payload.data
@@ -97,6 +102,32 @@ export const trainerSlice = createSlice({
                 state.status = Status.failed
                 state.error = action.error.message ? action.error.message : "Bad request"
             })
+            .addCase(patchTrainer.pending, (state, action) => {
+                state.status = Status.loading
+            })
+            .addCase(patchTrainer.fulfilled, (state, action) => {
+                if (!action.payload.data) {
+                    return
+                }
+                
+                const { bio, ign, name, queue, since, trades } = action.payload.data
+
+                state.status = Status.success
+                state.error = ""
+
+                state.data = {
+                    name,
+                    ign,
+                    trades,
+                    bio,
+                    since,
+                    queue
+                }
+            })
+            .addCase(patchTrainer.rejected, (state, action) => {
+                state.status = Status.failed
+                state.error = action.error.message ? action.error.message : "Bad request"
+            })
     }
 })
 
@@ -113,5 +144,6 @@ export const selectStats = (state: RootState) => {
 }
 export const selectOpenWindow = (state: RootState) => state.trainer.openWindow
 export const selectQueue = (state: RootState) => state.trainer.data.queue
+export const selectTrainer = (state: RootState) => state.trainer.data
 
 export default trainerSlice.reducer

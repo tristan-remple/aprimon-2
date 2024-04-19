@@ -1,6 +1,6 @@
 import Ball from "./BallEnum"
 
-export default interface {
+export default interface Queue {
     pokemon: string,
     number: number,
     ball: Ball,

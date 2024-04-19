@@ -3,7 +3,7 @@ import { useState } from "react"
 import { useAppSelector, useAppDispatch } from '../../redux/hooks'
 
 // internal dependencies
-import { addQueue, selectQueue } from '../../redux/slices/trainerSlice'
+import { addQueue, selectQueue, selectTrainer, patchTrainer } from '../../redux/slices/trainerSlice'
 import { selectCollection } from '../../redux/slices/aprimonSlice'
 
 // components
@@ -17,16 +17,17 @@ import Ball from "../../types/BallEnum"
 
 export default function AddEggs() {
 
+    const dispatch = useAppDispatch()
+
     const collection = useAppSelector(selectCollection)
-    const queue = useAppSelector(selectQueue)
+    const trainer = useAppSelector(selectTrainer)
+    const queue = trainer.queue
     const list = collection.map(apri => {
         return apri.pokemon.form ? `${apri.ball} ${apri.pokemon.form} ${apri.pokemon.name}` : `${apri.ball} ${apri.pokemon.name}`
     })
 
-    const dispatch = useAppDispatch()
-
     const [ qEggs, setQEggs ] = useState(0)
-    const [ qPkmn, setQPkmn ] = useState("beast pichu")
+    const [ qPkmn, setQPkmn ] = useState("")
 
     const eggChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const input = parseInt(e.target.value)
@@ -40,23 +41,26 @@ export default function AddEggs() {
 
     const confirmQueue = () => {
         const apriArr = qPkmn.split(" ");
-        let queue: Queue
+        let newQueue: Queue
+        let newTrainer = {...trainer}
         if (apriArr.length === 2) {
-            queue = {
+            newQueue = {
                 pokemon: apriArr[1],
                 form: null,
                 ball: apriArr[0] as Ball,
                 number: qEggs
             }
-            dispatch(addQueue(queue))
+            newTrainer.queue = newQueue
+            dispatch(patchTrainer(newTrainer))
         } else if (apriArr.length === 3) {
-            queue = {
+            newQueue = {
                 pokemon: apriArr[2],
                 form: apriArr[1],
                 ball: apriArr[0] as Ball,
                 number: qEggs
             }
-            dispatch(addQueue(queue))
+            newTrainer.queue = newQueue
+            dispatch(patchTrainer(newTrainer))
         }
     }
 

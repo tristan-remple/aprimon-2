@@ -10,6 +10,13 @@ export const store = configureStore({
     possible: possibleReducer,
     trainer: trainerReducer
   },
+  // ignore axios peripherals from api calls
+  middleware: (getDefaultMiddleware) =>
+    getDefaultMiddleware({
+      serializableCheck: {
+        ignoredActionPaths: ['payload.headers', 'payload.config', 'payload.request']
+      }
+    })
 })
 
 export type AppDispatch = typeof store.dispatch

@@ -2,7 +2,7 @@
 import { useAppSelector, useAppDispatch } from '../../redux/hooks'
 
 // internal dependencies
-import { selectQueue, clearQueue } from '../../redux/slices/trainerSlice'
+import { selectTrainer, patchTrainer } from '../../redux/slices/trainerSlice'
 import { patchAprimon, selectFromQueue } from '../../redux/slices/aprimonSlice'
 
 // components
@@ -11,20 +11,31 @@ import CloseButton from './CloseButton'
 
 // types
 import Aprimon from '../../types/Aprimon'
+import Trainer from '../../types/Trainer'
+import Ball from '../../types/BallEnum'
 
 const HatchEggs = () => {
 
     const dispatch = useAppDispatch()
 
-    const queue = useAppSelector(selectQueue)
+    const trainer = useAppSelector(selectTrainer)
     const apri = useAppSelector(selectFromQueue)
-    const { number, form, pokemon, ball } = queue
+    const { number, form, pokemon, ball } = trainer.queue
 
     const confirmQueue = () => {
         const newApri: Aprimon = {...apri}
-        newApri.eggs += queue.number
+        newApri.eggs += number
         dispatch(patchAprimon(newApri))
-        dispatch(clearQueue())
+
+        const newTrainer: Trainer = {...trainer}
+        newTrainer.since += number
+        newTrainer.queue = {
+            pokemon: "",
+            form: null,
+            ball: Ball.select,
+            number: 0
+        }
+        dispatch(patchTrainer(newTrainer))
     }
 
     return (

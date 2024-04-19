@@ -1,22 +1,24 @@
-const express = require('express');
-const router = express.Router();
+// external dependencies
+const express = require('express')
+const router = express.Router()
 
-const Pokemon = require('../models/pokemon');
+// models
+const Pokemon = require('../models/pokemon')
 
 router.get('/', function(req, res) {
 
   Pokemon.find().exec().then(pkmn => {
           
     if (pkmn) {
-      res.send(pkmn);
+      res.send(pkmn)
     } else {
-      res.status(504).send();
+      res.status(504).send()
     }
       
   }).catch(err => {
-    res.status(500).send();
+    res.status(500).send()
   });
 
 });
 
-module.exports = router;
+module.exports = router
