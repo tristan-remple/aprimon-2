@@ -20,6 +20,7 @@ const HatchEggs = () => {
 
     const trainer = useAppSelector(selectTrainer)
     const apri = useAppSelector(selectFromQueue)
+    console.log(apri)
     const { number, form, pokemon, ball } = trainer.queue
 
     const confirmQueue = () => {

@@ -6,7 +6,8 @@ const trainerSchema = mongoose.Schema({
     "queue": {
         "pokemon": String,
         "ball": String,
-        "number": Number
+        "number": Number,
+        "form": String
     },
     "bio": String,
     "ign": String,

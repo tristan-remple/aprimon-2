@@ -94,6 +94,8 @@ router.post('/', verifyJWT, (req, res) => {
 
 router.patch('/', verifyJWT, (req, res) => {
 
+    console.log(req.body)
+
     Aprimon.findOne({pokemon: req.body.pokemon, ball: req.body.ball, trainer: req.body.trainer}).exec().then(pkmn => {
         if (!pkmn) {
             res.status(404).send()

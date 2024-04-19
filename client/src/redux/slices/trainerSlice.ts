@@ -51,6 +51,7 @@ export const getTrainer = createAsyncThunk("trainer/get", async (username: strin
 })
 
 export const patchTrainer = createAsyncThunk("trainer/patch", async (trainerData: Trainer) => {
+    console.log(trainerData)
     const response: AxiosResponse = await axios.patch(`${url}/${trainerData.name}`, trainerData, axiosOptions)
     return response
 })

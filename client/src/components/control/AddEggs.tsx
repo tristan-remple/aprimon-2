@@ -40,23 +40,23 @@ export default function AddEggs() {
     }
 
     const confirmQueue = () => {
-        const apriArr = qPkmn.split(" ");
+        const apriArr = qPkmn.split(" ")
         let newQueue: Queue
         let newTrainer = {...trainer}
         if (apriArr.length === 2) {
             newQueue = {
-                pokemon: apriArr[1],
+                pokemon: apriArr[1].toLowerCase(),
                 form: null,
-                ball: apriArr[0] as Ball,
+                ball: apriArr[0].toLowerCase() as Ball,
                 number: qEggs
             }
             newTrainer.queue = newQueue
             dispatch(patchTrainer(newTrainer))
         } else if (apriArr.length === 3) {
             newQueue = {
-                pokemon: apriArr[2],
-                form: apriArr[1],
-                ball: apriArr[0] as Ball,
+                pokemon: apriArr[2].toLowerCase(),
+                form: apriArr[1].toLowerCase(),
+                ball: apriArr[0].toLowerCase() as Ball,
                 number: qEggs
             }
             newTrainer.queue = newQueue

@@ -11,6 +11,7 @@ import AddApri from './AddApri'
 
 // types
 import OpenWindow from '../../types/WindowEnum'
+import HatchShiny from './HatchShiny'
 
 export default function Modal() {
 
@@ -31,9 +32,10 @@ export default function Modal() {
         case OpenWindow.AddApri:
             display = <AddApri />
             break
+        case OpenWindow.HatchShiny:
+            display = <HatchShiny />
+            break
     }
-
-    
 
     return (
         <div id="overlay">
