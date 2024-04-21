@@ -4,7 +4,7 @@ import { useAppSelector } from '../redux/hooks'
 import util from '@aqualunae/util'
 
 // internal dependencies
-import { selectStats } from '../redux/slices/trainerSlice'
+import { selectSelf, selectStats } from '../redux/slices/trainerSlice'
 import { selectMetadata } from "../redux/slices/aprimonSlice"
 
 // components
@@ -14,7 +14,8 @@ export default function Stats() {
 
     const stats = useAppSelector(selectStats)
     const metadata = useAppSelector(selectMetadata)
-    const { bio, since, queue } = stats
+    const self = useAppSelector(selectSelf)
+    const { name, ign, bio, since, queue } = stats
     const { count, shinies, ratio, eggs } = metadata
     const [ open, setOpen ] = useState(true)
     const header = <SidebarHeader title="Stats" open={open} setOpen={setOpen} />
@@ -23,7 +24,11 @@ export default function Stats() {
         return (
             <>
                 { header }
-                <p>{bio}</p>
+                <p>
+                    { self === name && "That's you!" }
+                    { self === name && <br /> }
+                    { bio }
+                </p>
                 <table id="stats">
                     <tbody>
                         <tr>
@@ -48,7 +53,9 @@ export default function Stats() {
                         </tr>
                         <tr>
                             <td className="num">{ queue.number }</td>
-                            <td className="label">Queue ({queue.pokemon && util.str.title(`${queue.ball} ${queue.pokemon}`)})</td>
+                            <td className="label">Queue ({
+                                queue.pokemon ? util.str.title(`${ queue.ball } ${ queue.pokemon }`) : "empty"
+                            })</td>
                         </tr>
                     </tbody>
                 </table>

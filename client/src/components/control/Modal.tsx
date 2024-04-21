@@ -8,6 +8,7 @@ import { selectOpenWindow } from '../../redux/slices/trainerSlice'
 import AddEggs from "./AddEggs"
 import HatchEggs from "./HatchEggs"
 import AddApri from './AddApri'
+import Login from '../user/Login'
 
 // types
 import OpenWindow from '../../types/WindowEnum'
@@ -34,6 +35,9 @@ export default function Modal() {
             break
         case OpenWindow.HatchShiny:
             display = <HatchShiny />
+            break
+        case OpenWindow.Login:
+            display = <Login />
             break
     }
 

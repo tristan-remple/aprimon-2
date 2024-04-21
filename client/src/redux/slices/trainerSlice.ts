@@ -24,20 +24,23 @@ const axiosOptions = {
 
 interface TrainerState {
     status: Status,
-    error: string,
+    error: string | null,
     openWindow: OpenWindow | null,
     openDetails: string | null,
+    loggedTrainer: string | null,
     data: Trainer
 }
 
 const initialState: TrainerState = {
     status: Status.idle,
-    error: "",
+    error: null,
     openWindow: null,
     openDetails: null,
+    loggedTrainer: null,
     data: {
         name: "",
         ign: "",
+        self: false,
         trades: false,
         bio: "",
         since: 0,
@@ -56,8 +59,17 @@ export const getTrainer = createAsyncThunk("trainer/get", async (username: strin
 })
 
 export const patchTrainer = createAsyncThunk("trainer/patch", async (trainerData: Trainer) => {
-    console.log(trainerData)
     const response: AxiosResponse = await axios.patch(`${url}/${trainerData.name}`, trainerData, axiosOptions)
+    return response
+})
+
+interface login {
+    email: string,
+    password: string
+}
+
+export const loginTrainer = createAsyncThunk("trainer/login", async (loginDetails: login) => {
+    const response: AxiosResponse = await axios.post(`${url}/signin`, loginDetails, axiosOptions)
     return response
 })
 
@@ -93,11 +105,17 @@ export const trainerSlice = createSlice({
                 if (!action.payload.data) {
                     return
                 }
+
+                if (typeof action.payload.data === "string") {
+                    state.status = Status.failed
+                    state.error = action.payload.data
+                    return
+                }
                 
-                const { bio, ign, name, queue, since, trades } = action.payload.data
+                const { bio, ign, name, queue, since, trades, self } = action.payload.data
 
                 state.status = Status.success
-                state.error = ""
+                state.error = null
 
                 state.data = {
                     name,
@@ -105,7 +123,8 @@ export const trainerSlice = createSlice({
                     trades,
                     bio,
                     since,
-                    queue
+                    queue,
+                    self
                 }
             })
             .addCase(getTrainer.rejected, (state, action) => {
@@ -120,10 +139,16 @@ export const trainerSlice = createSlice({
                     return
                 }
                 
-                const { bio, ign, name, queue, since, trades } = action.payload.data
+                if (typeof action.payload.data === "string") {
+                    state.status = Status.failed
+                    state.error = action.payload.data
+                    return
+                }
+
+                const { bio, ign, name, queue, since, trades, self } = action.payload.data
 
                 state.status = Status.success
-                state.error = ""
+                state.error = null
 
                 state.data = {
                     name,
@@ -131,10 +156,35 @@ export const trainerSlice = createSlice({
                     trades,
                     bio,
                     since,
-                    queue
+                    queue,
+                    self
                 }
             })
             .addCase(patchTrainer.rejected, (state, action) => {
+                state.status = Status.failed
+                state.error = action.error.message ? action.error.message : "Bad request"
+            })
+            .addCase(loginTrainer.pending, (state, action) => {
+                state.status = Status.loading
+            })
+            .addCase(loginTrainer.fulfilled, (state, action) => {
+
+                if (!action.payload.data) {
+                    return
+                }
+
+                if (typeof action.payload.data === "string") {
+                    state.status = Status.failed
+                    state.error = action.payload.data
+                    return
+                }
+
+                state.loggedTrainer = action.payload.data.loggedTrainer
+
+                state.status = Status.success
+                state.error = null
+            })
+            .addCase(loginTrainer.rejected, (state, action) => {
                 state.status = Status.failed
                 state.error = action.error.message ? action.error.message : "Bad request"
             })
@@ -150,12 +200,14 @@ export const {
 
 export const selectUsername = (state: RootState) => state.trainer.data.name
 export const selectStats = (state: RootState) => {
-    const { bio, since, queue } = state.trainer.data
-    return { bio, since, queue }
+    const { name, ign, bio, since, queue } = state.trainer.data
+    return { name, ign, bio, since, queue }
 }
 export const selectOpenWindow = (state: RootState) => state.trainer.openWindow
 export const selectQueue = (state: RootState) => state.trainer.data.queue
 export const selectTrainer = (state: RootState) => state.trainer.data
 export const selectDetails = (state: RootState) => state.trainer.openDetails
+export const selectSelf = (state: RootState) => state.trainer.loggedTrainer
+export const selectError = (state: RootState) => state.trainer.error
 
 export default trainerSlice.reducer

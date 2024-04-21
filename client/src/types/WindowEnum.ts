@@ -5,7 +5,10 @@ enum OpenWindow {
     AddEggs = "AddEggs",
     HatchEggs = "HatchEggs",
     HatchShiny = "HatchShiny",
-    Details = "Details"
+    Details = "Details",
+    Logout = "Logout",
+    Login = "Login",
+    AllUsers = "AllUsers"
 }
 
 export default OpenWindow

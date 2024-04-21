@@ -5,7 +5,7 @@ const bcrypt = require('bcrypt')
 const jwt = require('jsonwebtoken')
 
 // internal dependencies
-const verifyJWT = require("../middleware/verify-jwt")
+const { verifyJWT, softCheck } = require("../middleware/verify-jwt")
 
 // models
 const Trainer = require('../models/trainer')
@@ -49,11 +49,13 @@ router.get('/', function(req, res) {
 
 })
 
-router.get('/:user', function(req, res) {
+router.get('/:user', softCheck, function(req, res) {
 
   Trainer.findOne({name: req.params.user}).lean().exec().then(trnr => {
     if (trnr) {
-      res.send(detailless({...trnr}))
+      const data = detailless({...trnr})
+      data.self = req.body.self
+      res.send(data)
     } else {
       res.status(404).send()
     }
@@ -72,9 +74,9 @@ router.patch('/:user', verifyJWT, function(req, res) {
         runValidators: true,
         returnDocument: "after"
       }).exec().then(result => {
-          res.status(201).send(newTrainer)
+        res.status(201).send(newTrainer)
       }).catch(err => {
-          catchError(err, res)
+        catchError(err, res)
       })
     } else {
       res.status(404).send()
@@ -144,7 +146,9 @@ router.post('/signin', (req, res) => {
           }
             
           res.cookie("jwt", token, cookieOptions)
-          res.status(200).send("Welcome")
+          res.status(200).send({
+            loggedTrainer: findres.name
+          })
 
         } else {
           res.status(401).send("Invalid sign in credentials.")

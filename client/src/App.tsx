@@ -23,14 +23,14 @@ export default function App() {
   const apiStatusApri = useAppSelector(state => state.trainer.status)
   useEffect(() => {
     if (apiStatusApri === 'idle') {
-      dispatch(getAprimon("knifecat"))
+      dispatch(getAprimon(import.meta.env.VITE_DEFAULT_USER))
     }
   }, [apiStatusApri, dispatch])
   
   const apiStatusTrainer = useAppSelector(state => state.trainer.status)
   useEffect(() => {
     if (apiStatusTrainer === 'idle') {
-      dispatch(getTrainer("knifecat"))
+      dispatch(getTrainer(import.meta.env.VITE_DEFAULT_USER))
     }
   }, [apiStatusTrainer, dispatch])
 

@@ -55,10 +55,25 @@ export default function ControlButton({ label }: { label: OpenWindow }) {
             img: "sparkle",
             alt: "sparkle emoji"
         },
-        Save: {
-            title: "Save your progress",
-            img: "save",
-            alt: "save floppy icon"
+        Logout: {
+            title: "Log out of Aprimon Tracker",
+            img: "exit",
+            alt: "exit door"
+        },
+        Login: {
+            title: "Log in to Aprimon Tracker",
+            img: "enter",
+            alt: "entrance door"
+        },
+        AllUsers: {
+            title: "See all users",
+            img: "group",
+            alt: "group of people"
+        },
+        Details: {
+            title: "View Aprimon details",
+            img: "ball",
+            alt: "pokeball"
         }
     }
 

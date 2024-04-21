@@ -8,5 +8,6 @@ export default interface Trainer {
     ign: string,
     trades: boolean,
     email?: string,
-    password?: string
+    password?: string,
+    self?: boolean
 }

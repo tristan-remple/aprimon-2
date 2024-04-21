@@ -3,7 +3,7 @@ const express = require('express')
 const router = express.Router()
 
 // internal dependencies
-const verifyJWT = require("../middleware/verify-jwt")
+const { verifyJWT } = require("../middleware/verify-jwt")
 
 // models
 const Aprimon = require('../models/aprimon')
