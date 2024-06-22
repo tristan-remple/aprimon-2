@@ -6,6 +6,7 @@ enum OpenWindow {
     HatchEggs = "HatchEggs",
     HatchShiny = "HatchShiny",
     Details = "Details",
+    DetailsEdit = "DetailsEdit",
     Logout = "Logout",
     Login = "Login",
     AllUsers = "AllUsers"

@@ -13,7 +13,7 @@ export default function ConfirmButton({ confirm }: {confirm: () => void}) {
     }
 
     return (
-        <button id="confirm" className="small-button" title="Confirm" onClick={applyConfirm} >
+        <button id="confirm" className="small-button" title="Confirm" onClick={ applyConfirm } >
             <img className="symbol" src="img/check.png" alt="Checkmark" />
         </button>
     )

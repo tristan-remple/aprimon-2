@@ -10,6 +10,7 @@ import { selectPokeDetails } from "../redux/slices/possibleSlice"
 // types
 import OpenWindow from "../types/WindowEnum"
 import CloseButton from "./control/CloseButton"
+import EditButton from "./control/EditButton"
 
 const Details = () => {
 
@@ -100,9 +101,10 @@ const Details = () => {
                     </p>
                 </div>
                 <div id="zoom-controls" className="nav-row">
-                    <button id="edit" className="small-button" title="Edit Pokemon">
+                    {/* <button id="edit" className="small-button" title="Edit Pokemon">
                         <img src="img/edit.png" className="symbol" alt="pencil edit" />
-                    </button>
+                    </button> */}
+                    <EditButton />
                     <CloseButton />
                 </div>
             </div>

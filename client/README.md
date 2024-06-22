@@ -1,17 +1,20 @@
 # Aprimon Tracker
 
 ## Tasks
-- Display all aprimon caught as Cards
+- ✅ Display all aprimon caught as Cards
 - Display wishlist aprimon
 - Allow sorting and filtering
 - Display current user stats
 - Allow user switching
-- Click on Card to change details
+- ✅ Click on Card to view details
+- ✅ Edit aprimon details
+- Edit egg moves
 - View all possible aprimon
-- Add new aprimon
-- Add egg queue
-- Confirm hatches
-- Confirm shiny
+- ✅ Add new aprimon
+- ✅ Add egg queue
+- ✅ Confirm hatches
+- ✅ Confirm shiny
+- Login, logout, register
 
 ## Accessibility
 - implement keyboard navigation

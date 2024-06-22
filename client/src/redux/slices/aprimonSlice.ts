@@ -93,6 +93,7 @@ export const aprimonSlice = createSlice({
             })
             .addCase(patchAprimon.fulfilled, (state, action) => {
                 const update: Aprimon = action.payload.data
+                console.log(update)
                 state.data = state.data.map(apri => {
                     if (update.pokemon.name === apri.pokemon.name &&
                         update.pokemon.form === apri.pokemon.form &&
