@@ -74,12 +74,17 @@ export default function ControlButton({ label }: { label: OpenWindow }) {
             title: "View Aprimon details",
             img: "ball",
             alt: "pokeball"
+        },
+        DetailsEdit: {
+            title: "Edit Aprimon Details",
+            img: "edit",
+            alt: "edit pencil"
         }
     }
 
     return (
         <button className="small-button" title={ buttons[label].title } onClick={ openWindow } >
-            <img className="symbol" src={`img/${ buttons[label].img }.png`} alt={ buttons[label].alt } />
+            <img className="symbol" src={`img/icons/${ buttons[label].img }.png`} alt={ buttons[label].alt } />
         </button>
     )
 }

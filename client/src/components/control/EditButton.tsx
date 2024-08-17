@@ -14,7 +14,7 @@ export default function EditButton() {
 
     return (
         <button id="edit" className="small-button" title="Edit" onClick={() => switchWindow(`${openWindow}Edit`)} >
-            <img className="symbol" src="img/edit.png" alt="Edit pencil" />
+            <img className="symbol" src="img/icons/edit.png" alt="Edit pencil" />
         </button>
     )
 }

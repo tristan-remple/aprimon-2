@@ -1,4 +1,6 @@
 import Queue from "./Queue"
+import Sort from "./SortEnum"
+import Ball from "./BallEnum"
 
 export default interface Trainer {
     name: string,
@@ -9,5 +11,9 @@ export default interface Trainer {
     trades: boolean,
     email?: string,
     password?: string,
-    self?: boolean
+    self?: boolean,
+    prefs: {
+        sort: Sort[],
+        filter: Ball
+    }
 }

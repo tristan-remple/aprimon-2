@@ -140,25 +140,25 @@ const AddApri = () => {
             <div className="check-field field">
                 <label htmlFor="five">5+ IVs?</label>
                 <div className="checkbox" id="five" onClick={ toggleFive }>
-                    { five && <img src="img/check.png" alt="checkmark" className="small-check" /> }
+                    { five && <img src="img/icons/check.png" alt="checkmark" className="small-check" /> }
                 </div>
             </div>
             <div className="check-field field">
                 <label htmlFor="hidden">Hidden ability?</label>
                 <div className="checkbox" onClick={ toggleHidden }>
-                    { hidden && <img src="img/check.png" alt="checkmark" className="small-check" /> }
+                    { hidden && <img src="img/icons/check.png" alt="checkmark" className="small-check" /> }
                 </div>
             </div>
             <div className="check-field field">
                 <label htmlFor="target">Shiny target?</label>
                 <div className="checkbox" onClick={ toggleTarget }>
-                    { target && <img src="img/check.png" alt="checkmark" className="small-check" /> }
+                    { target && <img src="img/icons/check.png" alt="checkmark" className="small-check" /> }
                 </div>
             </div>
             <div className="check-field field">
                 <label htmlFor="wishlist">Wishlist only?</label>
                 <div className="checkbox" onClick={ toggleWishlist }>
-                    { wishlist && <img src="img/check.png" alt="checkmark" className="small-check" /> }
+                    { wishlist && <img src="img/icons/check.png" alt="checkmark" className="small-check" /> }
                 </div>
             </div>
             <div className="nav-row">

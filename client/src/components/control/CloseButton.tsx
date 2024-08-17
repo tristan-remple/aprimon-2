@@ -13,7 +13,7 @@ export default function CloseButton() {
 
     return (
         <button id="cancel" className="small-button" title="Cancel and close" onClick={ closeWindow }>
-            <img className="symbol" src="img/x.png" alt="X to close" />
+            <img className="symbol" src="img/icons/x.png" alt="X to close" />
         </button>
     )
 }

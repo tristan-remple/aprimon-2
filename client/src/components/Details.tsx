@@ -25,9 +25,10 @@ const Details = () => {
 
     const zoomClass = final ? "shiny box" : "box"
     let strdex : string = natdex.toString().padStart(3, "0")
-    const imageSrc = form ? `/img/${ strdex }-${ form[0] }.png` : `/img/${ strdex }.png`
+    let src: string = form ? `/img/basic/${ strdex }-${ form[0] }.png` : `/img/basic/${ strdex }.png`
+    if (final) { src = form ? `/img/shiny/${ strdex }-${ form[0] }.png` : `/img/shiny/${ strdex }.png` }
     const imageAlt = form ? util.str.title(`${ form } ${ name }`) : util.str.title(name)
-    const ballSrc = `/img/${ ball }ball.png`
+    const ballSrc = `/img/icons/${ ball }ball.png`
     const ballAlt = `${ ball } ball`
     const title = form ? util.str.title(`${ ball } ${ form } ${ name }`) : util.str.title(`${ ball } ${ name }`)
 
@@ -40,7 +41,7 @@ const Details = () => {
         <div id="overlay">
             <div id="zoom" className={ zoomClass }>
                 <div className="nav-row zoom-img-row">
-                    <img className="big-pkmn" src={ imageSrc } alt={ imageAlt } />
+                    <img className="big-pkmn" src={ src } alt={ imageAlt } />
                     <img className="ball" src={ ballSrc } alt={ ballAlt } />
                 </div>
                 <h2>{ title }</h2>
@@ -101,9 +102,6 @@ const Details = () => {
                     </p>
                 </div>
                 <div id="zoom-controls" className="nav-row">
-                    {/* <button id="edit" className="small-button" title="Edit Pokemon">
-                        <img src="img/edit.png" className="symbol" alt="pencil edit" />
-                    </button> */}
                     <EditButton />
                     <CloseButton />
                 </div>

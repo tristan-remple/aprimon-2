@@ -3,18 +3,23 @@
 ## Tasks
 - ✅ Display all aprimon caught as Cards
 - Display wishlist aprimon
-- Allow sorting and filtering
+- ✅ Sorting
+- Filtering
 - Display current user stats
 - Allow user switching
 - ✅ Click on Card to view details
 - ✅ Edit aprimon details
-- Edit egg moves
+- ✅ Edit egg moves
 - View all possible aprimon
 - ✅ Add new aprimon
 - ✅ Add egg queue
 - ✅ Confirm hatches
 - ✅ Confirm shiny
-- Login, logout, register
+- ✅ Display as shiny
+- ✅ Login
+- Logout
+- Register
+- Authentication
 
 ## Accessibility
 - implement keyboard navigation

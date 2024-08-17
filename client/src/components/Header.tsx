@@ -12,9 +12,9 @@ export default function Header() {
     return (
         <header>
             <div className="header box shiny">
-                <img className="decoration" src="/img/sparkle-hover.png" />
+                <img className="decoration" src="/img/icons/sparkle-hover.png" />
                 <h1 className="user-display">{username}'s Aprimon Tracker</h1>
-                <img className="decoration" src="/img/sparkle-hover.png" />
+                <img className="decoration" src="/img/icons/sparkle-hover.png" />
             </div>
             { error && (
                 <div className="box error">

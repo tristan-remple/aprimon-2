@@ -30,20 +30,30 @@ const DetailsEdit = () => {
 
     const zoomClass = final ? "shiny box" : "box"
     let strdex : string = natdex.toString().padStart(3, "0")
-    const imageSrc = form ? `/img/${ strdex }-${ form[0] }.png` : `/img/${ strdex }.png`
+    let src: string = form ? `/img/basic/${ strdex }-${ form[0] }.png` : `/img/basic/${ strdex }.png`
+    if (final) { src = form ? `/img/shiny/${ strdex }-${ form[0] }.png` : `/img/shiny/${ strdex }.png` }
     const imageAlt = form ? util.str.title(`${ form } ${ name }`) : util.str.title(name)
-    const ballSrc = `/img/${ ball }ball.png`
+    const ballSrc = `/img/icons/${ ball }ball.png`
     const ballAlt = `${ ball } ball`
     const title = form ? util.str.title(`${ ball } ${ form } ${ name }`) : util.str.title(`${ ball } ${ name }`)
 
     const [ eggmovesIn, setEggmoves ] = useState(eggmoves)
     const toggleEggmove = (e: React.MouseEvent<HTMLSpanElement>) => {
-        const move = e.target.id
-        
+        const target = e.target as HTMLSpanElement
+        const move = target.id
+        const possibleIndex = possibleEggmoves.findIndex(em => em === move)
+        const currentIndex = eggmovesIn.findIndex(em => em === move)
+        const newEggmoves = [...eggmovesIn]
+        if (currentIndex === -1) { 
+            newEggmoves.push(possibleEggmoves[possibleIndex]) 
+        } else {
+            newEggmoves.splice(currentIndex, 1)
+        }
+        setEggmoves(newEggmoves)
     }
     const displayEggmoves = possibleEggmoves.map(move => {
         const moveClass = eggmovesIn.includes(move) ? "eggmove" : "eggmove missing"
-        return <span className={ moveClass } key={ move } id={ move } >{ util.str.title(move) }</span>
+        return <span className={ moveClass } key={ move } id={ move } onClick={ toggleEggmove } >{ util.str.title(move) }</span>
     })
 
     const [ targetIn, setTarget ] = useState(target)
@@ -102,7 +112,7 @@ const DetailsEdit = () => {
                 fiveiv: fiveIn,
                 target: targetIn,
                 wishlist: false,
-                eggmoves,
+                eggmoves: eggmovesIn,
                 trainer
             }
             console.log(patchApri)
@@ -117,7 +127,7 @@ const DetailsEdit = () => {
         <div id="overlay">
             <div id="zoom" className={ zoomClass }>
                 <div className="nav-row zoom-img-row">
-                    <img className="big-pkmn" src={ imageSrc } alt={ imageAlt } />
+                    <img className="big-pkmn" src={ src } alt={ imageAlt } />
                     <img className="ball" src={ ballSrc } alt={ ballAlt } />
                 </div>
                 <h2>{ title }</h2>
@@ -152,7 +162,7 @@ const DetailsEdit = () => {
                         <div className="check-field field">
                             <label htmlFor="target">Shiny target</label>
                             <div className="checkbox" onClick={ toggleTarget }>
-                                { targetIn && <img src="img/check.png" alt="checkmark" className="small-check" /> }
+                                { targetIn && <img src="img/icons/check.png" alt="checkmark" className="small-check" /> }
                             </div>
                         </div>
                         <div className="field">
@@ -162,7 +172,7 @@ const DetailsEdit = () => {
                         <div className="check-field field">
                             <label htmlFor="five">5+ IVs</label>
                             <div className="checkbox" id="five" onClick={ toggleFive }>
-                                { fiveIn && <img src="img/check.png" alt="checkmark" className="small-check" /> }
+                                { fiveIn && <img src="img/icons/check.png" alt="checkmark" className="small-check" /> }
                             </div>
                         </div>
                         <div className="field">
@@ -174,7 +184,7 @@ const DetailsEdit = () => {
                         <div className="check-field field">
                             <label htmlFor="hidden">Hidden ability<br />({ hidden ? util.str.title(hidden) : "N/A" })</label>
                             <div className="checkbox" onClick={ toggleHidden }>
-                                { hiddenIn && <img src="img/check.png" alt="checkmark" className="small-check" /> }
+                                { hiddenIn && <img src="img/icons/check.png" alt="checkmark" className="small-check" /> }
                             </div>
                         </div>
                     </div>

@@ -44,6 +44,10 @@ const initialState: TrainerState = {
         trades: false,
         bio: "",
         since: 0,
+        prefs: {
+            sort: [],
+            filter: Ball.select
+        },
         queue: {
             pokemon: "",
             form: null,
@@ -94,6 +98,9 @@ export const trainerSlice = createSlice({
         setOpenDetails: (state, action) => {
             state.openWindow = OpenWindow.Details
             state.openDetails = action.payload
+        },
+        setSortOrder: (state, action) => {
+            state.data.prefs.sort = action.payload
         }
     },
     extraReducers(builder) {
@@ -124,7 +131,11 @@ export const trainerSlice = createSlice({
                     bio,
                     since,
                     queue,
-                    self
+                    self, 
+                    prefs: {
+                        sort: [],
+                        filter: Ball.select
+                    }
                 }
             })
             .addCase(getTrainer.rejected, (state, action) => {
@@ -145,7 +156,7 @@ export const trainerSlice = createSlice({
                     return
                 }
 
-                const { bio, ign, name, queue, since, trades, self } = action.payload.data
+                const { bio, ign, name, queue, since, trades, self, prefs } = action.payload.data
 
                 state.status = Status.success
                 state.error = null
@@ -157,7 +168,11 @@ export const trainerSlice = createSlice({
                     bio,
                     since,
                     queue,
-                    self
+                    self,
+                    prefs: {
+                        sort: [],
+                        filter: Ball.select
+                    }
                 }
             })
             .addCase(patchTrainer.rejected, (state, action) => {
@@ -195,7 +210,8 @@ export const {
     addQueue,
     clearQueue,
     setOpenWindow,
-    setOpenDetails
+    setOpenDetails,
+    setSortOrder
 } = trainerSlice.actions
 
 export const selectUsername = (state: RootState) => state.trainer.data.name
@@ -209,5 +225,6 @@ export const selectTrainer = (state: RootState) => state.trainer.data
 export const selectDetails = (state: RootState) => state.trainer.openDetails
 export const selectSelf = (state: RootState) => state.trainer.loggedTrainer
 export const selectError = (state: RootState) => state.trainer.error
+export const selectSort = (state: RootState) => state.trainer.data.prefs.sort
 
 export default trainerSlice.reducer
