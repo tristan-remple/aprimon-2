@@ -10,7 +10,7 @@
 - ✅ Click on Card to view details
 - ✅ Edit aprimon details
 - ✅ Edit egg moves
-- View all possible aprimon
+- ✅ View all possible aprimon
 - ✅ Add new aprimon
 - ✅ Add egg queue
 - ✅ Confirm hatches

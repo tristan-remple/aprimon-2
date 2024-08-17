@@ -1,4 +1,5 @@
 // external dependencies
+import { useEffect, useState } from 'react'
 import { useAppSelector } from '../redux/hooks'
 
 // internal dependencies
@@ -33,7 +34,7 @@ export default function Collection() {
             order: (listApri: Aprimon[]) => listApri.sort((a, b) => a.ball.localeCompare(b.ball))
         },
         target: {
-            order: (listApri: Aprimon[]) => listApri.sort((a, b) => (a.target === b.target) ? 0 : a ? -1 : 1)
+            order: (listApri: Aprimon[]) => listApri.sort((a, b) => (a.target === b.target) ? 0 : a.target ? -1 : 1)
         },
         shiny: {
             order: (listApri: Aprimon[]) => listApri.sort((a, b) => {
@@ -41,20 +42,24 @@ export default function Collection() {
             })
         },
         five: {
-            order: (listApri: Aprimon[]) => listApri.sort((a, b) => (a.fiveiv === b.fiveiv) ? 0 : a ? -1 : 1)
+            order: (listApri: Aprimon[]) => listApri.sort((a, b) => (a.fiveiv === b.fiveiv) ? 0 : a.fiveiv ? -1 : 1)
         },
         ha: {
-            order: (listApri: Aprimon[]) => listApri.sort((a, b) => (a.ha === b.ha) ? 0 : a ? -1 : 1)
+            order: (listApri: Aprimon[]) => listApri.sort((a, b) => (a.ha === b.ha) ? 0 : a.ha ? -1 : 1)
         }
     }
 
-    let newCollection = [...collection]
-    currentSort.forEach(so => {
-        console.log(so)
-        newCollection = sortOptions[so].order(newCollection)
-    })
+    const [ sortedCollection, setSortedCollection ] = useState(collection)
 
-    const renderedCollection = newCollection.map(apri => {
+    useEffect(() => {
+        let newCollection = [...collection]
+        currentSort.forEach(so => {
+            newCollection = sortOptions[so].order(newCollection)
+        })
+        setSortedCollection(newCollection)
+    }, [ currentSort, collection ])
+
+    const renderedCollection = sortedCollection.map(apri => {
         const { ball, pokemon } = apri
         const { name, form } = pokemon
         let id = `${ ball }-${ name }`
@@ -67,7 +72,7 @@ export default function Collection() {
 
     return (
         <article id="card-rows">
-            {renderedCollection}
+            { renderedCollection }
         </article>
     )
 }

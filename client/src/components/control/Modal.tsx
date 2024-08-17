@@ -14,6 +14,7 @@ import Login from '../user/Login'
 import OpenWindow from '../../types/WindowEnum'
 import HatchShiny from './HatchShiny'
 import DetailsEdit from '../DetailsEdit'
+import Browse from '../Browse'
 
 export default function Modal() {
 
@@ -42,6 +43,9 @@ export default function Modal() {
             break
         case OpenWindow.DetailsEdit:
             display = <DetailsEdit />
+            break
+        case OpenWindow.Browse:
+            display = <Browse />
             break
     }
 
