@@ -11,7 +11,7 @@
 - ✅ Edit aprimon details
 - ✅ Edit egg moves
 - ✅ View all possible aprimon
-- Add aprimon from browse menu
+- ✅ Add aprimon from browse menu
 - ✅ Add new aprimon
 - ✅ Add egg queue
 - ✅ Confirm hatches

@@ -17,6 +17,7 @@ function catchError(err, res) {
     } else if (err.name === "ValidationError") {
         res.status(422).send(err.message)
     } else {
+        console.log(err)
         res.status(500).send("The server has encountered an error. Please come back later.")
     }
 }

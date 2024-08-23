@@ -4,7 +4,7 @@ import { useAppSelector, useAppDispatch } from '../../redux/hooks'
 import util from '@aqualunae/util'
 
 // internal dependencies
-import { selectUsername } from '../../redux/slices/trainerSlice'
+import { selectBrowseTarget, selectUsername } from '../../redux/slices/trainerSlice'
 import { selectPossible } from '../../redux/slices/possibleSlice'
 import { postAprimon } from '../../redux/slices/aprimonSlice'
 
@@ -22,6 +22,7 @@ const AddApri = () => {
 
     const dispatch = useAppDispatch()
     const trainer = useAppSelector(selectUsername)
+    const browseTarget = useAppSelector(selectBrowseTarget)
     const apiStatusApri = useAppSelector(state => state.aprimon.status)
 
     const possible = useAppSelector(selectPossible)
@@ -29,7 +30,7 @@ const AddApri = () => {
         return pokemon.form ? `${pokemon.form} ${pokemon.name}` : pokemon.name
     })
 
-    const [ pkmn, setPkmn ] = useState("")
+    const [ pkmn, setPkmn ] = useState(browseTarget)
     const pkmnChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const input = e.target.value
         setPkmn(input)

@@ -2,12 +2,12 @@
 import { useAppSelector } from '../redux/hooks'
 
 // internal dependencies
-import { selectError, selectUsername } from '../redux/slices/trainerSlice'
+import { selectUsername } from '../redux/slices/trainerSlice'
+import Error from './Error'
 
 export default function Header() {
 
     const username = useAppSelector(selectUsername)
-    const error = useAppSelector(selectError)
 
     return (
         <header>
@@ -16,11 +16,7 @@ export default function Header() {
                 <h1 className="user-display">{username}'s Aprimon Tracker</h1>
                 <img className="decoration" src="/img/icons/sparkle-hover.png" />
             </div>
-            { error && (
-                <div className="box error">
-                    <p>{ error }</p>
-                </div>
-            )}
+            <Error />
         </header>       
     )
 }

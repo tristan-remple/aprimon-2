@@ -27,6 +27,7 @@ interface TrainerState {
     error: string | null,
     openWindow: OpenWindow | null,
     openDetails: string | null,
+    browseTarget: string,
     loggedTrainer: string | null,
     data: Trainer
 }
@@ -36,6 +37,7 @@ const initialState: TrainerState = {
     error: null,
     openWindow: null,
     openDetails: null,
+    browseTarget: "",
     loggedTrainer: null,
     data: {
         name: "",
@@ -98,6 +100,9 @@ export const trainerSlice = createSlice({
         setOpenDetails: (state, action) => {
             state.openWindow = OpenWindow.Details
             state.openDetails = action.payload
+        },
+        setBrowseTarget: (state, action) => {
+            state.browseTarget = action.payload
         },
         setSortOrder: (state, action) => {
             state.data.prefs.sort = action.payload
@@ -211,6 +216,7 @@ export const {
     clearQueue,
     setOpenWindow,
     setOpenDetails,
+    setBrowseTarget,
     setSortOrder
 } = trainerSlice.actions
 
@@ -223,8 +229,9 @@ export const selectOpenWindow = (state: RootState) => state.trainer.openWindow
 export const selectQueue = (state: RootState) => state.trainer.data.queue
 export const selectTrainer = (state: RootState) => state.trainer.data
 export const selectDetails = (state: RootState) => state.trainer.openDetails
+export const selectBrowseTarget = (state: RootState) => state.trainer.browseTarget
 export const selectSelf = (state: RootState) => state.trainer.loggedTrainer
-export const selectError = (state: RootState) => state.trainer.error
+export const selectTrainerError = (state: RootState) => state.trainer.error
 export const selectSort = (state: RootState) => state.trainer.data.prefs.sort
 
 export default trainerSlice.reducer

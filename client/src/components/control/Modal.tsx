@@ -13,10 +13,10 @@ import HatchShiny from './HatchShiny'
 import DetailsEdit from '../DetailsEdit'
 import Browse from '../Browse'
 import Wishlist from './Wishlist'
+import Remove from './Remove'
 
 // types
 import OpenWindow from '../../types/WindowEnum'
-import Remove from './Remove'
 
 export default function Modal() {
 

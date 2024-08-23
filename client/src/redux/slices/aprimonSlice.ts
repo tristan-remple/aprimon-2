@@ -15,7 +15,7 @@ const url: string = `${import.meta.env.VITE_API_URL}/aprimon`
 const axiosOptions = {
     withCredentials: true,
     validateStatus: (status: number) => {
-        return true;
+        return status < 400
     }
 }
 
@@ -98,7 +98,6 @@ export const aprimonSlice = createSlice({
             })
             .addCase(patchAprimon.fulfilled, (state, action) => {
                 const update: Aprimon = action.payload.data
-                console.log(update)
                 state.data = state.data.map(apri => {
                     if (update.pokemon.name === apri.pokemon.name &&
                         update.pokemon.form === apri.pokemon.form &&
@@ -120,7 +119,6 @@ export const aprimonSlice = createSlice({
             })
             .addCase(removeAprimon.fulfilled, (state, action) => {
                 const update: Aprimon = action.payload.data
-                console.log(update)
                 const index = state.data.findIndex(apri => {
                     return update.pokemon.name === apri.pokemon.name &&
                     update.pokemon.form === apri.pokemon.form &&
@@ -189,5 +187,6 @@ export const selectApriDetails = (state: RootState) => state.aprimon.data.filter
     (apri.pokemon.form === selection[2] || (apri.pokemon.form === null && selection[2] === undefined)) &&
     apri.ball === selection[0]
 })[0]
+export const selectApriError = (state: RootState) => state.aprimon.error
 
 export default aprimonSlice.reducer
