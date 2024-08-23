@@ -1,6 +1,7 @@
 const mongoose = require("mongoose");
 
 const pokemonSchema = mongoose.Schema({
+    "_id": mongoose.Schema.Types.ObjectId,
     "name": String,
     "natdex": Number,
     "form": String,

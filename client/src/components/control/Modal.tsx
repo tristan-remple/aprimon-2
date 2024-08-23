@@ -9,12 +9,14 @@ import AddEggs from "./AddEggs"
 import HatchEggs from "./HatchEggs"
 import AddApri from './AddApri'
 import Login from '../user/Login'
-
-// types
-import OpenWindow from '../../types/WindowEnum'
 import HatchShiny from './HatchShiny'
 import DetailsEdit from '../DetailsEdit'
 import Browse from '../Browse'
+import Wishlist from './Wishlist'
+
+// types
+import OpenWindow from '../../types/WindowEnum'
+import Remove from './Remove'
 
 export default function Modal() {
 
@@ -46,6 +48,12 @@ export default function Modal() {
             break
         case OpenWindow.Browse:
             display = <Browse />
+            break
+        case OpenWindow.Wishlist:
+            display = <Wishlist />
+            break
+        case OpenWindow.Remove:
+            display = <Remove />
             break
     }
 

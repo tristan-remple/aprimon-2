@@ -1,3 +1,5 @@
+import mongoose from "mongoose";
+
 export default interface Possible {
     name: string,
     natdex: number,

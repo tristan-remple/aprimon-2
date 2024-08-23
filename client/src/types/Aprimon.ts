@@ -1,3 +1,4 @@
+import mongoose from "mongoose"
 import Ball from "./BallEnum"
 import Nature from "./NatureEnum"
 

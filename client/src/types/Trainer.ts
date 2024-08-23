@@ -1,6 +1,7 @@
 import Queue from "./Queue"
 import Sort from "./SortEnum"
 import Ball from "./BallEnum"
+import mongoose from "mongoose"
 
 export default interface Trainer {
     name: string,

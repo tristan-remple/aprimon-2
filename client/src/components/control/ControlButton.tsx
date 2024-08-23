@@ -79,6 +79,11 @@ export default function ControlButton({ label }: { label: OpenWindow }) {
             title: "Edit Aprimon Details",
             img: "edit",
             alt: "edit pencil"
+        },
+        Remove: {
+            title: "Remove Aprimon",
+            img: "x",
+            alt: "X to remove"
         }
     }
 

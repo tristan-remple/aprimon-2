@@ -58,6 +58,11 @@ export const patchAprimon = createAsyncThunk("aprimon/patch", async (apriData: A
     return response
 })
 
+export const removeAprimon = createAsyncThunk("aprimon/remove", async (apriData: Aprimon) => {
+    const response: AxiosResponse = await axios.put(url, apriData, axiosOptions)
+    return response
+})
+
 export const aprimonSlice = createSlice({
     name: "aprimon",
     initialState,
@@ -107,6 +112,25 @@ export const aprimonSlice = createSlice({
                 state.error = ""
             })
             .addCase(patchAprimon.rejected, (state, action) => {
+                state.status = Status.failed
+                state.error = action.error.message ? action.error.message : "Bad request"
+            })
+            .addCase(removeAprimon.pending, (state, action) => {
+                state.status = Status.loading
+            })
+            .addCase(removeAprimon.fulfilled, (state, action) => {
+                const update: Aprimon = action.payload.data
+                console.log(update)
+                const index = state.data.findIndex(apri => {
+                    return update.pokemon.name === apri.pokemon.name &&
+                    update.pokemon.form === apri.pokemon.form &&
+                    update.ball === apri.ball
+                })
+                state.data.splice(index, 1)
+                state.status = Status.success
+                state.error = ""
+            })
+            .addCase(removeAprimon.rejected, (state, action) => {
                 state.status = Status.failed
                 state.error = action.error.message ? action.error.message : "Bad request"
             })

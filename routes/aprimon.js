@@ -124,19 +124,19 @@ router.patch('/', verifyJWT, (req, res) => {
 
 })
 
-router.delete('/:id', verifyJWT, (req, res) => {
+router.put('/', verifyJWT, (req, res) => {
 
-    Aprimon.findOneById(req.params.id).exec().then(pkmn => {
+    Aprimon.findOne({ pokemon: req.body.pokemon, ball: req.body.ball, trainer: req.body.trainer }).exec().then(pkmn => {
         if (!pkmn) {
             res.status(404).send()
         } else if (pkmn.trainer !== req.body.trainer) {
             res.status(401).send()
         } else {
-            Aprimon.findByIdAndDelete(req.params.id).exec().then(response => {
+            Aprimon.findByIdAndDelete(pkmn._id).exec().then(response => {
                 if (!response) {
                     res.status(404).send()
                 } else {
-                    res.status(204).send()
+                    res.status(200).send(req.body)
                 }
             }).catch(err => {
                 catchError(err, res)

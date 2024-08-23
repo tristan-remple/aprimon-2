@@ -1,6 +1,7 @@
 const mongoose = require("mongoose");
 
 const trainerSchema = mongoose.Schema({
+    "_id": mongoose.Schema.Types.ObjectId,
     "name": String,
     "since": Number,
     "queue": {

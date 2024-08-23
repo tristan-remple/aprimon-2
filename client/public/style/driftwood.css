@@ -20,6 +20,7 @@ main {
     background-image: url("../img/wood-bg.png");
     background-repeat: repeat-y;
     background-attachment: fixed;
+    background-size: cover;
     width: 1200px;
     max-width: 100vw;
     min-height: 100%;
@@ -146,6 +147,14 @@ h1 {
     background-color: #CBDEBC99;
     border-radius: 10px;
     margin: 5px;
+}
+
+.wish-card {
+    background-color: #CBDEBC99;
+    border-radius: 10px;
+    margin: 5px;
+    text-align: center;
+    position: relative;
 }
 
 #card-rows {
@@ -581,6 +590,8 @@ form.column {
 
 .wishlist > .pokemon {
     filter: sepia(80%);
+    position: relative;
+    left: 15px;
 }
 
 .wishlist > .ball {
@@ -589,6 +600,21 @@ form.column {
 
 .wishlist > h3 {
     color: #4c524d;
+}
+
+.wish-card:hover, .wish-card:focus {
+    background-color: #6A6F6B66;
+}
+
+.wish-card:hover > .pokemon, .wish-card:focus > .pokemon,
+.wish-card:hover > .ball, .wish-card:focus > .ball,
+.wish-card.active > .pokemon, .wish-card.active > .ball {
+    filter: none;
+}
+
+.remove-button {
+    width: auto;
+    padding: 5px;
 }
 
 .hidden {

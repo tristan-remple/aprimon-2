@@ -2,7 +2,7 @@
 
 ## Tasks
 - ✅ Display all aprimon caught as Cards
-- Display wishlist aprimon
+- ✅ Display wishlist aprimon
 - ✅ Sorting
 - Filtering
 - Display current user stats
@@ -11,11 +11,13 @@
 - ✅ Edit aprimon details
 - ✅ Edit egg moves
 - ✅ View all possible aprimon
+- Add aprimon from browse menu
 - ✅ Add new aprimon
 - ✅ Add egg queue
 - ✅ Confirm hatches
 - ✅ Confirm shiny
 - ✅ Display as shiny
+- ✅ Remove aprimon
 - ✅ Login
 - Logout
 - Register

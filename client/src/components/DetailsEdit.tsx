@@ -4,7 +4,7 @@ import { useAppDispatch, useAppSelector } from "../redux/hooks"
 import util from '@aqualunae/util'
 
 // internal dependencies
-import { selectOpenWindow, selectUsername } from "../redux/slices/trainerSlice"
+import { selectOpenWindow, selectUsername, setOpenWindow } from "../redux/slices/trainerSlice"
 import { patchAprimon, selectApriDetails } from "../redux/slices/aprimonSlice"
 import { selectPokeDetails } from "../redux/slices/possibleSlice"
 
@@ -96,10 +96,7 @@ const DetailsEdit = () => {
     }
 
     const saveEdits = () => {
-        console.log(trainer)
-        console.log(trainerViewing)
         if (trainer === trainerViewing) {
-            console.log(util)
             const readjustFinal = finalIn !== "yyyy-mm-dd" && finalIn !== "" ? util.date.short(finalIn) : null
             const patchApri = {
                 pokemon,
@@ -115,12 +112,14 @@ const DetailsEdit = () => {
                 eggmoves: eggmovesIn,
                 trainer
             }
-            console.log(patchApri)
-            console.log(apiStatusApri)
             if (apiStatusApri === 'idle' || apiStatusApri === 'success') {
                 dispatch(patchAprimon(patchApri))
             }
         }
+    }
+
+    const remove = () => {
+        dispatch(setOpenWindow(OpenWindow.Remove))
     }
     
     return ( 
@@ -194,6 +193,11 @@ const DetailsEdit = () => {
                     <p id="egg-wrapper" className="move-edit">
                         { displayEggmoves }
                     </p>
+                </div>
+                <div className="nav-row">
+                    <button className="small-button remove-button" onClick={ remove }>
+                        Remove from Collection
+                    </button>
                 </div>
                 <div id="zoom-controls" className="nav-row">
                     <ConfirmButton confirm={ saveEdits } />
