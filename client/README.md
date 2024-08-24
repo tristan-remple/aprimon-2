@@ -5,8 +5,8 @@
 - ✅ Display wishlist aprimon
 - ✅ Sorting
 - Filtering
-- Display current user stats
-- Allow user switching
+- ✅ Display current user stats
+- ✅ Allow user switching
 - ✅ Click on Card to view details
 - ✅ Edit aprimon details
 - ✅ Edit egg moves
@@ -22,6 +22,8 @@
 - Logout
 - Register
 - Authentication
+- Check logged in user on refresh
+- Sidebar different between users own page and other users pages
 
 ## Accessibility
 - implement keyboard navigation

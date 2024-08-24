@@ -1,3 +1,7 @@
+* {
+    box-sizing: border-box;
+}
+
 body {
     background-color: #383838;
     background-image: radial-gradient(#4c524d, #383838);
@@ -12,7 +16,11 @@ body {
 }
 
 :focus {
-    outline: 3px double #5A8E83;
+    outline: 3px solid #5A8E83;
+}
+
+a {
+    text-decoration: none;
 }
 
 main {
@@ -85,7 +93,8 @@ h1 {
     color: #383838;
 }
 
-.small-button:hover, .small-button:focus, .card:hover {
+.small-button:hover, .small-button:focus,
+.card:hover, .card:focus {
     background-color: #383838;
     background-image: linear-gradient(#383838, #3F3029);
     color: #CBDEBC;
@@ -169,7 +178,7 @@ h1 {
 }
 
 .card {
-    width: 120px;
+    width: 130px;
     min-height: 165px;
     text-align: center;
     margin: 5px;

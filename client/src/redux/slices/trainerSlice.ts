@@ -91,9 +91,6 @@ export const trainerSlice = createSlice({
             state.data.since += queueNumber
             state.data.queue.number = 0
         },
-        saveProgress: (state) => {
-            // api push
-        },
         setOpenWindow: (state, action) => {
             state.openWindow = action.payload
         },
@@ -106,6 +103,9 @@ export const trainerSlice = createSlice({
         },
         setSortOrder: (state, action) => {
             state.data.prefs.sort = action.payload
+        },
+        clearTrainerName: (state) => {
+            state.data.name = ""
         }
     },
     extraReducers(builder) {
@@ -217,7 +217,8 @@ export const {
     setOpenWindow,
     setOpenDetails,
     setBrowseTarget,
-    setSortOrder
+    setSortOrder,
+    clearTrainerName
 } = trainerSlice.actions
 
 export const selectUsername = (state: RootState) => state.trainer.data.name
@@ -230,7 +231,7 @@ export const selectQueue = (state: RootState) => state.trainer.data.queue
 export const selectTrainer = (state: RootState) => state.trainer.data
 export const selectDetails = (state: RootState) => state.trainer.openDetails
 export const selectBrowseTarget = (state: RootState) => state.trainer.browseTarget
-export const selectSelf = (state: RootState) => state.trainer.loggedTrainer
+export const selectLoggedTrainer = (state: RootState) => state.trainer.loggedTrainer
 export const selectTrainerError = (state: RootState) => state.trainer.error
 export const selectSort = (state: RootState) => state.trainer.data.prefs.sort
 

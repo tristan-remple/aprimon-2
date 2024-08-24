@@ -19,7 +19,7 @@ const softCheck = (req, res, next) => {
     if (req.cookies.jwt) { 
         jwt.verify(req.cookies.jwt, process.env.JWT_SECRET, function(err, decoded) {
             if (decoded) {
-                req.body.self = true
+                req.trainer = decoded.trainer
                 next()
             } else {
                 req.body.self = false

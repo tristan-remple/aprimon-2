@@ -4,8 +4,11 @@ import CloseButton from "../control/CloseButton"
 import WishTile from "./WishTile"
 import { selectCollection } from "../../redux/slices/aprimonSlice"
 import Aprimon from "../../types/Aprimon"
+import { selectUsername } from "../../redux/slices/trainerSlice"
 
 const Wishlist = () => {
+
+    const username = useAppSelector(selectUsername)
 
     const aprimon: Aprimon[] = useAppSelector(selectCollection)
     const wishlist = aprimon.filter(apri => apri.wishlist)
@@ -34,7 +37,7 @@ const Wishlist = () => {
 
     return (
         <div id="browse-display" className="box">
-            <h2>Browse Breedable Aprimon by Games Available</h2>
+            <h2>{ username }'s Wishlist</h2>
             <div className="nav-row wide-row">
                 { buttons }
             </div>

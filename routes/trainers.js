@@ -49,12 +49,22 @@ router.get('/', function(req, res) {
 
 })
 
+router.get('/check', softCheck, function(req, res) {
+  if (req.trainer) {
+    res.send({
+      trainer: req.trainer
+    })
+  } else {
+    res.status(404).send()
+  }
+})
+
 router.get('/:user', softCheck, function(req, res) {
 
   Trainer.findOne({name: req.params.user}).lean().exec().then(trnr => {
     if (trnr) {
       const data = detailless({...trnr})
-      data.self = req.body.self
+      data.self = req.trainer === trnr.name
       res.send(data)
     } else {
       res.status(404).send()

@@ -8,6 +8,9 @@ import Collection from './components/Collection'
 import Sidebar from './components/Sidebar'
 import Modal from './components/control/Modal'
 import Details from './components/Details'
+import Directory from './components/user/Directory';
+import { Route, Routes } from 'react-router-dom';
+import Home from './components/user/Home';
 
 export default function App() {
 
@@ -19,28 +22,16 @@ export default function App() {
       dispatch(getPossible())
     }
   }, [apiStatusPossible, dispatch])
-  
-  const apiStatusApri = useAppSelector(state => state.trainer.status)
-  useEffect(() => {
-    if (apiStatusApri === 'idle') {
-      dispatch(getAprimon(import.meta.env.VITE_DEFAULT_USER))
-    }
-  }, [apiStatusApri, dispatch])
-  
-  const apiStatusTrainer = useAppSelector(state => state.trainer.status)
-  useEffect(() => {
-    if (apiStatusTrainer === 'idle') {
-      dispatch(getTrainer(import.meta.env.VITE_DEFAULT_USER))
-    }
-  }, [apiStatusTrainer, dispatch])
 
   return (
     <>
       <Modal />
       <Details />
       <Header />
-      <Collection />
-      <Sidebar />
+      <Routes>
+        <Route path="/" element={ <Directory /> } />
+        <Route path="/:trnr" element={ <Home /> } />
+      </Routes>
     </>
   )
 }

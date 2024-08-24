@@ -8,20 +8,20 @@ import ControlButton from "./control/ControlButton"
 // types
 import OpenWindow from "../types/WindowEnum"
 import { useAppSelector } from "../redux/hooks"
-import { selectSelf } from "../redux/slices/trainerSlice"
+import { selectLoggedTrainer } from "../redux/slices/trainerSlice"
+import NavButton from "./control/NavButton"
 
 export default function Control() {
 
     const [ open, setOpen ] = useState(false)
-    const header = <SidebarHeader title="Control" open={ open } setOpen={ setOpen } />
 
-    const self = useAppSelector(selectSelf)
+    const self = useAppSelector(selectLoggedTrainer)
     const userButton = self ? <ControlButton label={ OpenWindow.Logout } /> : <ControlButton label={ OpenWindow.Login } />
 
-    if (open) {
-        return (
-            <>
-                { header }
+    return (
+        <>
+            <SidebarHeader title="Control" open={ open } setOpen={ setOpen } />
+            { open && 
                 <div className="nav-row">
                     <ControlButton label={ OpenWindow.Browse } />
                     <ControlButton label={ OpenWindow.Wishlist } />
@@ -29,12 +29,10 @@ export default function Control() {
                     <ControlButton label={ OpenWindow.AddEggs } />
                     <ControlButton label={ OpenWindow.HatchEggs } />
                     <ControlButton label={ OpenWindow.HatchShiny } />
-                    <ControlButton label={ OpenWindow.AllUsers } />
+                    <NavButton href="/" title="See All Trainers" label="group" icon={ true } />
                     { userButton }
-                </div>
-            </>
-        )
-    } else {
-        return header
-    }
+                </div> 
+            }
+        </>
+    )
 }

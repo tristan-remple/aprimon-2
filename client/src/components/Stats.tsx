@@ -4,7 +4,7 @@ import { useAppSelector } from '../redux/hooks'
 import util from '@aqualunae/util'
 
 // internal dependencies
-import { selectSelf, selectStats } from '../redux/slices/trainerSlice'
+import { selectLoggedTrainer, selectStats } from '../redux/slices/trainerSlice'
 import { selectMetadata } from "../redux/slices/aprimonSlice"
 
 // components
@@ -14,7 +14,7 @@ export default function Stats() {
 
     const stats = useAppSelector(selectStats)
     const metadata = useAppSelector(selectMetadata)
-    const self = useAppSelector(selectSelf)
+    const self = useAppSelector(selectLoggedTrainer)
     const { name, ign, bio, since, queue } = stats
     const { count, shinies, ratio, eggs } = metadata
     const [ open, setOpen ] = useState(true)
@@ -44,7 +44,7 @@ export default function Stats() {
                             <td className="label">Eggs Hatched</td>
                         </tr>
                         <tr>
-                            <td className="num">1:{ ratio }</td>
+                            <td className="num">{ !Number.isNaN(ratio) ? `1:${ ratio }` : "0" }</td>
                             <td className="label">Shiny Ratio</td>
                         </tr>
                         <tr>
