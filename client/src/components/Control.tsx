@@ -8,15 +8,16 @@ import ControlButton from "./control/ControlButton"
 // types
 import OpenWindow from "../types/WindowEnum"
 import { useAppSelector } from "../redux/hooks"
-import { selectLoggedTrainer } from "../redux/slices/trainerSlice"
+import { selectLoggedTrainer, selectSelf } from "../redux/slices/trainerSlice"
 import NavButton from "./control/NavButton"
 
 export default function Control() {
 
     const [ open, setOpen ] = useState(false)
 
-    const self = useAppSelector(selectLoggedTrainer)
-    const userButton = self ? <ControlButton label={ OpenWindow.Logout } /> : <ControlButton label={ OpenWindow.Login } />
+    const self = useAppSelector(selectSelf)
+    const loggedTrainer = useAppSelector(selectLoggedTrainer)
+    const userButton = loggedTrainer ? <ControlButton label={ OpenWindow.Logout } /> : <ControlButton label={ OpenWindow.Login } />
 
     return (
         <>
@@ -24,11 +25,13 @@ export default function Control() {
             { open && 
                 <div className="nav-row">
                     <ControlButton label={ OpenWindow.Browse } />
-                    <ControlButton label={ OpenWindow.Wishlist } />
-                    <ControlButton label={ OpenWindow.AddApri } />
-                    <ControlButton label={ OpenWindow.AddEggs } />
-                    <ControlButton label={ OpenWindow.HatchEggs } />
-                    <ControlButton label={ OpenWindow.HatchShiny } />
+                    { self && <>
+                        <ControlButton label={ OpenWindow.Wishlist } />
+                        <ControlButton label={ OpenWindow.AddApri } />
+                        <ControlButton label={ OpenWindow.AddEggs } />
+                        <ControlButton label={ OpenWindow.HatchEggs } />
+                        <ControlButton label={ OpenWindow.HatchShiny } />
+                    </> }
                     <NavButton href="/" title="See All Trainers" label="group" icon={ true } />
                     { userButton }
                 </div> 

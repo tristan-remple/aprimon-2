@@ -11,11 +11,11 @@ const Home = () => {
     const dispatch = useAppDispatch()
     const { trnr } = useParams()
 
-    const trainer = trnr ? trnr : import.meta.env.VITE_DEFAULT_USER
-
-    dispatch(getAprimon(trainer))
-    dispatch(getTrainer(trainer))
-
+    if (trnr) {
+        dispatch(getAprimon(trnr))
+        dispatch(getTrainer(trnr))
+    }
+    
     return (
         <>
             <Collection />

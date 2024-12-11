@@ -36,8 +36,10 @@ export default function Card({ aprimon }: { aprimon: Aprimon }) {
 
     return (
         <div className={ cardClass } id={ id } onClick={ openDetails } >
-            <img className="pokemon" src={src} alt={ name } />
-            <img className="ball" src={`/img/icons/${ ball }ball.png`} alt={`${ ball } ball`} />
+            <div className="aprimon">
+                <img className="pokemon" src={ src } alt={ name } />
+                <img className="ball" src={`/img/icons/${ ball }ball.png`} alt={`${ ball } ball`} />
+            </div>
             <h3>{title}</h3>
             <div className="small-row">
                 <p className={ fiveBadge } title="5+ IVs">5+</p>

@@ -41,10 +41,14 @@ const WishTile = ({ apri, shiny }: { apri: Aprimon, shiny: boolean }) => {
     const active = open ? " active" : ""
     let strdex : string = apri.pokemon.natdex.toString().padStart(3, "0")
     let suffix = apri.pokemon.form ? "-" + apri.pokemon.form[0] : ""
+    const src = `img/${ shiny ? "shiny" : "basic" }/${ strdex }${ suffix }.png`
+
     return (
         <div id={ `${ apri.pokemon.name }${ apri.pokemon.form && '-' + apri.pokemon.form }-${ apri.ball }` } className={ `wish-card wishlist${ active }` } onClick={ toggle } >
-            <img className="pokemon" src={ `img/${ shiny ? "shiny" : "basic" }/${ strdex }${ suffix }.png` } alt={ util.str.title(apri.pokemon.name) } />
-            <img className="ball" src={`/img/icons/${ apri.ball }ball.png`} alt={`${ apri.ball } ball`} />
+            <div className="aprimon">
+                <img className="pokemon" src={ src } alt={ apri.pokemon.name } />
+                <img className="ball" src={`/img/icons/${ apri.ball }ball.png`} alt={`${ apri.ball } ball`} />
+            </div>
             { open && <div className="nav-row">{ buttons }</div> }
         </div>
     )

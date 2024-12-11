@@ -178,25 +178,28 @@ h1 {
 }
 
 .card {
+    position: relative;
     width: 130px;
     min-height: 165px;
     text-align: center;
     margin: 5px;
 }
 
+.aprimon {
+    min-width: 100px;
+    max-width: 120px;
+    position: relative;
+}
+
 .pokemon {
     width: 80px;
 }
 
-.card > .pokemon {
-    position: relative;
-    left: 15px;
-}
-
 .ball {
     height: 30px;
-    position: relative;
-    left: -10px;
+    position: absolute;
+    bottom: 0px;
+    right: 10px;
 }
 
 h3 {
@@ -597,10 +600,8 @@ form.column {
     left: 35px;
 }
 
-.wishlist > .pokemon {
+.wishlist .pokemon {
     filter: sepia(80%);
-    position: relative;
-    left: 15px;
 }
 
 .wishlist > .ball {
@@ -639,7 +640,7 @@ form.column {
         "tiles"
         "footer";
         grid-template-columns: 100%;
-        grid-template-rows: 140px auto 1fr 100px;
+        grid-template-rows: auto auto 1fr 100px;
     }
 
     #card-rows {

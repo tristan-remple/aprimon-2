@@ -139,7 +139,13 @@ router.post('/register', function(req, res) {
 
 })
 
-router.post('/signin', (req, res) => {
+const cookieOptions = {
+  secure: true,
+  httpOnly: true,
+  path: '/'
+}
+
+router.post('/login', (req, res) => {
 
   Trainer.findOne({ email: req.body.email }).exec().then(findres => {
     if (!findres) {
@@ -149,11 +155,6 @@ router.post('/signin', (req, res) => {
       bcrypt.compare(req.body.password, findres.password, function(err, result) {
         if (result) {
           const token = jwt.sign({ trainer: findres.name }, process.env.JWT_SECRET)
-          const cookieOptions = {
-            secure: true,
-            httpOnly: true,
-            path: '/'
-          }
             
           res.cookie("jwt", token, cookieOptions)
           res.status(200).send({
@@ -172,8 +173,8 @@ router.post('/signin', (req, res) => {
   
 });
 
-router.post('/signout', (req, res) => {
-  res.clearCookie('jwt')
+router.post('/logout', (req, res) => {
+  res.clearCookie('jwt', cookieOptions)
   res.status(204).send()
 });
 

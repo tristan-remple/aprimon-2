@@ -126,8 +126,10 @@ const DetailsEdit = () => {
         <div id="overlay">
             <div id="zoom" className={ zoomClass }>
                 <div className="nav-row zoom-img-row">
-                    <img className="big-pkmn" src={ src } alt={ imageAlt } />
-                    <img className="ball" src={ ballSrc } alt={ ballAlt } />
+                    <div className="aprimon">
+                        <img className="big-pkmn" src={ src } alt={ imageAlt } />
+                        <img className="ball" src={`/img/icons/${ ball }ball.png`} alt={`${ ballAlt } ball`} />
+                    </div>
                 </div>
                 <h2>{ title }</h2>
                 <div className="nav-row">

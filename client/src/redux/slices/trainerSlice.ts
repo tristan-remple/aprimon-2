@@ -60,12 +60,12 @@ const initialState: TrainerState = {
 }
 
 export const getTrainer = createAsyncThunk("trainer/get", async (username: string) => {
-    const response: AxiosResponse = await axios.get(`${url}/${username}`, axiosOptions)
+    const response: AxiosResponse = await axios.get(`${ url }/${ username }`, axiosOptions)
     return response
 })
 
 export const patchTrainer = createAsyncThunk("trainer/patch", async (trainerData: Trainer) => {
-    const response: AxiosResponse = await axios.patch(`${url}/${trainerData.name}`, trainerData, axiosOptions)
+    const response: AxiosResponse = await axios.patch(`${ url }/${ trainerData.name }`, trainerData, axiosOptions)
     return response
 })
 
@@ -75,7 +75,12 @@ interface login {
 }
 
 export const loginTrainer = createAsyncThunk("trainer/login", async (loginDetails: login) => {
-    const response: AxiosResponse = await axios.post(`${url}/signin`, loginDetails, axiosOptions)
+    const response: AxiosResponse = await axios.post(`${ url }/login`, loginDetails, axiosOptions)
+    return response
+})
+
+export const logoutTrainer = createAsyncThunk("trainer/logout", async () => {
+    const response: AxiosResponse = await axios.post(`${ url }/logout`, null, axiosOptions)
     return response
 })
 
@@ -106,6 +111,9 @@ export const trainerSlice = createSlice({
         },
         clearTrainerName: (state) => {
             state.data.name = ""
+        },
+        clearTrainerError: (state) => {
+            state.error = null
         }
     },
     extraReducers(builder) {
@@ -128,6 +136,8 @@ export const trainerSlice = createSlice({
 
                 state.status = Status.success
                 state.error = null
+
+                if (self) { state.loggedTrainer = name }
 
                 state.data = {
                     name,
@@ -200,11 +210,26 @@ export const trainerSlice = createSlice({
                 }
 
                 state.loggedTrainer = action.payload.data.loggedTrainer
+                state.data.self = action.payload.data.loggedTrainer === state.data.name
 
                 state.status = Status.success
                 state.error = null
             })
             .addCase(loginTrainer.rejected, (state, action) => {
+                state.status = Status.failed
+                state.error = action.error.message ? action.error.message : "Bad request"
+            })
+            .addCase(logoutTrainer.pending, (state, action) => {
+                state.status = Status.loading
+            })
+            .addCase(logoutTrainer.fulfilled, (state, action) => {
+                state.loggedTrainer = null
+                state.data.self = false
+
+                state.status = Status.success
+                state.error = null
+            })
+            .addCase(logoutTrainer.rejected, (state, action) => {
                 state.status = Status.failed
                 state.error = action.error.message ? action.error.message : "Bad request"
             })
@@ -218,7 +243,8 @@ export const {
     setOpenDetails,
     setBrowseTarget,
     setSortOrder,
-    clearTrainerName
+    clearTrainerName,
+    clearTrainerError
 } = trainerSlice.actions
 
 export const selectUsername = (state: RootState) => state.trainer.data.name
@@ -234,5 +260,6 @@ export const selectBrowseTarget = (state: RootState) => state.trainer.browseTarg
 export const selectLoggedTrainer = (state: RootState) => state.trainer.loggedTrainer
 export const selectTrainerError = (state: RootState) => state.trainer.error
 export const selectSort = (state: RootState) => state.trainer.data.prefs.sort
+export const selectSelf = (state: RootState) => state.trainer.data.self
 
 export default trainerSlice.reducer

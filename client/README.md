@@ -5,6 +5,7 @@
 - ✅ Display wishlist aprimon
 - ✅ Sorting
 - Filtering
+- Searching
 - ✅ Display current user stats
 - ✅ Allow user switching
 - ✅ Click on Card to view details
@@ -19,11 +20,11 @@
 - ✅ Display as shiny
 - ✅ Remove aprimon
 - ✅ Login
-- Logout
+- ✅ Logout
 - Register
-- Authentication
-- Check logged in user on refresh
-- Sidebar different between users own page and other users pages
+- ✅ Authentication
+- ✅ Check logged in user on refresh
+- ✅ Sidebar different between users own page and other users pages
 
 ## Accessibility
 - implement keyboard navigation

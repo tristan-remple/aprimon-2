@@ -19,13 +19,13 @@ const axiosOptions = {
 
 interface PossibleState {
     status: Status,
-    error: string,
+    error: string | null,
     data: Possible[]
 }
 
 const initialState: PossibleState = {
     status: Status.idle,
-    error: "",
+    error: null,
     data: []
 }
 
@@ -38,7 +38,9 @@ export const possibleSlice = createSlice({
     name: "possible",
     initialState,
     reducers: {
-        
+        clearPossibleError: (state) => {
+            state.error = null
+        }
     },
     extraReducers(builder) {
         builder
@@ -58,7 +60,7 @@ export const possibleSlice = createSlice({
 })
 
 export const {
-    
+    clearPossibleError
 } = possibleSlice.actions
 
 export const selectPossible = (state: RootState) => state.possible.data
@@ -67,5 +69,6 @@ export const selectPokeDetails = (state: RootState) => state.possible.data.filte
     if (!selection) { return false }
     return pkmn.name === selection[1] && (pkmn.form === selection[2] || (pkmn.form === null && selection[2] === undefined))
 })[0]
+export const selectPossibleError = (state: RootState) => state.trainer.error
 
 export default possibleSlice.reducer

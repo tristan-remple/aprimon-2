@@ -28,7 +28,6 @@ const Details = () => {
     let src: string = form ? `/img/basic/${ strdex }-${ form[0] }.png` : `/img/basic/${ strdex }.png`
     if (final) { src = form ? `/img/shiny/${ strdex }-${ form[0] }.png` : `/img/shiny/${ strdex }.png` }
     const imageAlt = form ? util.str.title(`${ form } ${ name }`) : util.str.title(name)
-    const ballSrc = `/img/icons/${ ball }ball.png`
     const ballAlt = `${ ball } ball`
     const title = form ? util.str.title(`${ ball } ${ form } ${ name }`) : util.str.title(`${ ball } ${ name }`)
 
@@ -41,8 +40,10 @@ const Details = () => {
         <div id="overlay">
             <div id="zoom" className={ zoomClass }>
                 <div className="nav-row zoom-img-row">
-                    <img className="big-pkmn" src={ src } alt={ imageAlt } />
-                    <img className="ball" src={ ballSrc } alt={ ballAlt } />
+                    <div className="aprimon">
+                        <img className="big-pkmn" src={ src } alt={ imageAlt } />
+                        <img className="ball" src={`/img/icons/${ ball }ball.png`} alt={`${ ballAlt } ball`} />
+                    </div>
                 </div>
                 <h2>{ title }</h2>
                 <div className="nav-row">

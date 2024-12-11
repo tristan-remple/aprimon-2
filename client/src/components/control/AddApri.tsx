@@ -4,9 +4,9 @@ import { useAppSelector, useAppDispatch } from '../../redux/hooks'
 import util from '@aqualunae/util'
 
 // internal dependencies
-import { selectBrowseTarget, selectUsername } from '../../redux/slices/trainerSlice'
+import { selectBrowseTarget, selectSelf, selectUsername, setOpenWindow } from '../../redux/slices/trainerSlice'
 import { selectPossible } from '../../redux/slices/possibleSlice'
-import { postAprimon } from '../../redux/slices/aprimonSlice'
+import { postAprimon, selectCollection, setApriError } from '../../redux/slices/aprimonSlice'
 
 // components
 import AutoComplete from './AutoComplete'
@@ -21,6 +21,13 @@ import Aprimon from '../../types/Aprimon'
 const AddApri = () => {
 
     const dispatch = useAppDispatch()
+
+    const self = useAppSelector(selectSelf)
+    if (!self) {
+        dispatch(setOpenWindow(null))
+        return
+    }
+
     const trainer = useAppSelector(selectUsername)
     const browseTarget = useAppSelector(selectBrowseTarget)
     const apiStatusApri = useAppSelector(state => state.aprimon.status)
@@ -78,6 +85,8 @@ const AddApri = () => {
         setWishlist(newWishlist)
     }
 
+    const collection = useAppSelector(selectCollection)
+
     const confirmAddition = () => {
         const pkmnArr = pkmn.toLowerCase().split(" ")
         let pkmnName: string
@@ -90,8 +99,19 @@ const AddApri = () => {
             pkmnName = pkmnArr[1]
         }
 
-        const dex = possible.filter(pkmn => pkmn.name === pkmnName )[0]
+        const dex = possible.filter(possPkmn => possPkmn.name === pkmnName )[0]
+        if (!dex) {
+            dispatch(setApriError("The Pokemon you entered could not be found."))
+            return
+        }
         const natdex = dex.natdex
+
+        if (collection.filter(collPkmn => {
+            return collPkmn.pokemon.name === pkmnName && collPkmn.pokemon.form === form && collPkmn.ball === ball
+        }).length > 0) {
+            dispatch(setApriError("That aprimon is already in your collection. Please update it instead of creating a copy."))
+            return
+        }
 
         const newApri: Aprimon = {
             pokemon: {
@@ -112,7 +132,6 @@ const AddApri = () => {
             trainer
         }
 
-        // dispatch(addAprimon(newApri))
         if (apiStatusApri === 'idle' || apiStatusApri === 'success') {
             dispatch(postAprimon(newApri))
         }

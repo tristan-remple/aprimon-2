@@ -10,6 +10,10 @@ export default function Error() {
     const trainerError = useAppSelector(selectTrainerError)
     const apriError = useAppSelector(selectApriError)
     let error: string[] = []
+
+    if (trainerError) { error.push(trainerError) }
+    if (apriError) { error.push(apriError) }
+
     if (apriError?.includes("400") || trainerError?.includes("400")) {
         error.push("Your request could not be completed. Please try again. ")
     }
@@ -26,5 +30,5 @@ export default function Error() {
         error.push("The server is experiencing a problem. Please come back later. ")
     }
 
-    return error.length > 0 && <div className="box error">{ error }</div>
+    return error.length > 0 && <div className="box error" style={{ whiteSpace: "pre-wrap" }} >{ error.join("\n\n") }</div>
 }

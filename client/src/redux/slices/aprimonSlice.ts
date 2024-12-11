@@ -21,7 +21,7 @@ const axiosOptions = {
 
 interface AprimonState {
     status: Status,
-    error: string,
+    error: string | null,
     metadata: {
         count: number,
         shinies: number,
@@ -33,7 +33,7 @@ interface AprimonState {
 
 const initialState: AprimonState = {
     status: Status.idle,
-    error: "",
+    error: null,
     metadata: {
         count: 0,
         shinies: 0,
@@ -77,6 +77,12 @@ export const aprimonSlice = createSlice({
         },
         addAprimon: (state, action) => {
             state.data.push(action.payload)
+        },
+        clearApriError: (state) => {
+            state.error = null
+        },
+        setApriError: (state, action) => {
+            state.error = action.payload
         }
     },
     extraReducers(builder) {
@@ -169,7 +175,9 @@ export const aprimonSlice = createSlice({
 
 export const {
     addFromQueue,
-    addAprimon
+    addAprimon,
+    clearApriError,
+    setApriError
 } = aprimonSlice.actions
 
 export const selectCollection = (state: RootState) => state.aprimon.data

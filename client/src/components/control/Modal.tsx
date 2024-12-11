@@ -17,6 +17,7 @@ import Remove from './Remove'
 
 // types
 import OpenWindow from '../../types/WindowEnum'
+import Logout from '../user/Logout'
 
 export default function Modal() {
 
@@ -54,6 +55,9 @@ export default function Modal() {
             break
         case OpenWindow.Remove:
             display = <Remove />
+            break
+        case OpenWindow.Logout:
+            display = <Logout />
             break
     }
 
