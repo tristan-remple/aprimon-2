@@ -2,6 +2,7 @@
 import Stats from "./Stats"
 import Control from "./Control"
 import SortSide from "./Sort"
+import FilterSide from "./Filter"
 
 export default function Sidebar() {
 
@@ -10,6 +11,7 @@ export default function Sidebar() {
             <Stats />
             <Control />
             <SortSide />
+            <FilterSide />
         </nav>
     )
 }

@@ -48,7 +48,10 @@ const initialState: TrainerState = {
         since: 0,
         prefs: {
             sort: [],
-            filter: Ball.select
+            filterBall: [],
+            filterGame: [],
+            filterSort: [],
+            keyword: ""
         },
         queue: {
             pokemon: "",
@@ -109,6 +112,18 @@ export const trainerSlice = createSlice({
         setSortOrder: (state, action) => {
             state.data.prefs.sort = action.payload
         },
+        setBallFilter: (state, action) => {
+            state.data.prefs.filterBall = action.payload
+        },
+        setGameFilter: (state, action) => {
+            state.data.prefs.filterGame = action.payload
+        },
+        setSortFilter: (state, action) => {
+            state.data.prefs.filterSort = action.payload
+        },
+        setKeywordFilter: (state, action) => {
+            state.data.prefs.keyword = action.payload
+        },
         clearTrainerName: (state) => {
             state.data.name = ""
         },
@@ -149,7 +164,10 @@ export const trainerSlice = createSlice({
                     self, 
                     prefs: {
                         sort: [],
-                        filter: Ball.select
+                        filterBall: [],
+                        filterGame: [],
+                        filterSort: [],
+                        keyword: ""
                     }
                 }
             })
@@ -186,7 +204,10 @@ export const trainerSlice = createSlice({
                     self,
                     prefs: {
                         sort: [],
-                        filter: Ball.select
+                        filterBall: [],
+                        filterGame: [],
+                        filterSort: [],
+                        keyword: ""
                     }
                 }
             })
@@ -243,6 +264,10 @@ export const {
     setOpenDetails,
     setBrowseTarget,
     setSortOrder,
+    setBallFilter,
+    setGameFilter,
+    setSortFilter,
+    setKeywordFilter,
     clearTrainerName,
     clearTrainerError
 } = trainerSlice.actions
@@ -260,6 +285,7 @@ export const selectBrowseTarget = (state: RootState) => state.trainer.browseTarg
 export const selectLoggedTrainer = (state: RootState) => state.trainer.loggedTrainer
 export const selectTrainerError = (state: RootState) => state.trainer.error
 export const selectSort = (state: RootState) => state.trainer.data.prefs.sort
+export const selectPrefs = (state: RootState) => state.trainer.data.prefs
 export const selectSelf = (state: RootState) => state.trainer.data.self
 
 export default trainerSlice.reducer

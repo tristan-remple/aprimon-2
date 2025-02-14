@@ -1,6 +1,7 @@
 import Queue from "./Queue"
 import Sort from "./SortEnum"
 import Ball from "./BallEnum"
+import GameFilter from "./GameFilter"
 import mongoose from "mongoose"
 
 export default interface Trainer {
@@ -15,6 +16,9 @@ export default interface Trainer {
     self?: boolean,
     prefs: {
         sort: Sort[],
-        filter: Ball
+        filterBall: Ball[],
+        filterGame: GameFilter[],
+        filterSort: Sort[],
+        keyword: string
     }
 }

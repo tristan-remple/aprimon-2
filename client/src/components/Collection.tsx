@@ -4,9 +4,10 @@ import { useAppSelector } from '../redux/hooks'
 
 // internal dependencies
 import { selectCollection } from '../redux/slices/aprimonSlice'
-import { selectSort } from '../redux/slices/trainerSlice'
+import { selectPrefs, selectSort } from '../redux/slices/trainerSlice'
 import Aprimon from '../types/Aprimon'
 import Sort from '../types/SortEnum'
+import Ball from '../types/BallEnum'
 
 // components
 import Card from './Card'
@@ -15,12 +16,13 @@ export default function Collection() {
 
     const collection = useAppSelector(selectCollection)
     const currentSort = useAppSelector(selectSort)
+    const currentPrefs = useAppSelector(selectPrefs)
     
-    type options = { [key in Sort]: {
+    type sortOptions = { [key in Sort]: {
         order: (listApri: Aprimon[]) => Aprimon[]
     }}
 
-    const sortOptions: options = {
+    const sorts: sortOptions = {
         alpha: {
             order: (listApri: Aprimon[]) => listApri.sort((a, b) => a.pokemon.name.localeCompare(b.pokemon.name))
         },
@@ -54,10 +56,32 @@ export default function Collection() {
     useEffect(() => {
         let newCollection = [...collection]
         currentSort.forEach(so => {
-            newCollection = sortOptions[so].order(newCollection)
+            newCollection = sorts[so].order(newCollection)
         })
+        newCollection = newCollection.filter(apri => {
+            if (currentPrefs.filterBall.length > 0) {
+                return currentPrefs.filterBall.includes(apri.ball)
+            } else {
+                return true
+            }
+        })
+        if (currentPrefs.filterSort.includes(Sort.count)) {
+            newCollection = newCollection.filter(apri => apri.eggs > 0)
+        }
+        if (currentPrefs.filterSort.includes(Sort.target)) {
+            newCollection = newCollection.filter(apri => apri.target)
+        }
+        if (currentPrefs.filterSort.includes(Sort.shiny)) {
+            newCollection = newCollection.filter(apri => apri.final)
+        }
+        if (currentPrefs.filterSort.includes(Sort.five)) {
+            newCollection = newCollection.filter(apri => apri.fiveiv)
+        }
+        if (currentPrefs.filterSort.includes(Sort.ha)) {
+            newCollection = newCollection.filter(apri => apri.ha)
+        }
         setSortedCollection(newCollection)
-    }, [ currentSort, collection ])
+    }, [ currentSort, collection, currentPrefs ])
 
     const renderedCollection = sortedCollection.map(apri => {
         const { ball, pokemon } = apri
