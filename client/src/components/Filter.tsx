@@ -1,22 +1,36 @@
 import { useState } from "react"
-import { useAppSelector } from "../redux/hooks"
+import { useAppDispatch, useAppSelector } from "../redux/hooks"
 
 import Ball from "../types/BallEnum"
 import GameFilter from "../types/GameFilter"
 import Sort from "../types/SortEnum"
+import { setKeywordFilter } from "../redux/slices/trainerSlice"
 
 import SidebarHeader from "./SidebarHeader"
 import { FilterBallButton, FilterGameButton, FilterSortButton } from "./control/FilterButton"
 
+
 const FilterSide = () => {
+
+    const dispatch = useAppDispatch()
 
     const [ open, setOpen ] = useState(false)
     const header = <SidebarHeader title="Filter" open={ open } setOpen={ setOpen } />
+
+    const [ keyword, setKeyword ] = useState("")
+    const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        const input = e.target.value
+        setKeyword(input)
+        dispatch(setKeywordFilter(input))
+    }
 
     if (open) {
         return (
             <>
                 { header }
+                <div className="nav-row">
+                    <input type="text" value={ keyword } placeholder="Search..." onChange={ handleChange } />
+                </div>
                 <div className="nav-row">
                     <FilterBallButton label={ Ball.beast } />
                     <FilterBallButton label={ Ball.dream } />

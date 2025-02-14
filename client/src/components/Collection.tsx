@@ -80,6 +80,12 @@ export default function Collection() {
         if (currentPrefs.filterSort.includes(Sort.ha)) {
             newCollection = newCollection.filter(apri => apri.ha)
         }
+        if (currentPrefs.keyword && currentPrefs.keyword != "") {
+            newCollection = newCollection.filter(apri => {
+                let fullTitle = `${ apri.ball } ${ apri.pokemon.form } ${ apri.pokemon.name }`
+                return fullTitle.includes(currentPrefs.keyword.toLowerCase())
+            })
+        }
         setSortedCollection(newCollection)
     }, [ currentSort, collection, currentPrefs ])
 
