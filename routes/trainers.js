@@ -102,10 +102,13 @@ router.post('/register', function(req, res) {
     res.status(401).send("Registration requires input.")
   }
 
-  Trainer.find({ email: req.body.email }).exec().then(result => {
+  Trainer.find({ $or: [
+    { name: req.body.username },
+    { email: req.body.email }
+  ]}).exec().then(result => {
 
     if (result.length > 0) {
-      res.status(401).send("Email is already registered.")
+      res.status(401).send("Email or username is already in use.")
     } else {
       
       if (checkPassword(req.body.password)) {
@@ -113,8 +116,19 @@ router.post('/register', function(req, res) {
           req.body.password = hash
           const newUser = new Trainer(req.body)
 
+          newUser.queue = {
+            pokemon: null,
+            form: null,
+            ball: null,
+            number: 0
+          }
+          newUser.since = 0
+          newUser.bio = ""
+          newUser.ign = ""
+          newUser.trades = false
+
           newUser.save().then(result => {
-            const token = jwt.sign({ trainer: findres.name }, process.env.JWT_SECRET)
+            const token = jwt.sign({ trainer: result.name }, process.env.JWT_SECRET)
             const cookieOptions = {
               secure: true,
               httpOnly: true,

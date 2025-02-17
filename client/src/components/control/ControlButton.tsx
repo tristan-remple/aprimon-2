@@ -84,6 +84,11 @@ export default function ControlButton({ label }: { label: OpenWindow }) {
             title: "Remove Aprimon",
             img: "x",
             alt: "X to remove"
+        },
+        Register: {
+            title: "Register for Aprimon Tracker",
+            img: "enter",
+            alt: "entrance door"
         }
     }
 

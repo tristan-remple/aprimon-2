@@ -5,7 +5,7 @@
 - ✅ Display wishlist aprimon
 - ✅ Sorting
 - ✅ Filtering
-- Searching
+- ✅ Searching
 - ✅ Display current user stats
 - ✅ Allow user switching
 - ✅ Click on Card to view details
@@ -21,11 +21,12 @@
 - ✅ Remove aprimon
 - ✅ Login
 - ✅ Logout
-- Register
+- ✅ Register
 - Update profile
 - ✅ Authentication
 - ✅ Check logged in user on refresh
 - ✅ Sidebar different between users own page and other users pages
+- improve error handling
 
 ## Accessibility
 - implement keyboard navigation
@@ -37,3 +38,4 @@
 - include a modal about page usage
 - implement svg icons
     - change color on hover/focus without replacing icon
+- change stylesheet from px to rem units

@@ -10,6 +10,7 @@ enum OpenWindow {
     Remove = "Remove",
     Logout = "Logout",
     Login = "Login",
+    Register = "Register",
     AllUsers = "AllUsers"
 }
 

@@ -8,6 +8,8 @@ import { loginTrainer } from '../../redux/slices/trainerSlice'
 // components
 import CloseButton from "../control/CloseButton"
 import ConfirmButton from "../control/ConfirmButton"
+import ControlButton from "../control/ControlButton"
+import OpenWindow from "../../types/WindowEnum"
 
 export default function Login() {
 
@@ -46,6 +48,7 @@ export default function Login() {
                 <input id="password" name="password" type="password" value={ password } onChange={ passwordChange } />
             </div>
             <div className="nav-row">
+                <ControlButton label={ OpenWindow.Register } />
                 <ConfirmButton confirm={ confirmLogin } />
                 <CloseButton />
             </div>

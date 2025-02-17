@@ -58,7 +58,7 @@ router.get('/:user/:id', function(req, res) {
 router.post('/', verifyJWT, (req, res) => {
 
     for (const prop in req.body) {
-        if (typeof req.body[prop] === 'string') {
+        if (typeof req.body[prop] === 'string' && prop !== "trainer") {
             req.body[prop] = req.body[prop].toLowerCase()
         }
     }

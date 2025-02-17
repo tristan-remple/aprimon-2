@@ -18,6 +18,7 @@ import Remove from './Remove'
 // types
 import OpenWindow from '../../types/WindowEnum'
 import Logout from '../user/Logout'
+import Register from '../user/Register'
 
 export default function Modal() {
 
@@ -58,6 +59,9 @@ export default function Modal() {
             break
         case OpenWindow.Logout:
             display = <Logout />
+            break
+        case OpenWindow.Register:
+            display = <Register />
             break
     }
 

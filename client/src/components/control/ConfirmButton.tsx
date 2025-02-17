@@ -4,12 +4,14 @@ import { useAppDispatch } from '../../redux/hooks'
 // internal dependencies
 import { setOpenWindow } from '../../redux/slices/trainerSlice'
 
-export default function ConfirmButton({ confirm }: {confirm: () => void}) {
+export default function ConfirmButton({ confirm, close = true }: { confirm: () => void, close?: boolean }) {
 
     const dispatch = useAppDispatch()
     const applyConfirm = () => {
         confirm()
-        dispatch(setOpenWindow(""))
+        if (close) {
+            dispatch(setOpenWindow(""))
+        }
     }
 
     return (

@@ -392,6 +392,14 @@ option {
     width: 140px;
 }
 
+.field-error {
+    width: 100%;
+    background-color: #9a8080;
+    border: 3px solid #3f2929;
+    padding: 5px;
+    border-radius: 10px;
+}
+
 #zoom {
     width: 720px;
     min-height: 50%;

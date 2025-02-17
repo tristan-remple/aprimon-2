@@ -4,7 +4,7 @@ import { useAppSelector, useAppDispatch } from '../../redux/hooks'
 
 // internal dependencies
 import { addQueue, selectQueue, selectTrainer, patchTrainer } from '../../redux/slices/trainerSlice'
-import { selectCollection } from '../../redux/slices/aprimonSlice'
+import { selectCollection, setApriError } from '../../redux/slices/aprimonSlice'
 
 // components
 import CloseButton from "./CloseButton"
@@ -40,9 +40,14 @@ export default function AddEggs() {
     }
 
     const confirmQueue = () => {
+        if (qEggs < 1) {
+            dispatch(setApriError("Queue eggs must be a positive number."))
+            return
+        }
+
         const apriArr = qPkmn.split(" ")
         let newQueue: Queue
-        let newTrainer = {...trainer}
+        let newTrainer = { ...trainer }
         if (apriArr.length === 2) {
             newQueue = {
                 pokemon: apriArr[1].toLowerCase(),

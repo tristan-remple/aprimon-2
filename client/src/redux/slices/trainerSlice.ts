@@ -72,18 +72,23 @@ export const patchTrainer = createAsyncThunk("trainer/patch", async (trainerData
     return response
 })
 
-interface login {
+interface Login {
     email: string,
     password: string
 }
 
-export const loginTrainer = createAsyncThunk("trainer/login", async (loginDetails: login) => {
+export const loginTrainer = createAsyncThunk("trainer/login", async (loginDetails: Login) => {
     const response: AxiosResponse = await axios.post(`${ url }/login`, loginDetails, axiosOptions)
     return response
 })
 
 export const logoutTrainer = createAsyncThunk("trainer/logout", async () => {
     const response: AxiosResponse = await axios.post(`${ url }/logout`, null, axiosOptions)
+    return response
+})
+
+export const registerTrainer = createAsyncThunk("trainer/register", async (loginDetails: Login) => {
+    const response: AxiosResponse = await axios.post(`${ url }/register`, loginDetails, axiosOptions)
     return response
 })
 
@@ -237,6 +242,32 @@ export const trainerSlice = createSlice({
                 state.error = null
             })
             .addCase(loginTrainer.rejected, (state, action) => {
+                state.status = Status.failed
+                state.error = action.error.message ? action.error.message : "Bad request"
+            })
+            .addCase(registerTrainer.pending, (state, action) => {
+                state.status = Status.loading
+            })
+            .addCase(registerTrainer.fulfilled, (state, action) => {
+
+                if (!action.payload.data) {
+                    return
+                }
+
+                if (typeof action.payload.data === "string") {
+                    state.status = Status.failed
+                    state.error = action.payload.data
+                    return
+                }
+
+                console.log(action.payload)
+                // state.loggedTrainer = action.payload.data.loggedTrainer
+                // state.data.self = action.payload.data.loggedTrainer === state.data.name
+
+                state.status = Status.success
+                state.error = null
+            })
+            .addCase(registerTrainer.rejected, (state, action) => {
                 state.status = Status.failed
                 state.error = action.error.message ? action.error.message : "Bad request"
             })
