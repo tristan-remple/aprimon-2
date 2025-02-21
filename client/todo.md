@@ -22,11 +22,11 @@
 - ✅ Login
 - ✅ Logout
 - ✅ Register
-- Update profile
+- ✅ Update profile
 - ✅ Authentication
 - ✅ Check logged in user on refresh
 - ✅ Sidebar different between users own page and other users pages
-- improve error handling
+- Improve error handling
 
 ## Accessibility
 - implement keyboard navigation

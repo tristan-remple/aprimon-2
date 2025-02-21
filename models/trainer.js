@@ -11,6 +11,8 @@ const trainerSchema = mongoose.Schema({
     },
     "bio": String,
     "ign": String,
+    "switchCode": String,
+    "discord": String,
     "trades": Boolean,
     "email": String,
     "password": String

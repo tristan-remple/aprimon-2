@@ -19,6 +19,7 @@ import Remove from './Remove'
 import OpenWindow from '../../types/WindowEnum'
 import Logout from '../user/Logout'
 import Register from '../user/Register'
+import ProfileEdit from '../user/ProfileEdit'
 
 export default function Modal() {
 
@@ -62,6 +63,9 @@ export default function Modal() {
             break
         case OpenWindow.Register:
             display = <Register />
+            break
+        case OpenWindow.ProfileEdit:
+            display = <ProfileEdit />
             break
     }
 

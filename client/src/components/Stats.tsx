@@ -14,8 +14,7 @@ export default function Stats() {
 
     const stats = useAppSelector(selectStats)
     const metadata = useAppSelector(selectMetadata)
-    const self = useAppSelector(selectLoggedTrainer)
-    const { name, ign, bio, since, queue } = stats
+    const { since, queue } = stats
     const { count, shinies, ratio, eggs } = metadata
     const [ open, setOpen ] = useState(true)
     const header = <SidebarHeader title="Stats" open={open} setOpen={setOpen} />
@@ -24,11 +23,6 @@ export default function Stats() {
         return (
             <>
                 { header }
-                <p>
-                    { self === name && "That's you!" }
-                    { self === name && <br /> }
-                    { bio }
-                </p>
                 <table id="stats">
                     <tbody>
                         <tr>

@@ -10,8 +10,10 @@ export default interface Trainer {
     queue: Queue,
     bio: string,
     ign: string,
+    switchCode: string,
+    discord: string,
     trades: boolean,
-    email?: string,
+    email: string,
     password?: string,
     self?: boolean,
     prefs: {

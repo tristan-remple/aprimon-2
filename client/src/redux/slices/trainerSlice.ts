@@ -41,7 +41,10 @@ const initialState: TrainerState = {
     loggedTrainer: null,
     data: {
         name: "",
+        email: "",
         ign: "",
+        switchCode: "",
+        discord: "",
         self: false,
         trades: false,
         bio: "",
@@ -152,7 +155,7 @@ export const trainerSlice = createSlice({
                     return
                 }
                 
-                const { bio, ign, name, queue, since, trades, self } = action.payload.data
+                const { bio, email, switchCode, discord, ign, name, queue, since, trades, self } = action.payload.data
 
                 state.status = Status.success
                 state.error = null
@@ -161,6 +164,9 @@ export const trainerSlice = createSlice({
 
                 state.data = {
                     name,
+                    email,
+                    switchCode,
+                    discord,
                     ign,
                     trades,
                     bio,
@@ -304,9 +310,13 @@ export const {
 } = trainerSlice.actions
 
 export const selectUsername = (state: RootState) => state.trainer.data.name
+export const selectProfile = (state: RootState) => {
+    const { name, email, ign, switchCode, discord, bio, trades } = state.trainer.data
+    return { name, email, ign, switchCode, discord, bio, trades }
+}
 export const selectStats = (state: RootState) => {
-    const { name, ign, bio, since, queue } = state.trainer.data
-    return { name, ign, bio, since, queue }
+    const { since, queue } = state.trainer.data
+    return { since, queue }
 }
 export const selectOpenWindow = (state: RootState) => state.trainer.openWindow
 export const selectQueue = (state: RootState) => state.trainer.data.queue

@@ -10,7 +10,7 @@ const { verifyJWT, softCheck } = require("../middleware/verify-jwt")
 // models
 const Trainer = require('../models/trainer')
 
-const detailless = ({email, password, ...rest}) => rest
+const detailless = ({ password, ...rest }) => rest
 
 function checkPassword(val) {
   lengthCheck =  val.length <= 255;
@@ -125,6 +125,8 @@ router.post('/register', function(req, res) {
           newUser.since = 0
           newUser.bio = ""
           newUser.ign = ""
+          newUser.switchCode = ""
+          newUser.discord = ""
           newUser.trades = false
 
           newUser.save().then(result => {

@@ -89,6 +89,11 @@ export default function ControlButton({ label }: { label: OpenWindow }) {
             title: "Register for Aprimon Tracker",
             img: "enter",
             alt: "entrance door"
+        },
+        ProfileEdit: {
+            title: "Edit your Profile",
+            img: "edit",
+            alt: "edit pencil"
         }
     }
 

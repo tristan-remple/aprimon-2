@@ -338,7 +338,7 @@ footer {
     align-items: start;
 }
 
-input, select {
+input, select, textarea {
     color: #3F3029;
     background-color:#CBDEBC;
     border: 3px solid #3F3029;
@@ -370,7 +370,7 @@ select {
     width: 128px;
 }
 
-input.wide-field {
+input.wide-field, textarea.wide-field {
     width: 240px;
 }
 

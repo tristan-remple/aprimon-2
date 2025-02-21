@@ -15,10 +15,6 @@ export default function Control() {
 
     const [ open, setOpen ] = useState(false)
 
-    const self = useAppSelector(selectSelf)
-    const loggedTrainer = useAppSelector(selectLoggedTrainer)
-    const userButton = loggedTrainer ? <ControlButton label={ OpenWindow.Logout } /> : <ControlButton label={ OpenWindow.Login } />
-
     return (
         <>
             <SidebarHeader title="Control" open={ open } setOpen={ setOpen } />
@@ -32,8 +28,6 @@ export default function Control() {
                         <ControlButton label={ OpenWindow.HatchEggs } />
                         <ControlButton label={ OpenWindow.HatchShiny } />
                     </> }
-                    <NavButton href="/" title="See All Trainers" label="group" icon={ true } />
-                    { userButton }
                 </div> 
             }
         </>

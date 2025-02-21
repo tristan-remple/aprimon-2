@@ -11,7 +11,8 @@ enum OpenWindow {
     Logout = "Logout",
     Login = "Login",
     Register = "Register",
-    AllUsers = "AllUsers"
+    AllUsers = "AllUsers",
+    ProfileEdit = "ProfileEdit"
 }
 
 export default OpenWindow
