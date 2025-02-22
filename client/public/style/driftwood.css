@@ -635,6 +635,11 @@ form.column {
     padding: 5px;
 }
 
+.hidden-detail {
+    width: 80%;
+    height: auto;
+}
+
 .hidden {
     display: none !important;
 }

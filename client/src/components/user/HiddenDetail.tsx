@@ -11,8 +11,8 @@ const HiddenDetail = ({ label, info }: { label: string, info: string }) => {
 
     return (
         hidden ? 
-            <button className="small-button wide-button menufalse" onClick={ toggle } >Show { label }</button> : 
-            <button className="small-button wide-button menu shiny" onClick={ toggle } >{ label }: { info }</button>
+            <button className="small-button wide-button menu hidden-detail" onClick={ toggle } >Show { label }</button> : 
+            <button className="small-button wide-button menu hidden-detail" onClick={ toggle } >{ label }: { info }</button>
     )
 }
 

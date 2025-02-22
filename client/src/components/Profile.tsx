@@ -13,17 +13,17 @@ import ControlButton from "./control/ControlButton"
 import OpenWindow from "../types/WindowEnum"
 import HiddenDetail from "./user/HiddenDetail"
 import NavButton from "./control/NavButton"
+import { shallowEqual } from "react-redux"
 
 export default function Profile() {
 
-    const stats = useAppSelector(selectProfile)
+    const stats = useAppSelector(selectProfile, shallowEqual)
     const self = useAppSelector(selectLoggedTrainer)
     const { name, ign, bio, switchCode, discord, trades } = stats
     const [ open, setOpen ] = useState(true)
     const header = <SidebarHeader title="Profile" open={ open } setOpen={ setOpen } />
 
-    const loggedTrainer = useAppSelector(selectLoggedTrainer)
-    const userButton = loggedTrainer ? <ControlButton label={ OpenWindow.Logout } /> : <ControlButton label={ OpenWindow.Login } />
+    const userButton = self ? <ControlButton label={ OpenWindow.Logout } /> : <ControlButton label={ OpenWindow.Login } />
 
     if (open) {
         return (

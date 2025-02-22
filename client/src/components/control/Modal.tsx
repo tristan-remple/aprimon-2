@@ -2,7 +2,7 @@
 import { useAppSelector } from '../../redux/hooks'
 
 // internal dependencies
-import { selectOpenWindow } from '../../redux/slices/trainerSlice'
+import { selectOpenWindow, setOpenWindow } from '../../redux/slices/trainerSlice'
 
 // components
 import AddEggs from "./AddEggs"
@@ -20,10 +20,24 @@ import OpenWindow from '../../types/WindowEnum'
 import Logout from '../user/Logout'
 import Register from '../user/Register'
 import ProfileEdit from '../user/ProfileEdit'
+import { useEffect } from 'react'
+import { useDispatch } from 'react-redux'
 
 export default function Modal() {
 
     const openWindow = useAppSelector(selectOpenWindow)
+    const dispatch = useDispatch()
+
+    const closeModal = (e: KeyboardEvent) => {
+        if (e.code == "Escape") {
+            dispatch(setOpenWindow(null))
+        }
+    }
+
+    useEffect(() => {
+        window.addEventListener("keydown", closeModal)
+        return () => window.removeEventListener("keydown", closeModal)
+    }, [])
 
     if (!openWindow) {
         return

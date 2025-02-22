@@ -11,12 +11,22 @@ import { selectPokeDetails } from "../redux/slices/possibleSlice"
 import OpenWindow from "../types/WindowEnum"
 import CloseButton from "./control/CloseButton"
 import EditButton from "./control/EditButton"
+import { useEffect, useRef } from "react"
 
 const Details = () => {
 
     const openWindow = useAppSelector(selectOpenWindow)
     const aprimon = useAppSelector(selectApriDetails)
     const pkmn = useAppSelector(selectPokeDetails)
+    const firstElement = useRef<HTMLButtonElement | null>(null)
+    const lastElement = useRef()
+
+    useEffect(() => {
+        if (firstElement.current) {
+            firstElement.current.focus()
+        }
+    }, [ firstElement.current ])
+
     if (openWindow !== OpenWindow.Details || !aprimon || !pkmn) { return }
 
     const { pokemon, ball, nature, eggs, onhand, final, ha, fiveiv, target, wishlist, eggmoves } = aprimon
@@ -35,7 +45,10 @@ const Details = () => {
         const moveClass = eggmoves.includes(move) ? "eggmove" : "eggmove missing"
         return <span className={ moveClass } key={ move }>{ util.str.title(move) }</span>
     })
-    
+
+    let cardId = `${ ball }-${ name }`
+    if (form) { cardId += `-${ form }` }
+
     return ( 
         <div id="overlay">
             <div id="zoom" className={ zoomClass }>
@@ -103,8 +116,8 @@ const Details = () => {
                     </p>
                 </div>
                 <div id="zoom-controls" className="nav-row">
-                    <EditButton />
-                    <CloseButton />
+                    <EditButton innerRef={ firstElement } />
+                    <CloseButton focusElement={ cardId } />
                 </div>
             </div>
         </div>

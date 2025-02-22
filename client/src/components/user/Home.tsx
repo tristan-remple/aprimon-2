@@ -11,10 +11,12 @@ const Home = () => {
     const dispatch = useAppDispatch()
     const { trnr } = useParams()
 
-    if (trnr) {
-        dispatch(getAprimon(trnr))
-        dispatch(getTrainer(trnr))
-    }
+    useEffect(() => {
+        if (trnr) {
+            dispatch(getAprimon(trnr))
+            dispatch(getTrainer(trnr))
+        }
+    }, [])
     
     return (
         <>

@@ -26,13 +26,18 @@
 - ✅ Authentication
 - ✅ Check logged in user on refresh
 - ✅ Sidebar different between users own page and other users pages
-- Improve error handling
+- ✅ Improve error handling
 
 ## Accessibility
 - implement keyboard navigation
-    - sidebar buttons operable
-    - cards selectable OR skippable
+    - ✅ sidebar buttons operable
+    - ✅ cards selectable OR skippable
     - modal window works as intended
+      - ✅ modal opens on enter
+      - modal focuses first interior focusable element
+      - keyboard trap implemented
+      - ✅ modal closes on escape key
+      - closing modal returns focus to prior location
 - double check contrast
 - ensure that all images and abbreviations are labeled
 - include a modal about page usage

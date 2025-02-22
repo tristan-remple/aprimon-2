@@ -1,5 +1,5 @@
 // external dependencies
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { useAppSelector, useAppDispatch } from '../../redux/hooks'
 import util from '@aqualunae/util'
 
@@ -17,6 +17,7 @@ import ConfirmButton from './ConfirmButton'
 import Nature from '../../types/NatureEnum'
 import Ball from '../../types/BallEnum'
 import Aprimon from '../../types/Aprimon'
+import FieldError from './FieldError'
 
 const AddApri = () => {
 
@@ -38,10 +39,24 @@ const AddApri = () => {
     })
 
     const [ pkmn, setPkmn ] = useState(browseTarget)
+    const [ pkmnError, setPkmnError ] = useState("")
     const pkmnChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const input = e.target.value
         setPkmn(input)
+        if (list.find(listedPkmn => listedPkmn == input.toLowerCase()) == undefined && input !== "") {
+            setPkmnError("That Pokemon could not be found.")
+        } else {
+            setPkmnError("")
+        }
     }
+
+    useEffect(() => {
+        if (list.find(listedPkmn => listedPkmn == pkmn.toLowerCase()) == undefined && pkmn !== "") {
+            setPkmnError("That Pokemon could not be found.")
+        } else {
+            setPkmnError("")
+        }
+    }, [ pkmn ])
 
     const ballOptions = (Object.keys(Ball) as Array<keyof typeof Ball>).map((ball) => {
         return <option value={ Ball[ball] } key={ball}>{util.str.title(ball)}</option>
@@ -144,6 +159,7 @@ const AddApri = () => {
                 <label htmlFor="pkmn">Pokemon:</label>
                 <input id="pkmn" name="pkmn" type="text" value={ pkmn } onChange={ pkmnChange } />
                 <AutoComplete list={ list } inputValue={ pkmn } onChange={ setPkmn } />
+                { pkmnError !== "" && <FieldError text={ pkmnError } /> }
             </div>
             <div className="field">
                 <label htmlFor="ball">Pokeball:</label>

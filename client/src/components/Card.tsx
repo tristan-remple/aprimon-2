@@ -33,9 +33,15 @@ export default function Card({ aprimon }: { aprimon: Aprimon }) {
     const openDetails = () => {
         dispatch(setOpenDetails(id))
     }
+    
+    const handleKeyboard = (e: React.KeyboardEvent) => {
+        if (e.code == "Enter") {
+            openDetails()
+        }
+    }
 
     return (
-        <div className={ cardClass } id={ id } onClick={ openDetails } >
+        <div className={ cardClass } id={ id } onClick={ openDetails } tabIndex={ 0 } onKeyDownCapture={ handleKeyboard } >
             <div className="aprimon">
                 <img className="pokemon" src={ src } alt={ name } />
                 <img className="ball" src={`/img/icons/${ ball }ball.png`} alt={`${ ball } ball`} />

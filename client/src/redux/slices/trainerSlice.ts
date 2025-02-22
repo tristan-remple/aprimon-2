@@ -200,7 +200,7 @@ export const trainerSlice = createSlice({
                     return
                 }
 
-                const { bio, ign, name, queue, since, trades, self, prefs } = action.payload.data
+                const { bio, ign, name, queue, switchCode, discord, email, since, trades, self, prefs } = action.payload.data
 
                 state.status = Status.success
                 state.error = null
@@ -210,6 +210,9 @@ export const trainerSlice = createSlice({
                     ign,
                     trades,
                     bio,
+                    switchCode, 
+                    discord,
+                    email,
                     since,
                     queue,
                     self,

@@ -1,5 +1,5 @@
 // external dependencies
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import { useAppDispatch, useAppSelector } from "../redux/hooks"
 import util from '@aqualunae/util'
 
@@ -13,6 +13,7 @@ import OpenWindow from "../types/WindowEnum"
 import CloseButton from "./control/CloseButton"
 import Nature from "../types/NatureEnum"
 import ConfirmButton from "./control/ConfirmButton"
+import FieldError from "./control/FieldError"
 
 const DetailsEdit = () => {
 
@@ -90,9 +91,15 @@ const DetailsEdit = () => {
     }
 
     const [ eggsIn, setEggs ] = useState(eggs)
+    const [ eggError, setEggError ] = useState("")
     const eggsChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const newEggs = parseInt(e.target.value)
         setEggs(newEggs)
+        if (isNaN(newEggs) || newEggs < 0) {
+            setEggError("Egg count must be a positive number.")
+        } else {
+            setEggError("")
+        }
     }
 
     const saveEdits = () => {
@@ -159,6 +166,7 @@ const DetailsEdit = () => {
                         <div className="field">
                             <label htmlFor="eggs">Eggs hatched</label>
                             <input id="eggs" name="eggs" type="number" value={ eggsIn } onChange={ eggsChange } />
+                            { eggError !== "" && <FieldError text={ eggError } /> }
                         </div>
                         <div className="check-field field">
                             <label htmlFor="target">Shiny target</label>

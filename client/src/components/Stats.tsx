@@ -9,11 +9,12 @@ import { selectMetadata } from "../redux/slices/aprimonSlice"
 
 // components
 import SidebarHeader from "./SidebarHeader"
+import { shallowEqual } from "react-redux"
 
 export default function Stats() {
 
-    const stats = useAppSelector(selectStats)
-    const metadata = useAppSelector(selectMetadata)
+    const stats = useAppSelector(selectStats, shallowEqual)
+    const metadata = useAppSelector(selectMetadata, shallowEqual)
     const { since, queue } = stats
     const { count, shinies, ratio, eggs } = metadata
     const [ open, setOpen ] = useState(true)
