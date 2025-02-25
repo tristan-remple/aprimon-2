@@ -87,7 +87,7 @@ export function FilterBallButton({ label }: { label: Ball }) {
 
     return (
         <button className={ `small-button${ currentPrefs.filterBall.includes(label) ? ' shiny' : '' }` } title={ buttons[label].title } onClick={ changeBallFilter } >
-            <img className="symbol" src={`img/icons/${ buttons[label].img }.png`} alt={ buttons[label].title } />
+            <img className="symbol" src={`./img/icons/${ buttons[label].img }.png`} alt={ buttons[label].title } />
         </button>
     )
 }
@@ -216,7 +216,7 @@ export function FilterSortButton({ label }: { label: Sort }) {
 
     return (
         <button className={ `small-button${ currentPrefs.filterSort.includes(label) ? ' shiny' : '' }` } title={ buttons[label].title } onClick={ changeSortFilter } >
-            { buttons[label].img ? <img className="symbol" src={`img/icons/${ buttons[label].img }.png`} alt={ buttons[label].text } /> : buttons[label].text }
+            { buttons[label].img ? <img className="symbol" src={`./img/icons/${ buttons[label].img }.png`} alt={ buttons[label].text } /> : buttons[label].text }
         </button>
     )
 }

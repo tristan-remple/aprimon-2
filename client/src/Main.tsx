@@ -10,7 +10,7 @@ import { Footer } from "./components/Footer"
 ReactDOM.createRoot(document.getElementById("root")!).render(
   <React.StrictMode>
     <Provider store={store}>
-      <BrowserRouter>
+      <BrowserRouter basename={ import.meta.env.VITE_PUBLIC_URL } >
         <App />
         <Footer />
       </BrowserRouter>

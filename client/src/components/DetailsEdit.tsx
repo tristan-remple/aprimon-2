@@ -31,10 +31,10 @@ const DetailsEdit = () => {
 
     const zoomClass = final ? "shiny box" : "box"
     let strdex : string = natdex.toString().padStart(3, "0")
-    let src: string = form ? `/img/basic/${ strdex }-${ form[0] }.png` : `/img/basic/${ strdex }.png`
-    if (final) { src = form ? `/img/shiny/${ strdex }-${ form[0] }.png` : `/img/shiny/${ strdex }.png` }
+    let src: string = form ? `./img/basic/${ strdex }-${ form[0] }.png` : `./img/basic/${ strdex }.png`
+    if (final) { src = form ? `./img/shiny/${ strdex }-${ form[0] }.png` : `./img/shiny/${ strdex }.png` }
     const imageAlt = form ? util.str.title(`${ form } ${ name }`) : util.str.title(name)
-    const ballSrc = `/img/icons/${ ball }ball.png`
+    const ballSrc = `./img/icons/${ ball }ball.png`
     const ballAlt = `${ ball } ball`
     const title = form ? util.str.title(`${ ball } ${ form } ${ name }`) : util.str.title(`${ ball } ${ name }`)
 
@@ -135,7 +135,7 @@ const DetailsEdit = () => {
                 <div className="nav-row zoom-img-row">
                     <div className="aprimon">
                         <img className="big-pkmn" src={ src } alt={ imageAlt } />
-                        <img className="ball" src={`/img/icons/${ ball }ball.png`} alt={`${ ballAlt } ball`} />
+                        <img className="ball" src={`./img/icons/${ ball }ball.png`} alt={`${ ballAlt } ball`} />
                     </div>
                 </div>
                 <h2>{ title }</h2>
@@ -171,7 +171,7 @@ const DetailsEdit = () => {
                         <div className="check-field field">
                             <label htmlFor="target">Shiny target</label>
                             <div className="checkbox" onClick={ toggleTarget }>
-                                { targetIn && <img src="img/icons/check.png" alt="checkmark" className="small-check" /> }
+                                { targetIn && <img src="./img/icons/check.png" alt="checkmark" className="small-check" /> }
                             </div>
                         </div>
                         <div className="field">
@@ -181,7 +181,7 @@ const DetailsEdit = () => {
                         <div className="check-field field">
                             <label htmlFor="five">5+ IVs</label>
                             <div className="checkbox" id="five" onClick={ toggleFive }>
-                                { fiveIn && <img src="img/icons/check.png" alt="checkmark" className="small-check" /> }
+                                { fiveIn && <img src="./img/icons/check.png" alt="checkmark" className="small-check" /> }
                             </div>
                         </div>
                         <div className="field">
@@ -193,7 +193,7 @@ const DetailsEdit = () => {
                         <div className="check-field field">
                             <label htmlFor="hidden">Hidden ability<br />({ hidden ? util.str.title(hidden) : "N/A" })</label>
                             <div className="checkbox" onClick={ toggleHidden }>
-                                { hiddenIn && <img src="img/icons/check.png" alt="checkmark" className="small-check" /> }
+                                { hiddenIn && <img src="./img/icons/check.png" alt="checkmark" className="small-check" /> }
                             </div>
                         </div>
                     </div>

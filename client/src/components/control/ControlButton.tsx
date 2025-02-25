@@ -99,7 +99,7 @@ export default function ControlButton({ label }: { label: OpenWindow }) {
 
     return (
         <button className="small-button" title={ buttons[label].title } onClick={ openWindow } >
-            <img className="symbol" src={`img/icons/${ buttons[label].img }.png`} alt={ buttons[label].alt } />
+            <img className="symbol" src={ `./img/icons/${ buttons[label].img }.png` } alt={ buttons[label].alt } />
         </button>
     )
 }

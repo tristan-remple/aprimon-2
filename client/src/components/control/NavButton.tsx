@@ -17,7 +17,7 @@ const NavButton = ({ href, title, label, icon }: { href: string, title: string, 
         dispatch(clearTrainerError())
     }
 
-    const content = icon ? <img className="symbol" src={`img/icons/${ label }.png`} alt={ title } /> : label
+    const content = icon ? <img className="symbol" src={`./img/icons/${ label }.png`} alt={ title } /> : label
 
     return (
         <Link className="small-button" title={ title } to={ href } onClick={ clickHandler } >

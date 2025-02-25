@@ -13,9 +13,9 @@ export default function Header() {
     return (
         <header>
             <div className="header box shiny">
-                <img className="decoration" src="/img/icons/sparkle-hover.png" />
+                <img className="decoration" src="./img/icons/sparkle-hover.png" />
                 <h1 className="user-display">{ title }</h1>
-                <img className="decoration" src="/img/icons/sparkle-hover.png" />
+                <img className="decoration" src="./img/icons/sparkle-hover.png" />
             </div>
             <Error />
         </header>       

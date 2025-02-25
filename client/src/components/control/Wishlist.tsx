@@ -29,7 +29,7 @@ const Wishlist = () => {
 
     buttons.push(
         <button className={ `small-button ${ showShiny ? "shiny" : "exclude" }` } title={ `Show ${ showShiny ? "Basic" : "Shiny" } Sprites` } onClick={ toggleShiny } key="shiny" >
-            <img className="symbol" src="img/icons/sparkle.png" alt="Shiny icon" />
+            <img className="symbol" src="./img/icons/sparkle.png" alt="Shiny icon" />
         </button>
     )
 

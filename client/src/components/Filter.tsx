@@ -51,12 +51,6 @@ const FilterSide = () => {
                     <FilterSortButton label={ Sort.five } />
                     <FilterSortButton label={ Sort.ha } />
                 </div>
-                {/* <div className="nav-row">
-                    <FilterGameButton label={ GameFilter.lowgen } />
-                    <FilterGameButton label={ GameFilter.swsh } />
-                    <FilterGameButton label={ GameFilter.bdsp } />
-                    <FilterGameButton label={ GameFilter.dlc } />
-                </div> */}
             </>
         )
     } else {

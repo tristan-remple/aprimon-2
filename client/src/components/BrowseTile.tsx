@@ -19,7 +19,7 @@ const BrowseTile = ({ pkmn, shiny }: { pkmn: Possible, shiny: boolean }) => {
 
     return (
         <div id={ `${ pkmn.name }${ pkmn.form && '-' + pkmn.form  }` } className="browse-card" onClick={ addPokemon }>
-            <img className="pokemon" src={ `img/${ shiny ? "shiny" : "basic" }/${ strdex }${ suffix }.png` } alt={ util.str.title(pkmn.name) } />
+            <img className="pokemon" src={ `./img/${ shiny ? "shiny" : "basic" }/${ strdex }${ suffix }.png` } alt={ util.str.title(pkmn.name) } />
         </div>
     )
 }

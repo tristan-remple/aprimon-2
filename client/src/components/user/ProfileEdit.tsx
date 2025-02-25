@@ -205,7 +205,7 @@ const ProfileEdit = () => {
                 <div className="check-field field">
                     <label htmlFor="trades">Trades Open:</label>
                     <div className="checkbox" onClick={ changeTrades }>
-                        { profileInfo.trades && <img src="img/icons/check.png" alt="checkmark" className="small-check" /> }
+                        { profileInfo.trades && <img src="./img/icons/check.png" alt="checkmark" className="small-check" /> }
                     </div>
                 </div>
             </div>

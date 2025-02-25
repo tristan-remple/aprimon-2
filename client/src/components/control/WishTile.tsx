@@ -28,13 +28,13 @@ const WishTile = ({ apri, shiny }: { apri: Aprimon, shiny: boolean }) => {
     
     buttons.push(
         <button className="small-button" title="Add to Collection" onClick={ addApri } key="add" >
-            <img className="symbol" src="img/icons/check.png" alt="checkmark" />
+            <img className="symbol" src="./img/icons/check.png" alt="checkmark" />
         </button>
     )
 
     buttons.push(
         <button className="small-button" title="Remove from Wishlist" onClick={ removeWish } key="remove" >
-            <img className="symbol" src="img/icons/x.png" alt="X to remove" />
+            <img className="symbol" src="./img/icons/x.png" alt="X to remove" />
         </button>
     )
 
@@ -47,7 +47,7 @@ const WishTile = ({ apri, shiny }: { apri: Aprimon, shiny: boolean }) => {
         <div id={ `${ apri.pokemon.name }${ apri.pokemon.form && '-' + apri.pokemon.form }-${ apri.ball }` } className={ `wish-card wishlist${ active }` } onClick={ toggle } >
             <div className="aprimon">
                 <img className="pokemon" src={ src } alt={ apri.pokemon.name } />
-                <img className="ball" src={`/img/icons/${ apri.ball }ball.png`} alt={`${ apri.ball } ball`} />
+                <img className="ball" src={`./img/icons/${ apri.ball }ball.png`} alt={`${ apri.ball } ball`} />
             </div>
             { open && <div className="nav-row">{ buttons }</div> }
         </div>

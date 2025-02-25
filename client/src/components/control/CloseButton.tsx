@@ -22,7 +22,7 @@ export default function CloseButton({ focusElement = null }: { focusElement?: st
 
     return (
         <button id="cancel" className="small-button" title="Cancel and close" onClick={ closeWindow } onKeyUpCapture={ keyboardHandler }>
-            <img className="symbol" src="img/icons/x.png" alt="X to close" />
+            <img className="symbol" src="./img/icons/x.png" alt="X to close" />
         </button>
     )
 }

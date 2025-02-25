@@ -38,7 +38,7 @@ export default function Profile() {
                 { switchCode && switchCode !== "" && <HiddenDetail label="Switch Code" info={ switchCode } /> }
                 { discord && discord !== "" && <HiddenDetail label="Discord Handle" info={ discord } /> }
                 <div className="nav-row">
-                    <NavButton href="/" title="See All Trainers" label="group" icon={ true } />
+                    <NavButton href={ import.meta.env.VITE_PUBLIC_URL } title="See All Trainers" label="group" icon={ true } />
                     { self === name && <ControlButton label={ OpenWindow.ProfileEdit } /> }
                     { userButton }
                 </div>

@@ -78,7 +78,7 @@ export default function SortButton({ label }: { label: Sort }) {
 
     return (
         <button className={ `small-button${ currentSort.includes(label) ? ' shiny' : '' }` } title={ buttons[label].title } onClick={ changeSort } >
-            { buttons[label].img ? <img className="symbol" src={`img/icons/${ buttons[label].img }.png`} alt={ buttons[label].alt } /> : buttons[label].alt }
+            { buttons[label].img ? <img className="symbol" src={`./img/icons/${ buttons[label].img }.png`} alt={ buttons[label].alt } /> : buttons[label].alt }
         </button>
     )
 }

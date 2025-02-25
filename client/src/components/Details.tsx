@@ -35,8 +35,8 @@ const Details = () => {
 
     const zoomClass = final ? "shiny box" : "box"
     let strdex : string = natdex.toString().padStart(3, "0")
-    let src: string = form ? `/img/basic/${ strdex }-${ form[0] }.png` : `/img/basic/${ strdex }.png`
-    if (final) { src = form ? `/img/shiny/${ strdex }-${ form[0] }.png` : `/img/shiny/${ strdex }.png` }
+    let src: string = form ? `./img/basic/${ strdex }-${ form[0] }.png` : `./img/basic/${ strdex }.png`
+    if (final) { src = form ? `./img/shiny/${ strdex }-${ form[0] }.png` : `./img/shiny/${ strdex }.png` }
     const imageAlt = form ? util.str.title(`${ form } ${ name }`) : util.str.title(name)
     const ballAlt = `${ ball } ball`
     const title = form ? util.str.title(`${ ball } ${ form } ${ name }`) : util.str.title(`${ ball } ${ name }`)
@@ -55,7 +55,7 @@ const Details = () => {
                 <div className="nav-row zoom-img-row">
                     <div className="aprimon">
                         <img className="big-pkmn" src={ src } alt={ imageAlt } />
-                        <img className="ball" src={`/img/icons/${ ball }ball.png`} alt={`${ ballAlt } ball`} />
+                        <img className="ball" src={`./img/icons/${ ball }ball.png`} alt={`${ ballAlt } ball`} />
                     </div>
                 </div>
                 <h2>{ title }</h2>

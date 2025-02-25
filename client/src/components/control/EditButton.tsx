@@ -15,7 +15,7 @@ export default function EditButton({ innerRef }: { innerRef: MutableRefObject<HT
 
     return (
         <button id="edit" className="small-button" title="Edit" onClick={() => switchWindow(`${openWindow}Edit`)} ref={ innerRef } >
-            <img className="symbol" src="img/icons/edit.png" alt="Edit pencil" />
+            <img className="symbol" src="./img/icons/edit.png" alt="Edit pencil" />
         </button>
     )
 }
