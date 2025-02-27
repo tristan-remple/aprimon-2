@@ -19,13 +19,11 @@ const aprimonRouter = require('./routes/aprimon')
 
 const app = express()
 
-if (process.env.NODE_ENV !== 'production') {
-  const corsOptions = {
-    origin: process.env.APP_ORIGIN,
-    credentials: true
-  }
-  app.use(cors(corsOptions))
+const corsOptions = {
+  origin: process.env.APP_ORIGIN,
+  credentials: true
 }
+app.use(cors(corsOptions))
 
 app.use(logger('dev'))
 app.use(express.json())
