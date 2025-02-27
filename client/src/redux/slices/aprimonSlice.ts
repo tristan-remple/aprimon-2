@@ -19,6 +19,16 @@ const axiosOptions = {
     }
 }
 
+const axiosJsonOptions = {
+    withCredentials: true,
+    validateStatus: (status: number) => {
+        return status < 400
+    },
+    headers: {
+        "Content-Type": "application/json"
+    }
+}
+
 interface AprimonState {
     status: Status,
     error: string | null,
@@ -49,17 +59,17 @@ export const getAprimon = createAsyncThunk("aprimon/get", async (username: strin
 })
 
 export const postAprimon = createAsyncThunk("aprimon/post", async (apriData: Aprimon) => {
-    const response: AxiosResponse = await axios.post(url, apriData, axiosOptions)
+    const response: AxiosResponse = await axios.post(url, apriData, axiosJsonOptions)
     return response
 })
 
 export const patchAprimon = createAsyncThunk("aprimon/patch", async (apriData: Aprimon) => {
-    const response: AxiosResponse = await axios.patch(url, apriData, axiosOptions)
+    const response: AxiosResponse = await axios.patch(url, apriData, axiosJsonOptions)
     return response
 })
 
 export const removeAprimon = createAsyncThunk("aprimon/remove", async (apriData: Aprimon) => {
-    const response: AxiosResponse = await axios.put(url, apriData, axiosOptions)
+    const response: AxiosResponse = await axios.put(url, apriData, axiosJsonOptions)
     return response
 })
 
