@@ -22,7 +22,7 @@ const app = express()
 const corsOptions = {
   origin: process.env.APP_ORIGIN,
   methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
-  preflightContinue: false,
+  preflightContinue: true,
   optionsSuccessStatus: 204,
   allowedHeaders: "Content-Type,Accept",
   credentials: true
